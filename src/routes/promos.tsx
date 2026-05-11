@@ -38,10 +38,8 @@ function PromosPublic() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const publicSupabase = createPublicSupabaseClient();
-
     const load = async () => {
-      const { data, error } = await publicSupabase
+      const { data, error } = await supabase
         .schema("public")
         .from("promos")
         .select("id, title, description, created_at")
@@ -55,7 +53,7 @@ function PromosPublic() {
       setLoading(false);
     };
     load();
-    const ch = publicSupabase
+    const ch = supabase
       .channel("public-promos")
       .on(
         "postgres_changes",
@@ -64,7 +62,7 @@ function PromosPublic() {
       )
       .subscribe();
     return () => {
-      publicSupabase.removeChannel(ch);
+      supabase.removeChannel(ch);
     };
   }, []);
 
