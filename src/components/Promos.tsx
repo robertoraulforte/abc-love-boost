@@ -21,10 +21,8 @@ const Promos = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const publicSupabase = createPublicSupabaseClient();
-
     const load = async () => {
-      const { data, error } = await publicSupabase
+      const { data, error } = await supabase
         .schema("public")
         .from("promos")
         .select("id, title, description, created_at, archivo_url, archivo_nombre, archivo_tipo")
