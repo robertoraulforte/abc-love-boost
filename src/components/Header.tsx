@@ -164,10 +164,10 @@ const Header = () => {
 
             <div className="rounded-md border border-border px-3 py-2">
               <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                Tramitá tu licencia
+                Tramitá tu licencia · Pasos a tener en cuenta
               </p>
               <ol className="mt-1 space-y-0.5 text-xs text-foreground/70">
-                <li>1. Reservá turno · 2. Teórico · 3. Práctico</li>
+                <li>1. Licencia Original · 2. Charlas · 3. Teórico · 4. Práctico</li>
               </ol>
               <div className="mt-2 flex flex-col gap-1.5">
                 <a href={MUNICIPALIDAD_TURNOS_ONLINE} target="_blank" rel="noopener noreferrer">
