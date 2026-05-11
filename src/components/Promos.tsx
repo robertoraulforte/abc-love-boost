@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Tag, Sparkles, ArrowRight, Loader2, FileText } from "lucide-react";
+import { Tag, Sparkles, ArrowRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { createPublicSupabaseClient } from "@/lib/publicSupabaseClient";
 import ZoneDialog from "./ZoneDialog";
 
@@ -51,8 +52,6 @@ const Promos = () => {
     };
   }, []);
 
-  if (!loading && promos.length === 0) return null;
-
   const visible = promos.slice(0, 3);
 
   return (
@@ -72,8 +71,29 @@ const Promos = () => {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-card"
+              >
+                <Skeleton className="h-5 w-24" />
+                <Skeleton className="mt-4 h-6 w-3/4" />
+                <Skeleton className="mt-2 h-4 w-full" />
+                <Skeleton className="mt-2 h-4 w-5/6" />
+                <Skeleton className="mt-6 h-10 w-full" />
+              </div>
+            ))}
+          </div>
+        ) : promos.length === 0 ? (
+          <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-border bg-card px-6 py-14 text-center shadow-card">
+            <Sparkles className="mx-auto h-10 w-10 text-primary" />
+            <p className="mt-4 text-2xl font-black uppercase tracking-wide md:text-3xl">
+              Pronto llegan nuevas promociones...
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Estamos preparando beneficios exclusivos. Volvé pronto o consultanos por WhatsApp.
+            </p>
           </div>
         ) : (
           <>
