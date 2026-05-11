@@ -193,7 +193,7 @@ function AdminPromos() {
     else toast.success("Promoción eliminada");
   };
 
-  if (loading) {
+  if (loading || (user && roleLoading)) {
     return (
       <main className="flex min-h-screen items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -208,8 +208,21 @@ function AdminPromos() {
           <CardContent className="space-y-4 p-8 text-center">
             <h1 className="text-2xl font-bold">Acceso restringido</h1>
             <p className="text-muted-foreground">
-              Tu cuenta no tiene permisos de administrador.
+              Tu cuenta no tiene permisos de administrador. Si tu rol fue asignado recientemente, volvé a verificar.
             </p>
+            <Button
+              onClick={async () => {
+                setRefreshing(true);
+                const ok = await refreshRole();
+                setRefreshing(false);
+                if (!ok) toast.error("Sin permisos", { description: "Tu usuario sigue sin rol de administrador." });
+              }}
+              disabled={refreshing}
+              className="w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90"
+            >
+              {refreshing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Volver a verificar permisos
+            </Button>
             <Button onClick={signOut} variant="outline" className="w-full">
               <LogOut className="mr-2 h-4 w-4" /> Cerrar sesión
             </Button>
