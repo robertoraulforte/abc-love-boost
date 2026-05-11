@@ -53,6 +53,36 @@ export type Database = {
         }
         Relationships: []
       }
+      promos: {
+        Row: {
+          archivo_nombre: string | null
+          archivo_tipo: string | null
+          archivo_url: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          title: string
+        }
+        Insert: {
+          archivo_nombre?: string | null
+          archivo_tipo?: string | null
+          archivo_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          title: string
+        }
+        Update: {
+          archivo_nombre?: string | null
+          archivo_tipo?: string | null
+          archivo_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
