@@ -55,7 +55,7 @@ const Header = () => {
               scrolled ? "text-foreground/80" : "text-white/90"
             }`}
           >
-            Servicio a Domicilio
+            Escuela de Conductores - Servicio a Domicilio
           </span>
         </Link>
 

@@ -26,11 +26,7 @@ const Hero = () => {
 
       <div className="container relative mx-auto px-4">
         <div className="max-w-3xl text-white">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-white/90 md:text-sm">
-            Escuela de Conductores · <span className="text-primary-glow">Servicio a Domicilio</span>
-          </p>
-
-          <div className="mt-4 flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-elegant">
               <Home className="h-3.5 w-3.5" />
               Escuela de Manejo en Mar del Plata
