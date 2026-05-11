@@ -26,10 +26,20 @@ const Hero = () => {
 
       <div className="container relative mx-auto px-4">
         <div className="max-w-3xl text-white">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-elegant">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            Desde 2009
-          </span>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-white/90 md:text-sm">
+            Escuela de Conductores · <span className="text-primary-glow">Servicio a Domicilio</span>
+          </p>
+
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-elegant">
+              <Home className="h-3.5 w-3.5" />
+              Escuela de Manejo en Mar del Plata
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-yellow)] px-3 py-1 text-xs font-black uppercase tracking-wider text-[var(--accent-yellow-foreground)] shadow-elegant">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Desde 2009
+            </span>
+          </div>
 
           <h1 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
             Tu primera experiencia al volante,
@@ -37,11 +47,7 @@ const Hero = () => {
             <span className="text-primary-glow">bien acompañada.</span>
           </h1>
 
-          <p className="mt-5 text-lg font-bold text-primary-glow md:text-xl">
-            Formamos conductores, no solo alumnos.
-          </p>
-
-          <p className="mt-4 max-w-2xl text-base text-white/85 md:text-lg">
+          <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
             Clases personalizadas, instructores matriculados y autos modernos. Aprendé a manejar con
             confianza y seguridad, a tu ritmo.
           </p>
