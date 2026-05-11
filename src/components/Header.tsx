@@ -8,9 +8,9 @@ import logo from "@/assets/abc-logo.png";
 const links = [
   { href: "#cursos", label: "Cursos" },
   { href: "#promos", label: "Promos" },
+  { href: "#alquiler", label: "Alquiler de vehículo examen" },
   { href: "#como-contratar", label: "Cómo contratar" },
   { href: "#cobertura", label: "Zonas" },
-  { href: "#alquiler", label: "Alquiler" },
   { href: "#contacto", label: "Contacto" },
 ];
 
