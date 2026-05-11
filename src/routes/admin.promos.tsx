@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -36,21 +35,20 @@ export const Route = createFileRoute("/admin/promos")({
 
 interface Promo {
   id: string;
-  titulo: string;
-  descripcion: string | null;
-  vigente: boolean;
-  fecha: string;
+  title: string;
+  description: string | null;
+  created_at: string | null;
   archivo_url: string | null;
   archivo_nombre: string | null;
   archivo_tipo: string | null;
 }
 
 const schema = z.object({
-  titulo: z.string().trim().min(1, "El título es obligatorio").max(120),
-  descripcion: z.string().trim().max(2000),
+  title: z.string().trim().min(1, "El título es obligatorio").max(120),
+  description: z.string().trim().max(2000),
 });
 
-const empty = { titulo: "", descripcion: "" };
+const empty = { title: "", description: "" };
 
 function AdminPromos() {
   const { user, isAdmin, loading, roleLoading, refreshRole, signOut } = useAuth();
@@ -74,9 +72,10 @@ function AdminPromos() {
     const load = async () => {
       setFetching(true);
       const { data, error } = await supabase
-        .from("promociones")
+        .schema("public")
+        .from("promos")
         .select("*")
-        .order("fecha", { ascending: false });
+        .order("created_at", { ascending: false });
       if (error) toast.error("Error", { description: error.message });
       setPromos((data ?? []) as Promo[]);
       setFetching(false);
@@ -86,7 +85,7 @@ function AdminPromos() {
       .channel("admin-promos")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "promociones" },
+        { event: "*", schema: "public", table: "promos" },
         () => load(),
       )
       .subscribe();
@@ -104,7 +103,7 @@ function AdminPromos() {
   };
   const openEdit = (p: Promo) => {
     setEditing(p);
-    setForm({ titulo: p.titulo, descripcion: p.descripcion ?? "" });
+    setForm({ title: p.title, description: p.description ?? "" });
     setFile(null);
     setRemoveFile(false);
     setOpen(true);
@@ -151,14 +150,14 @@ function AdminPromos() {
     }
 
     const payload: {
-      titulo: string;
-      descripcion: string;
+      title: string;
+      description: string;
       archivo_url?: string | null;
       archivo_nombre?: string | null;
       archivo_tipo?: string | null;
     } = {
-      titulo: parsed.data.titulo,
-      descripcion: parsed.data.descripcion ?? "",
+      title: parsed.data.title,
+      description: parsed.data.description ?? "",
     };
     if (archivo_url !== undefined) {
       payload.archivo_url = archivo_url;
@@ -167,8 +166,8 @@ function AdminPromos() {
     }
 
     const { error } = editing
-      ? await supabase.from("promociones").update(payload).eq("id", editing.id)
-      : await supabase.from("promociones").insert(payload);
+      ? await supabase.schema("public").from("promos").update(payload).eq("id", editing.id)
+      : await supabase.schema("public").from("promos").insert(payload);
     setSaving(false);
     if (error) {
       toast.error("Error al guardar", { description: error.message });
@@ -178,17 +177,9 @@ function AdminPromos() {
     setOpen(false);
   };
 
-  const togglePublish = async (p: Promo) => {
-    const { error } = await supabase
-      .from("promociones")
-      .update({ vigente: !p.vigente })
-      .eq("id", p.id);
-    if (error) toast.error("Error", { description: error.message });
-  };
-
   const remove = async (p: Promo) => {
-    if (!confirm(`¿Eliminar "${p.titulo}"?`)) return;
-    const { error } = await supabase.from("promociones").delete().eq("id", p.id);
+    if (!confirm(`¿Eliminar "${p.title}"?`)) return;
+    const { error } = await supabase.schema("public").from("promos").delete().eq("id", p.id);
     if (error) toast.error("Error", { description: error.message });
     else toast.success("Promoción eliminada");
   };
@@ -278,21 +269,21 @@ function AdminPromos() {
               </DialogHeader>
               <form onSubmit={submit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="titulo">Título</Label>
+                  <Label htmlFor="title">Título</Label>
                   <Input
-                    id="titulo"
-                    value={form.titulo}
-                    onChange={(e) => setForm({ ...form, titulo: e.target.value })}
+                    id="title"
+                    value={form.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
                     required
                     maxLength={120}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="descripcion">Descripción</Label>
+                  <Label htmlFor="description">Descripción</Label>
                   <Textarea
-                    id="descripcion"
-                    value={form.descripcion}
-                    onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+                    id="description"
+                    value={form.description}
+                    onChange={(e) => setForm({ ...form, description: e.target.value })}
                     rows={4}
                     maxLength={2000}
                   />
@@ -373,37 +364,19 @@ function AdminPromos() {
               <Card key={p.id}>
                 <CardContent className="flex flex-col gap-4 p-4 md:flex-row md:items-center">
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="truncate font-bold">{p.titulo}</h3>
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${
-                          p.vigente
-                            ? "bg-primary/15 text-primary"
-                            : "bg-muted text-muted-foreground"
-                        }`}
-                      >
-                        {p.vigente ? "Publicada" : "Oculta"}
-                      </span>
-                    </div>
-                    {p.descripcion && (
+                    <h3 className="truncate font-bold">{p.title}</h3>
+                    {p.description && (
                       <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
-                        {p.descripcion}
+                        {p.description}
                       </p>
                     )}
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {new Date(p.fecha).toLocaleString("es-AR")}
-                    </p>
+                    {p.created_at && (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {new Date(p.created_at).toLocaleString("es-AR")}
+                      </p>
+                    )}
                   </div>
                   <div className="flex shrink-0 items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <Switch
-                        checked={p.vigente}
-                        onCheckedChange={() => togglePublish(p)}
-                      />
-                      <span className="text-xs text-muted-foreground">
-                        {p.vigente ? "Visible" : "Oculta"}
-                      </span>
-                    </div>
                     <Button variant="outline" size="sm" onClick={() => openEdit(p)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
