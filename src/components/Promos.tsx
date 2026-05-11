@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Tag, Sparkles, ArrowRight, Loader2 } from "lucide-react";
+import { Tag, Sparkles, ArrowRight, Loader2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createPublicSupabaseClient } from "@/lib/publicSupabaseClient";
 import ZoneDialog from "./ZoneDialog";
@@ -10,6 +10,9 @@ interface Promo {
   titulo: string;
   descripcion: string | null;
   fecha: string;
+  archivo_url: string | null;
+  archivo_nombre: string | null;
+  archivo_tipo: string | null;
 }
 
 const Promos = () => {
@@ -22,7 +25,7 @@ const Promos = () => {
     const load = async () => {
       const { data, error } = await publicSupabase
         .from("promociones")
-        .select("id, titulo, descripcion, fecha")
+        .select("id, titulo, descripcion, fecha, archivo_url, archivo_nombre, archivo_tipo")
         .eq("vigente", true)
         .order("fecha", { ascending: false });
 
@@ -87,6 +90,33 @@ const Promos = () => {
                   <h3 className="mt-4 text-xl font-bold">{p.titulo}</h3>
                   {p.descripcion && (
                     <p className="mt-2 text-sm text-muted-foreground">{p.descripcion}</p>
+                  )}
+                  {p.archivo_url && (
+                    p.archivo_tipo?.startsWith("image/") ? (
+                      <a
+                        href={p.archivo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 block overflow-hidden rounded-xl border border-border"
+                      >
+                        <img
+                          src={p.archivo_url}
+                          alt={p.titulo}
+                          loading="lazy"
+                          className="h-40 w-full object-cover transition-smooth hover:scale-[1.02]"
+                        />
+                      </a>
+                    ) : (
+                      <a
+                        href={p.archivo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-2 text-xs font-semibold text-primary hover:bg-muted"
+                      >
+                        <FileText className="h-4 w-4" />
+                        {p.archivo_nombre ?? "Ver archivo adjunto"}
+                      </a>
+                    )
                   )}
                   <div className="mt-auto pt-5">
                     <ZoneDialog

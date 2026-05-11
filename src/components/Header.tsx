@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, ChevronDown, ExternalLink, Car } from "lucide-react";
+import { Menu, X, ChevronDown, ExternalLink, Car, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import logo from "@/assets/abc-logo.png";
@@ -14,6 +14,8 @@ const links = [
   { href: "#contacto", label: "Contacto" },
 ];
 
+const MATERIAL_ESTUDIO =
+  "https://www.argentina.gob.ar/sites/default/files/manual_del_conductor_2024.pdf";
 const MUNICIPALIDAD_TURNOS =
   "https://www.mardelplata.gob.ar/movilidadurbana/licenciasdeconducir";
 const MUNICIPALIDAD_TURNOS_ONLINE =
@@ -127,6 +129,18 @@ const Header = () => {
               </div>
             )}
           </div>
+
+          <a
+            href={MATERIAL_ESTUDIO}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-1.5 text-sm font-semibold transition-smooth hover:text-primary ${
+              scrolled ? "text-foreground/80" : "text-white/90"
+            }`}
+          >
+            <BookOpen className="h-4 w-4" />
+            Material de estudio
+          </a>
         </nav>
 
         <div className="hidden lg:block">
@@ -171,26 +185,58 @@ const Header = () => {
               Alquiler de Vehículo
             </a>
 
-            <div className="rounded-md border border-border px-3 py-2">
-              <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                Tramitá tu licencia · Pasos a tener en cuenta
+            <a
+              href={MATERIAL_ESTUDIO}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 rounded-md bg-muted px-4 py-3 text-base font-bold text-foreground"
+            >
+              <BookOpen className="h-5 w-5 text-primary" />
+              Material de estudio
+            </a>
+
+            <div className="rounded-xl border border-border bg-card px-4 py-4">
+              <p className="text-sm font-black uppercase tracking-wider text-primary">
+                Tramitá tu licencia
               </p>
-              <ol className="mt-1 space-y-0.5 text-xs text-foreground/70">
-                <li>1. Licencia Original · 2. Charlas · 3. Teórico · 4. Práctico</li>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Pasos a tener en cuenta
+              </p>
+              <ol className="mt-3 space-y-3 text-base text-foreground">
+                <li>
+                  <span className="font-bold">1. Obtené turnos para:</span>
+                  <ul className="ml-5 mt-1 list-disc space-y-1 text-sm text-muted-foreground">
+                    <li>Trámite Original (examen médico + foto)</li>
+                    <li>Charlas (Seguridad vial y Legislación)</li>
+                  </ul>
+                </li>
+                <li>
+                  <span className="font-bold">2.</span> Sacá turno para el examen teórico.
+                </li>
+                <li>
+                  <span className="font-bold">3.</span> Aprobado el teórico, turno para el examen práctico (lo coordina la academia).
+                </li>
               </ol>
-              <div className="mt-2 flex flex-col gap-1.5">
+              <div className="mt-4 flex flex-col gap-2">
                 <a href={MUNICIPALIDAD_TURNOS_ONLINE} target="_blank" rel="noopener noreferrer">
-                  <Button size="sm" className="w-full">Sacar turno online</Button>
+                  <Button size="lg" className="h-12 w-full bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90">
+                    Obtener Turnos
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
                 </a>
                 <a href={MUNICIPALIDAD_TURNOS} target="_blank" rel="noopener noreferrer">
-                  <Button size="sm" variant="outline" className="w-full">Info Municipalidad</Button>
+                  <Button size="lg" variant="outline" className="h-12 w-full text-base">
+                    Web Municipalidad MDP
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
                 </a>
               </div>
             </div>
 
             <ZoneDialog
               trigger={
-                <Button className="mt-2 w-full bg-primary font-bold uppercase text-primary-foreground hover:bg-primary/90">
+                <Button className="mt-2 h-12 w-full bg-primary text-base font-bold uppercase text-primary-foreground hover:bg-primary/90">
                   Inscribite
                 </Button>
               }

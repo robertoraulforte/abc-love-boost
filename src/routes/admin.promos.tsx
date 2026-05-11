@@ -40,6 +40,9 @@ interface Promo {
   descripcion: string | null;
   vigente: boolean;
   fecha: string;
+  archivo_url: string | null;
+  archivo_nombre: string | null;
+  archivo_tipo: string | null;
 }
 
 const schema = z.object({
@@ -57,6 +60,8 @@ function AdminPromos() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Promo | null>(null);
   const [form, setForm] = useState(empty);
+  const [file, setFile] = useState<File | null>(null);
+  const [removeFile, setRemoveFile] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -72,7 +77,7 @@ function AdminPromos() {
         .select("*")
         .order("fecha", { ascending: false });
       if (error) toast.error("Error", { description: error.message });
-      setPromos(data ?? []);
+      setPromos((data ?? []) as Promo[]);
       setFetching(false);
     };
     load();
@@ -92,11 +97,15 @@ function AdminPromos() {
   const openCreate = () => {
     setEditing(null);
     setForm(empty);
+    setFile(null);
+    setRemoveFile(false);
     setOpen(true);
   };
   const openEdit = (p: Promo) => {
     setEditing(p);
     setForm({ titulo: p.titulo, descripcion: p.descripcion ?? "" });
+    setFile(null);
+    setRemoveFile(false);
     setOpen(true);
   };
 
@@ -108,10 +117,54 @@ function AdminPromos() {
       return;
     }
     setSaving(true);
-    const payload = {
+
+    let archivo_url: string | null | undefined = undefined;
+    let archivo_nombre: string | null | undefined = undefined;
+    let archivo_tipo: string | null | undefined = undefined;
+
+    if (file) {
+      const MAX = 10 * 1024 * 1024;
+      if (file.size > MAX) {
+        setSaving(false);
+        toast.error("Archivo demasiado grande", { description: "Máximo 10MB." });
+        return;
+      }
+      const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
+      const path = `${crypto.randomUUID()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("promos")
+        .upload(path, file, { contentType: file.type, upsert: false });
+      if (upErr) {
+        setSaving(false);
+        toast.error("Error al subir archivo", { description: upErr.message });
+        return;
+      }
+      const { data: pub } = supabase.storage.from("promos").getPublicUrl(path);
+      archivo_url = pub.publicUrl;
+      archivo_nombre = file.name;
+      archivo_tipo = file.type || ext;
+    } else if (removeFile && editing) {
+      archivo_url = null;
+      archivo_nombre = null;
+      archivo_tipo = null;
+    }
+
+    const payload: {
+      titulo: string;
+      descripcion: string;
+      archivo_url?: string | null;
+      archivo_nombre?: string | null;
+      archivo_tipo?: string | null;
+    } = {
       titulo: parsed.data.titulo,
       descripcion: parsed.data.descripcion ?? "",
     };
+    if (archivo_url !== undefined) {
+      payload.archivo_url = archivo_url;
+      payload.archivo_nombre = archivo_nombre ?? null;
+      payload.archivo_tipo = archivo_tipo ?? null;
+    }
+
     const { error } = editing
       ? await supabase.from("promociones").update(payload).eq("id", editing.id)
       : await supabase.from("promociones").insert(payload);
@@ -229,6 +282,49 @@ function AdminPromos() {
                     rows={4}
                     maxLength={2000}
                   />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="archivo">Archivo (imagen o PDF, opcional)</Label>
+                  <Input
+                    id="archivo"
+                    type="file"
+                    accept="image/*,application/pdf"
+                    onChange={(e) => {
+                      setFile(e.target.files?.[0] ?? null);
+                      setRemoveFile(false);
+                    }}
+                  />
+                  {editing?.archivo_url && !file && !removeFile && (
+                    <div className="flex items-center justify-between gap-2 rounded-md border border-border bg-muted/40 px-3 py-2 text-xs">
+                      <a
+                        href={editing.archivo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="truncate font-semibold text-primary hover:underline"
+                      >
+                        {editing.archivo_nombre ?? "Archivo actual"}
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => setRemoveFile(true)}
+                        className="font-semibold text-destructive hover:underline"
+                      >
+                        Quitar
+                      </button>
+                    </div>
+                  )}
+                  {removeFile && (
+                    <p className="text-xs text-muted-foreground">
+                      El archivo se quitará al guardar.{" "}
+                      <button
+                        type="button"
+                        onClick={() => setRemoveFile(false)}
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        Deshacer
+                      </button>
+                    </p>
+                  )}
                 </div>
                 <DialogFooter>
                   <Button type="button" variant="outline" onClick={() => setOpen(false)}>

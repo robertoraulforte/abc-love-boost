@@ -10,6 +10,7 @@ import Rental from "@/components/Rental";
 import Footer from "@/components/Footer";
 import BookingSteps from "@/components/BookingSteps";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import QuickServices from "@/components/QuickServices";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -26,6 +27,7 @@ function Index() {
         <HowToHire />
         <Coverage />
         <Rental />
+        <QuickServices />
         <Contact />
       </main>
       <BookingSteps />

@@ -16,6 +16,9 @@ export type Database = {
     Tables: {
       promociones: {
         Row: {
+          archivo_nombre: string | null
+          archivo_tipo: string | null
+          archivo_url: string | null
           created_at: string
           descripcion: string | null
           fecha: string
@@ -25,6 +28,9 @@ export type Database = {
           vigente: boolean
         }
         Insert: {
+          archivo_nombre?: string | null
+          archivo_tipo?: string | null
+          archivo_url?: string | null
           created_at?: string
           descripcion?: string | null
           fecha?: string
@@ -34,6 +40,9 @@ export type Database = {
           vigente?: boolean
         }
         Update: {
+          archivo_nombre?: string | null
+          archivo_tipo?: string | null
+          archivo_url?: string | null
           created_at?: string
           descripcion?: string | null
           fecha?: string
