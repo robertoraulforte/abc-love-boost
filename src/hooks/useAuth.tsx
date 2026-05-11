@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -7,32 +7,31 @@ interface AuthContextValue {
   session: Session | null;
   isAdmin: boolean;
   loading: boolean;
+  roleLoading: boolean;
+  refreshRole: () => Promise<boolean>;
   signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-// Temporary override while we stabilize the role RPC.
-const ADMIN_UUID_OVERRIDE = "59ac60ac-14db-4648-9b41-06123e3b8503";
-
-async function checkIsAdmin(userId: string): Promise<boolean> {
-  if (userId === ADMIN_UUID_OVERRIDE) return true;
-  // Try RPC first
-  const { data, error } = await supabase.rpc("has_role", {
-    _user_id: userId,
-    _role: "admin",
-  });
-  if (!error && data) return true;
-  if (error) console.warn("[useAuth] has_role RPC failed, falling back:", error.message);
-  // Fallback: direct table query (RLS allows users to view their own roles)
-  const { data: row, error: qErr } = await supabase
+async function fetchIsAdmin(userId: string): Promise<boolean> {
+  // Primary: direct query against user_roles (RLS lets users see their own roles).
+  const { data, error } = await supabase
     .from("user_roles")
     .select("role")
     .eq("user_id", userId)
     .eq("role", "admin")
     .maybeSingle();
-  if (qErr) console.warn("[useAuth] user_roles fallback failed:", qErr.message);
-  return Boolean(row);
+  if (!error && data) return true;
+  if (error) console.warn("[useAuth] user_roles query failed:", error.message);
+
+  // Fallback: RPC has_role
+  const { data: rpcData, error: rpcErr } = await supabase.rpc("has_role", {
+    _user_id: userId,
+    _role: "admin",
+  });
+  if (rpcErr) console.warn("[useAuth] has_role RPC failed:", rpcErr.message);
+  return Boolean(rpcData);
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -40,42 +39,74 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [roleLoading, setRoleLoading] = useState(true);
+  const currentUserIdRef = useRef<string | null>(null);
+
+  const loadRole = useCallback(async (userId: string): Promise<boolean> => {
+    setRoleLoading(true);
+    let admin = await fetchIsAdmin(userId);
+    // Retry once after a short delay in case the role row was just created by a trigger.
+    if (!admin) {
+      await new Promise((r) => setTimeout(r, 600));
+      admin = await fetchIsAdmin(userId);
+    }
+    // Only commit if the user hasn't changed in the meantime.
+    if (currentUserIdRef.current === userId) {
+      setIsAdmin(admin);
+      setRoleLoading(false);
+    }
+    return admin;
+  }, []);
+
+  const refreshRole = useCallback(async (): Promise<boolean> => {
+    const uid = currentUserIdRef.current;
+    if (!uid) {
+      setIsAdmin(false);
+      setRoleLoading(false);
+      return false;
+    }
+    return loadRole(uid);
+  }, [loadRole]);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
-      setUser(newSession?.user ?? null);
-      if (newSession?.user) {
+      const u = newSession?.user ?? null;
+      setUser(u);
+      currentUserIdRef.current = u?.id ?? null;
+      if (u) {
+        // Defer to avoid awaiting inside the auth callback.
         setTimeout(() => {
-          checkIsAdmin(newSession.user.id).then(setIsAdmin);
+          loadRole(u.id);
         }, 0);
       } else {
         setIsAdmin(false);
+        setRoleLoading(false);
       }
     });
 
     supabase.auth.getSession().then(({ data: { session: existing } }) => {
       setSession(existing);
-      setUser(existing?.user ?? null);
-      if (existing?.user) {
-        checkIsAdmin(existing.user.id).then((admin) => {
-          setIsAdmin(admin);
-          setLoading(false);
-        });
+      const u = existing?.user ?? null;
+      setUser(u);
+      currentUserIdRef.current = u?.id ?? null;
+      setLoading(false);
+      if (u) {
+        loadRole(u.id);
       } else {
-        setLoading(false);
+        setRoleLoading(false);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [loadRole]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, isAdmin, loading, signOut }}>
+    <AuthContext.Provider value={{ user, session, isAdmin, loading, roleLoading, refreshRole, signOut }}>
       {children}
     </AuthContext.Provider>
   );
