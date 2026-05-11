@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import heroImg from "@/assets/hero.jpg";
@@ -8,6 +8,7 @@ const benefits = [
   { icon: MapPin, label: "Puntos de Encuentro" },
   { icon: UserCheck, label: "Instructores Expertos" },
   { icon: Sparkles, label: "Clases adaptadas a vos" },
+  { icon: Car, label: "Vehículos doble comando" },
 ];
 
 const Hero = () => {
