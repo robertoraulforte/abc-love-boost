@@ -20,6 +20,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -129,20 +130,56 @@ function AdminPromos() {
         toast.error("Archivo demasiado grande", { description: "Máximo 10MB." });
         return;
       }
-      const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
-      const path = `${crypto.randomUUID()}.${ext}`;
+      const allowed = ["image/jpeg", "image/png", "image/webp", "image/gif", "application/pdf"];
+      const extMap: Record<string, string> = {
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image/webp": "webp",
+        "image/gif": "gif",
+        "application/pdf": "pdf",
+      };
+      const rawExt = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") ?? "bin";
+      const mime = file.type && allowed.includes(file.type)
+        ? file.type
+        : rawExt === "jpg" || rawExt === "jpeg"
+          ? "image/jpeg"
+          : rawExt === "png"
+            ? "image/png"
+            : rawExt === "pdf"
+              ? "application/pdf"
+              : file.type || "application/octet-stream";
+      if (!allowed.includes(mime)) {
+        setSaving(false);
+        toast.error("Tipo de archivo no permitido", {
+          description: "Subí una imagen (JPG, PNG, WEBP, GIF) o un PDF.",
+        });
+        return;
+      }
+      const ext = extMap[mime] ?? rawExt;
+      const safeBase = file.name
+        .replace(/\.[^.]+$/, "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .toLowerCase()
+        .slice(0, 40) || "archivo";
+      const path = `${Date.now()}-${crypto.randomUUID()}-${safeBase}.${ext}`;
       const { error: upErr } = await supabase.storage
         .from("promos")
-        .upload(path, file, { contentType: file.type, upsert: false });
+        .upload(path, file, { contentType: mime, upsert: false, cacheControl: "3600" });
       if (upErr) {
         setSaving(false);
-        toast.error("Error al subir archivo", { description: upErr.message });
+        console.error("Storage upload error:", upErr);
+        toast.error("Error al subir archivo", {
+          description: upErr.message || "Revisá el tamaño, formato o permisos del bucket.",
+        });
         return;
       }
       const { data: pub } = supabase.storage.from("promos").getPublicUrl(path);
       archivo_url = pub.publicUrl;
       archivo_nombre = file.name;
-      archivo_tipo = file.type || ext;
+      archivo_tipo = mime;
     } else if (removeFile && editing) {
       archivo_url = null;
       archivo_nombre = null;
@@ -266,6 +303,9 @@ function AdminPromos() {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>{editing ? "Editar" : "Nueva"} promoción</DialogTitle>
+                <DialogDescription>
+                  Completá el título, una descripción y, opcionalmente, un archivo (imagen JPG/PNG/WEBP o PDF, hasta 10MB).
+                </DialogDescription>
               </DialogHeader>
               <form onSubmit={submit} className="space-y-4">
                 <div className="space-y-2">
