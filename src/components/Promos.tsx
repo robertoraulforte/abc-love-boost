@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Tag, Sparkles, ArrowRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { createPublicSupabaseClient } from "@/lib/publicSupabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 import ZoneDialog from "./ZoneDialog";
 
 interface Promo {
