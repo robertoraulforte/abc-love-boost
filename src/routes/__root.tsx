@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Aprendé a manejar en Mar del Plata con instructores matriculados. Cursos para auto, moto y vehículos pesados. 2 sucursales.",
       },
       { name: "author", content: "ABC Conducción" },
-      { property: "og:title", content: "ABC Conducción — Escuela de manejo" },
+      { property: "og:title", content: "ABC Conducción — Escuela de manejo en Mar del Plata" },
       {
         property: "og:description",
         content:
@@ -90,6 +90,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "ABC Conducción — Escuela de manejo en Mar del Plata" },
+      { name: "description", content: "Project Foundation imports code from a GitHub repository, sets up the development environment, and configures PostgreSQL tables." },
+      { property: "og:description", content: "Project Foundation imports code from a GitHub repository, sets up the development environment, and configures PostgreSQL tables." },
+      { name: "twitter:description", content: "Project Foundation imports code from a GitHub repository, sets up the development environment, and configures PostgreSQL tables." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/be2e37c1-c0ab-4203-9e80-c792a3effb4d/id-preview-b4a4692d--ca00b3cd-ae4d-4f26-af9a-d6f222bd5392.lovable.app-1778509968668.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/be2e37c1-c0ab-4203-9e80-c792a3effb4d/id-preview-b4a4692d--ca00b3cd-ae4d-4f26-af9a-d6f222bd5392.lovable.app-1778509968668.png" },
     ],
     links: [
       {
