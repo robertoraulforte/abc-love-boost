@@ -17,6 +17,7 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 async function fetchIsAdmin(userId: string): Promise<boolean> {
   // Primary: direct query against user_roles (RLS lets users see their own roles).
   const { data, error } = await supabase
+    .schema("public")
     .from("user_roles")
     .select("role")
     .eq("user_id", userId)
