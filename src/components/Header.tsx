@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, ChevronDown, ExternalLink, Car } from "lucide-react";
+import { Menu, X, ChevronDown, ExternalLink, Car, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import logo from "@/assets/abc-logo.png";
@@ -14,6 +14,8 @@ const links = [
   { href: "#contacto", label: "Contacto" },
 ];
 
+const MATERIAL_ESTUDIO =
+  "https://www.argentina.gob.ar/sites/default/files/manual_del_conductor_2024.pdf";
 const MUNICIPALIDAD_TURNOS =
   "https://www.mardelplata.gob.ar/movilidadurbana/licenciasdeconducir";
 const MUNICIPALIDAD_TURNOS_ONLINE =
