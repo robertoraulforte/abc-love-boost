@@ -53,7 +53,8 @@ const schema = z.object({
 const empty = { titulo: "", descripcion: "" };
 
 function AdminPromos() {
-  const { user, isAdmin, loading, signOut } = useAuth();
+  const { user, isAdmin, loading, roleLoading, refreshRole, signOut } = useAuth();
+  const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigate();
   const [promos, setPromos] = useState<Promo[]>([]);
   const [fetching, setFetching] = useState(true);
