@@ -303,6 +303,9 @@ function AdminPromos() {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>{editing ? "Editar" : "Nueva"} promoción</DialogTitle>
+                <DialogDescription>
+                  Completá el título, una descripción y, opcionalmente, un archivo (imagen JPG/PNG/WEBP o PDF, hasta 10MB).
+                </DialogDescription>
               </DialogHeader>
               <form onSubmit={submit} className="space-y-4">
                 <div className="space-y-2">
