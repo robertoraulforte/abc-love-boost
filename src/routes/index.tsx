@@ -6,6 +6,7 @@ import Promos from "@/components/Promos";
 import HowToHire from "@/components/HowToHire";
 import Coverage from "@/components/Coverage";
 import Contact from "@/components/Contact";
+import Rental from "@/components/Rental";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
@@ -23,6 +24,7 @@ function Index() {
         <Promos />
         <HowToHire />
         <Coverage />
+        <Rental />
         <Contact />
       </main>
       <Footer />

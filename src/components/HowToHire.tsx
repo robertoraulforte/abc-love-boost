@@ -10,8 +10,8 @@ const steps = [
   },
   {
     icon: Calendar,
-    title: "2. Reservá tu turno",
-    desc: "Coordinamos horarios y sucursal según tu disponibilidad.",
+    title: "2. Inscripción Online",
+    desc: "Completá tu inscripción de forma rápida y 100% online.",
   },
   {
     icon: Car,
