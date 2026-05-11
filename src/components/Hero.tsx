@@ -23,12 +23,16 @@ const Hero = () => {
           </span>
 
           <h1 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
-            Formamos conductores,
+            Tu primera experiencia al volante,
             <br />
-            <span className="text-primary-glow">no solo alumnos.</span>
+            <span className="text-primary-glow">bien acompañada.</span>
           </h1>
 
-          <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
+          <p className="mt-5 text-lg font-bold text-primary-glow md:text-xl">
+            Formamos conductores, no solo alumnos.
+          </p>
+
+          <p className="mt-4 max-w-2xl text-base text-white/85 md:text-lg">
             Clases personalizadas, instructores matriculados y autos modernos. Aprendé a manejar con
             confianza y seguridad, a tu ritmo.
           </p>
