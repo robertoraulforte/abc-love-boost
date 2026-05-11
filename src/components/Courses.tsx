@@ -15,7 +15,7 @@ interface Course {
 const courses: Course[] = [
   {
     icon: GraduationCap,
-    level: "Principiante",
+    level: "PRINCIPIANTE",
     classes: "16 clases",
     description:
       "Ideal para personas sin ningún tipo de experiencia ni conocimiento. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
@@ -25,21 +25,21 @@ const courses: Course[] = [
   },
   {
     icon: Car,
-    level: "Básico",
+    level: "INTERMEDIO",
     classes: "10 clases",
     description:
       "Destinado a personas sin conocimiento o escasa práctica. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
   },
   {
     icon: Gauge,
-    level: "Perfeccionamiento",
+    level: "AVANZADO",
     classes: "6 clases",
     description:
       "Pensado para personas que requieran perfeccionar algún aspecto específico de manejo y aprender las maniobras del examen práctico.",
   },
   {
     icon: Target,
-    level: "Examen",
+    level: "INTENSIVO",
     classes: "4 clases",
     description:
       "Pensado para personas que requieran aprender las maniobras específicas de examen para la obtención de la licencia de conducir.",
@@ -48,15 +48,15 @@ const courses: Course[] = [
 
 const CommonBenefits = () => (
   <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-    <li className="flex items-start gap-2">
-      <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-      <span>Incluye material teórico.</span>
-    </li>
     <li className="flex items-start gap-2 rounded-md bg-primary/5 px-2 py-1.5">
       <Check className="mt-0.5 h-5 w-5 shrink-0 stroke-[3] text-primary" />
       <span className="font-bold italic text-foreground">
         Servicio a domicilio o puntos de encuentro
       </span>
+    </li>
+    <li className="flex items-start gap-2">
+      <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+      <span>Material teórico incluido.</span>
     </li>
   </ul>
 );
