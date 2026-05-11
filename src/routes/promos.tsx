@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Loader2, Sparkles, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createPublicSupabaseClient } from "@/lib/publicSupabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 import ZoneDialog from "@/components/ZoneDialog";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
