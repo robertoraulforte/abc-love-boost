@@ -37,7 +37,7 @@ const Promos = () => {
     };
 
     load();
-    const ch = publicSupabase
+    const ch = supabase
       .channel("home-promos")
       .on(
         "postgres_changes",
@@ -46,7 +46,7 @@ const Promos = () => {
       )
       .subscribe();
     return () => {
-      publicSupabase.removeChannel(ch);
+      supabase.removeChannel(ch);
     };
   }, []);
 
