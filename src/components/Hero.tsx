@@ -28,7 +28,7 @@ const Hero = () => {
         <div className="max-w-3xl text-white">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-elegant">
             <ShieldCheck className="h-3.5 w-3.5" />
-            Desde 2009 · Mar del Plata
+            Desde 2009
           </span>
 
           <h1 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
