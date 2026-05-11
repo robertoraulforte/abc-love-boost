@@ -91,6 +91,33 @@ const Promos = () => {
                   {p.descripcion && (
                     <p className="mt-2 text-sm text-muted-foreground">{p.descripcion}</p>
                   )}
+                  {p.archivo_url && (
+                    p.archivo_tipo?.startsWith("image/") ? (
+                      <a
+                        href={p.archivo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 block overflow-hidden rounded-xl border border-border"
+                      >
+                        <img
+                          src={p.archivo_url}
+                          alt={p.titulo}
+                          loading="lazy"
+                          className="h-40 w-full object-cover transition-smooth hover:scale-[1.02]"
+                        />
+                      </a>
+                    ) : (
+                      <a
+                        href={p.archivo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-2 text-xs font-semibold text-primary hover:bg-muted"
+                      >
+                        <FileText className="h-4 w-4" />
+                        {p.archivo_nombre ?? "Ver archivo adjunto"}
+                      </a>
+                    )
+                  )}
                   <div className="mt-auto pt-5">
                     <ZoneDialog
                       trigger={
