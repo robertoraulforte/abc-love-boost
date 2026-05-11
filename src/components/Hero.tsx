@@ -78,7 +78,7 @@ const Hero = () => {
             </a>
           </div>
 
-          <ul className="mt-10 grid max-w-2xl grid-cols-2 gap-3 text-sm font-semibold text-white/90 sm:grid-cols-4">
+          <ul className="mt-10 grid max-w-2xl grid-cols-2 gap-3 text-sm font-semibold text-white/90 sm:grid-cols-3 lg:grid-cols-5">
             {benefits.map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-2">
                 <Icon className="h-5 w-5 shrink-0 text-primary-glow" />
