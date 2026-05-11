@@ -10,7 +10,7 @@ const steps = [
   },
   {
     icon: Calendar,
-    title: "2. Reserva tus clases Online",
+    title: "2. Reservá tus clases Online",
     desc: "Coordiná tu inscripción y reservá tus clases de forma 100% online.",
   },
   {

@@ -87,15 +87,24 @@ const Header = () => {
               <ChevronDown className="h-4 w-4" />
             </button>
             {licenseOpen && (
-              <div className="absolute right-0 top-full w-80 rounded-xl border border-border bg-background p-4 shadow-elegant">
+              <div className="absolute right-0 top-full w-96 rounded-xl border border-border bg-background p-4 shadow-elegant">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">
                   Pasos a tener en cuenta
                 </p>
-                <ol className="mt-2 space-y-1 text-sm text-foreground/80">
-                  <li>1. Turno para Licencia Original</li>
-                  <li>2. Charlas obligatorias</li>
-                  <li>3. Examen teórico</li>
-                  <li>4. Examen práctico</li>
+                <ol className="mt-2 space-y-2 text-sm text-foreground/80">
+                  <li>
+                    <span className="font-bold text-foreground">1. Obtené turnos para:</span>
+                    <ul className="ml-4 mt-1 list-disc space-y-0.5 text-foreground/70">
+                      <li>Trámite Original (examen médico + foto)</li>
+                      <li>Charlas (Teórico principiante de Seguridad vial y Legislación)</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span className="font-bold text-foreground">2.</span> Realizado lo anterior, sacá turno para el examen teórico.
+                  </li>
+                  <li>
+                    <span className="font-bold text-foreground">3.</span> Una vez aprobado el teórico, solicitá turno para el examen práctico (del cual se encarga la academia).
+                  </li>
                 </ol>
                 <div className="mt-3 flex flex-col gap-2">
                   <a
@@ -104,7 +113,7 @@ const Header = () => {
                     rel="noopener noreferrer"
                   >
                     <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                      Sacar turno online
+                      Obtener Turnos
                       <ExternalLink className="ml-1 h-3.5 w-3.5" />
                     </Button>
                   </a>
