@@ -80,9 +80,9 @@ const Promos = () => {
                   key={p.id}
                   className="relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant"
                 >
-                  <span className="inline-flex w-fit items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground">
+                  <span className="inline-flex w-fit animate-pulse items-center gap-1 rounded-full bg-red-600 px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-white shadow-elegant ring-2 ring-red-500/40">
                     <Tag className="h-3 w-3" />
-                    Promo
+                    ¡Oferta limitada!
                   </span>
                   <h3 className="mt-4 text-xl font-bold">{p.titulo}</h3>
                   {p.descripcion && (

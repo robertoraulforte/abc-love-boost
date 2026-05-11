@@ -1,10 +1,12 @@
-import { Car, GraduationCap, Repeat, Bike, BookOpen, Home, Check } from "lucide-react";
+import { Car, GraduationCap, Gauge, BookOpen, Home, Check, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 
 interface Course {
   icon: typeof Car;
-  title: string;
+  level: string;
+  classes: string;
+  description: string;
   badge?: string;
   highlight?: boolean;
   extra?: string;
@@ -13,23 +15,24 @@ interface Course {
 const courses: Course[] = [
   {
     icon: GraduationCap,
-    title: "Curso 10 clases",
-    badge: "+ Vendido",
-  },
-  {
-    icon: Car,
-    title: "Curso 16 clases",
-    badge: "Completo",
-    highlight: true,
+    level: "Principiante",
+    classes: "15 clases",
+    description: "Ideal para quien nunca tocó un volante.",
     extra: "Vehículo sin cargo para rendir",
   },
   {
-    icon: Repeat,
-    title: "Clases sueltas",
+    icon: Car,
+    level: "Intermedio",
+    classes: "10 clases",
+    description: "Para quienes ya tienen nociones básicas.",
+    badge: "Curso ideal",
+    highlight: true,
   },
   {
-    icon: Bike,
-    title: "Moto",
+    icon: Gauge,
+    level: "Avanzado",
+    classes: "5 clases",
+    description: "Perfeccionamiento y seguridad vial.",
   },
 ];
 
@@ -62,25 +65,30 @@ const Courses = () => {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {courses.map((c) => {
             const Icon = c.icon;
             return (
               <article
-                key={c.title}
+                key={c.level}
                 className={`group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:shadow-elegant ${
-                  c.highlight ? "border-primary" : "border-border hover:border-primary"
+                  c.highlight ? "border-primary ring-2 ring-primary/40" : "border-border hover:border-primary"
                 }`}
               >
                 {c.badge && (
-                  <span className="absolute right-4 top-4 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold uppercase text-primary-foreground">
+                  <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-primary-foreground shadow-elegant">
+                    <Sparkles className="h-3 w-3" />
                     {c.badge}
                   </span>
                 )}
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-smooth group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-5 text-xl font-black">{c.title}</h3>
+                <p className="mt-5 text-xs font-black uppercase tracking-widest text-primary">
+                  {c.level}
+                </p>
+                <h3 className="mt-1 text-2xl font-black">{c.classes}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
 
                 {commonBenefits}
 
@@ -100,6 +108,7 @@ const Courses = () => {
                       Consultar →
                     </Button>
                   }
+                  message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
                 />
               </article>
             );
