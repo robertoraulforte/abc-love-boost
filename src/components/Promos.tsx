@@ -8,9 +8,9 @@ import ZoneDialog from "./ZoneDialog";
 
 interface Promo {
   id: string;
-  titulo: string;
-  descripcion: string | null;
-  fecha: string;
+  title: string;
+  description: string | null;
+  created_at: string | null;
   archivo_url: string | null;
   archivo_nombre: string | null;
   archivo_tipo: string | null;
@@ -25,16 +25,16 @@ const Promos = () => {
 
     const load = async () => {
       const { data, error } = await publicSupabase
-        .from("promociones")
-        .select("id, titulo, descripcion, fecha, archivo_url, archivo_nombre, archivo_tipo")
-        .eq("vigente", true)
-        .order("fecha", { ascending: false });
+        .schema("public")
+        .from("promos")
+        .select("id, title, description, created_at, archivo_url, archivo_nombre, archivo_tipo")
+        .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Promociones fetch error:", error);
+        console.error("Promos fetch error:", error);
       }
 
-      setPromos(data ?? []);
+      setPromos((data ?? []) as Promo[]);
       setLoading(false);
     };
 
@@ -43,7 +43,7 @@ const Promos = () => {
       .channel("home-promos")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "promociones" },
+        { event: "*", schema: "public", table: "promos" },
         () => load(),
       )
       .subscribe();
@@ -86,13 +86,9 @@ const Promos = () => {
             ))}
           </div>
         ) : promos.length === 0 ? (
-          <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-border bg-card px-6 py-14 text-center shadow-card">
-            <Sparkles className="mx-auto h-10 w-10 text-primary" />
-            <p className="mt-4 text-2xl font-black uppercase tracking-wide md:text-3xl">
+          <div className="mx-auto mt-12 max-w-2xl rounded-2xl bg-muted px-6 py-14 text-center">
+            <p className="text-2xl font-bold uppercase tracking-wide text-foreground">
               Pronto llegan nuevas promociones...
-            </p>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Estamos preparando beneficios exclusivos. Volvé pronto o consultanos por WhatsApp.
             </p>
           </div>
         ) : (
@@ -107,9 +103,9 @@ const Promos = () => {
                     <Tag className="h-3 w-3" />
                     ¡Oferta limitada!
                   </span>
-                  <h3 className="mt-4 text-xl font-bold">{p.titulo}</h3>
-                  {p.descripcion && (
-                    <p className="mt-2 text-sm text-muted-foreground">{p.descripcion}</p>
+                  <h3 className="mt-4 text-xl font-bold">{p.title}</h3>
+                  {p.description && (
+                    <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
                   )}
                   {p.archivo_url && (
                     p.archivo_tipo?.startsWith("image/") ? (
@@ -121,7 +117,7 @@ const Promos = () => {
                       >
                         <img
                           src={p.archivo_url}
-                          alt={p.titulo}
+                          alt={p.title}
                           loading="lazy"
                           className="h-40 w-full object-cover transition-smooth hover:scale-[1.02]"
                         />
@@ -145,7 +141,7 @@ const Promos = () => {
                           Consultar
                         </Button>
                       }
-                      message={`Hola! Quiero consultar por la promo "${p.titulo}".`}
+                      message={`Hola! Quiero consultar por la promo "${p.title}".`}
                     />
                   </div>
                 </article>

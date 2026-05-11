@@ -28,9 +28,9 @@ export const Route = createFileRoute("/promos")({
 
 interface Promo {
   id: string;
-  titulo: string;
-  descripcion: string | null;
-  fecha: string;
+  title: string;
+  description: string | null;
+  created_at: string | null;
 }
 
 function PromosPublic() {
@@ -42,16 +42,16 @@ function PromosPublic() {
 
     const load = async () => {
       const { data, error } = await publicSupabase
-        .from("promociones")
-        .select("id, titulo, descripcion, fecha")
-        .eq("vigente", true)
-        .order("fecha", { ascending: false });
+        .schema("public")
+        .from("promos")
+        .select("id, title, description, created_at")
+        .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Promociones fetch error:", error);
+        console.error("Promos fetch error:", error);
       }
 
-      setPromos(data ?? []);
+      setPromos((data ?? []) as Promo[]);
       setLoading(false);
     };
     load();
@@ -59,7 +59,7 @@ function PromosPublic() {
       .channel("public-promos")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "promociones" },
+        { event: "*", schema: "public", table: "promos" },
         () => load(),
       )
       .subscribe();
@@ -95,8 +95,10 @@ function PromosPublic() {
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : promos.length === 0 ? (
-            <div className="mt-12 rounded-2xl border border-border bg-card p-12 text-center text-muted-foreground">
-              No hay promos vigentes en este momento. Volvé pronto.
+            <div className="mx-auto mt-12 max-w-2xl rounded-2xl bg-muted px-6 py-14 text-center">
+              <p className="text-2xl font-bold uppercase tracking-wide text-foreground">
+                Pronto llegan nuevas promociones...
+              </p>
             </div>
           ) : (
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -108,17 +110,19 @@ function PromosPublic() {
                   <span className="inline-flex w-fit items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold uppercase text-primary-foreground">
                     <Tag className="h-3 w-3" /> Promo
                   </span>
-                  <h2 className="mt-4 text-xl font-bold">{p.titulo}</h2>
-                  {p.descripcion && (
-                    <p className="mt-2 text-sm text-muted-foreground">{p.descripcion}</p>
+                  <h2 className="mt-4 text-xl font-bold">{p.title}</h2>
+                  {p.description && (
+                    <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
                   )}
-                  <p className="mt-3 text-xs text-muted-foreground">
-                    {new Date(p.fecha).toLocaleDateString("es-AR", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </p>
+                  {p.created_at && (
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      {new Date(p.created_at).toLocaleDateString("es-AR", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+                  )}
                   <div className="mt-auto pt-5">
                     <ZoneDialog
                       trigger={
@@ -126,7 +130,7 @@ function PromosPublic() {
                           Consultar
                         </Button>
                       }
-                      message={`Hola! Quiero consultar por la promo "${p.titulo}".`}
+                      message={`Hola! Quiero consultar por la promo "${p.title}".`}
                     />
                   </div>
                 </article>
