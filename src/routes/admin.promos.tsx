@@ -60,6 +60,8 @@ function AdminPromos() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Promo | null>(null);
   const [form, setForm] = useState(empty);
+  const [file, setFile] = useState<File | null>(null);
+  const [removeFile, setRemoveFile] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -75,7 +77,7 @@ function AdminPromos() {
         .select("*")
         .order("fecha", { ascending: false });
       if (error) toast.error("Error", { description: error.message });
-      setPromos(data ?? []);
+      setPromos((data ?? []) as Promo[]);
       setFetching(false);
     };
     load();
@@ -95,11 +97,15 @@ function AdminPromos() {
   const openCreate = () => {
     setEditing(null);
     setForm(empty);
+    setFile(null);
+    setRemoveFile(false);
     setOpen(true);
   };
   const openEdit = (p: Promo) => {
     setEditing(p);
     setForm({ titulo: p.titulo, descripcion: p.descripcion ?? "" });
+    setFile(null);
+    setRemoveFile(false);
     setOpen(true);
   };
 
@@ -111,10 +117,48 @@ function AdminPromos() {
       return;
     }
     setSaving(true);
-    const payload = {
+
+    let archivo_url: string | null | undefined = undefined;
+    let archivo_nombre: string | null | undefined = undefined;
+    let archivo_tipo: string | null | undefined = undefined;
+
+    if (file) {
+      const MAX = 10 * 1024 * 1024;
+      if (file.size > MAX) {
+        setSaving(false);
+        toast.error("Archivo demasiado grande", { description: "Máximo 10MB." });
+        return;
+      }
+      const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
+      const path = `${crypto.randomUUID()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("promos")
+        .upload(path, file, { contentType: file.type, upsert: false });
+      if (upErr) {
+        setSaving(false);
+        toast.error("Error al subir archivo", { description: upErr.message });
+        return;
+      }
+      const { data: pub } = supabase.storage.from("promos").getPublicUrl(path);
+      archivo_url = pub.publicUrl;
+      archivo_nombre = file.name;
+      archivo_tipo = file.type || ext;
+    } else if (removeFile && editing) {
+      archivo_url = null;
+      archivo_nombre = null;
+      archivo_tipo = null;
+    }
+
+    const payload: Record<string, unknown> = {
       titulo: parsed.data.titulo,
       descripcion: parsed.data.descripcion ?? "",
     };
+    if (archivo_url !== undefined) {
+      payload.archivo_url = archivo_url;
+      payload.archivo_nombre = archivo_nombre;
+      payload.archivo_tipo = archivo_tipo;
+    }
+
     const { error } = editing
       ? await supabase.from("promociones").update(payload).eq("id", editing.id)
       : await supabase.from("promociones").insert(payload);
