@@ -28,6 +28,7 @@ function Index() {
         <Rental />
         <Contact />
       </main>
+      <BookingSteps />
       <Footer />
       <FloatingWhatsApp />
     </div>
