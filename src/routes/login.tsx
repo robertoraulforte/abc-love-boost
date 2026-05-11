@@ -15,6 +15,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -33,6 +34,8 @@ function LoginPage() {
   const { user, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ function LoginPage() {
     }
   }, [user, loading, navigate]);
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = schema.safeParse({ email, password });
     if (!parsed.success) {
@@ -61,6 +64,27 @@ function LoginPage() {
     navigate({ to: "/admin/promos", replace: true });
   };
 
+  const onSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const parsed = schema.safeParse({ email: signupEmail, password: signupPassword });
+    if (!parsed.success) {
+      toast.error("Datos inválidos", { description: parsed.error.issues[0].message });
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.auth.signUp({
+      email: parsed.data.email,
+      password: parsed.data.password,
+      options: { emailRedirectTo: `${window.location.origin}/admin/promos` },
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Error al registrarse", { description: error.message });
+      return;
+    }
+    toast.success("Cuenta creada", { description: "Ya podés iniciar sesión." });
+  };
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-muted/40 px-4 py-12">
       <Card className="w-full max-w-md shadow-card">
@@ -69,47 +93,92 @@ function LoginPage() {
             <ShieldCheck className="h-6 w-6" />
           </div>
           <CardTitle className="mt-2 text-2xl">Panel ABC Conducción</CardTitle>
-          <CardDescription>Ingresá con tus credenciales de administrador</CardDescription>
+          <CardDescription>Acceso para administradores</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                type="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <Button
-              type="submit"
-              disabled={submitting}
-              className="w-full bg-primary font-bold uppercase text-primary-foreground hover:bg-primary/90"
-            >
-              {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Ingresar
-            </Button>
-            <Link
-              to="/"
-              className="block text-center text-sm text-muted-foreground hover:text-primary"
-            >
-              ← Volver al sitio
-            </Link>
-          </form>
+          <Tabs defaultValue="login" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="login">Ingresar</TabsTrigger>
+              <TabsTrigger value="signup">Registrarse</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="login">
+              <form onSubmit={onLogin} className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password">Contraseña</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-primary font-bold uppercase text-primary-foreground hover:bg-primary/90"
+                >
+                  {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Ingresar
+                </Button>
+              </form>
+            </TabsContent>
+
+            <TabsContent value="signup">
+              <form onSubmit={onSignup} className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <Label htmlFor="signup-email">Email</Label>
+                  <Input
+                    id="signup-email"
+                    type="email"
+                    autoComplete="email"
+                    value={signupEmail}
+                    onChange={(e) => setSignupEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-password">Contraseña</Label>
+                  <Input
+                    id="signup-password"
+                    type="password"
+                    autoComplete="new-password"
+                    value={signupPassword}
+                    onChange={(e) => setSignupPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-primary font-bold uppercase text-primary-foreground hover:bg-primary/90"
+                >
+                  {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Crear cuenta
+                </Button>
+              </form>
+            </TabsContent>
+          </Tabs>
+
+          <Link
+            to="/"
+            className="mt-6 block text-center text-sm text-muted-foreground hover:text-primary"
+          >
+            ← Volver al sitio
+          </Link>
         </CardContent>
       </Card>
     </main>
