@@ -42,8 +42,7 @@ const Footer = () => (
           "Formamos conductores, no solo alumnos."
         </p>
         <p className="mt-3 max-w-sm text-sm text-white/70">
-          Escuela de manejo en Mar del Plata. Aprendé a conducir con confianza, seguridad y un
-          trato cercano.
+          Escuela de Manejo · Mar del Plata · <span className="font-bold text-white">Desde 2009</span>. Aprendé a conducir con confianza, seguridad y un trato cercano.
         </p>
       </div>
 

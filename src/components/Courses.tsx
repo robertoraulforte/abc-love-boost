@@ -1,4 +1,4 @@
-import { Car, GraduationCap, Gauge, BookOpen, Home, Check, Sparkles } from "lucide-react";
+import { Car, GraduationCap, Gauge, BookOpen, Home, Check, Sparkles, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 
@@ -16,35 +16,47 @@ const courses: Course[] = [
   {
     icon: GraduationCap,
     level: "Principiante",
-    classes: "15 clases",
-    description: "Ideal para quien nunca tocó un volante.",
-    extra: "Vehículo sin cargo para rendir",
-  },
-  {
-    icon: Car,
-    level: "Intermedio",
-    classes: "10 clases",
-    description: "Para quienes ya tienen nociones básicas.",
-    badge: "Curso ideal",
+    classes: "16 clases",
+    description:
+      "Ideal para personas sin ningún tipo de experiencia ni conocimiento. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
+    extra: "Auto Gratis para rendir",
+    badge: "Más elegido",
     highlight: true,
   },
   {
+    icon: Car,
+    level: "Básico",
+    classes: "10 clases",
+    description:
+      "Destinado a personas sin conocimiento o escasa práctica. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
+  },
+  {
     icon: Gauge,
-    level: "Avanzado",
-    classes: "5 clases",
-    description: "Perfeccionamiento y seguridad vial.",
+    level: "Perfeccionamiento",
+    classes: "6 clases",
+    description:
+      "Pensado para personas que requieran perfeccionar algún aspecto específico de manejo y aprender las maniobras del examen práctico.",
+  },
+  {
+    icon: Target,
+    level: "Examen",
+    classes: "4 clases",
+    description:
+      "Pensado para personas que requieran aprender las maniobras específicas de examen para la obtención de la licencia de conducir.",
   },
 ];
 
-const commonBenefits = (
-  <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground">
+const CommonBenefits = () => (
+  <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
     <li className="flex items-start gap-2">
-      <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+      <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
       <span>Incluye material teórico.</span>
     </li>
-    <li className="flex items-start gap-2">
-      <Home className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-      <span>Servicio a domicilio / Puntos de encuentro.</span>
+    <li className="flex items-start gap-2 rounded-md bg-primary/5 px-2 py-1.5">
+      <Check className="mt-0.5 h-5 w-5 shrink-0 stroke-[3] text-primary" />
+      <span className="font-bold italic text-foreground">
+        Servicio a domicilio o puntos de encuentro
+      </span>
     </li>
   </ul>
 );
@@ -65,14 +77,16 @@ const Courses = () => {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {courses.map((c) => {
             const Icon = c.icon;
             return (
               <article
                 key={c.level}
-                className={`group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:shadow-elegant ${
-                  c.highlight ? "border-primary ring-2 ring-primary/40" : "border-border hover:border-primary"
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:shadow-elegant ${
+                  c.highlight
+                    ? "border-primary ring-2 ring-primary/40"
+                    : "border-border hover:border-primary"
                 }`}
               >
                 {c.badge && (
@@ -90,26 +104,26 @@ const Courses = () => {
                 <h3 className="mt-1 text-2xl font-black">{c.classes}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
 
-                {commonBenefits}
+                <CommonBenefits />
 
                 {c.extra && (
-                  <div className="mt-3 flex items-start gap-2 rounded-lg bg-primary/10 p-2.5 text-sm font-bold text-primary">
-                    <Car className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span className="flex items-center gap-1">
-                      <Check className="h-3.5 w-3.5" />
-                      {c.extra}
-                    </span>
+                  <div className="mt-3 flex items-center gap-2 rounded-lg bg-primary/10 p-2.5 text-sm font-bold text-primary">
+                    <Check className="h-4 w-4 shrink-0 stroke-[3]" />
+                    <Car className="h-4 w-4 shrink-0" />
+                    <span>{c.extra}</span>
                   </div>
                 )}
 
-                <ZoneDialog
-                  trigger={
-                    <Button variant="link" className="mt-4 h-auto p-0 font-bold text-primary">
-                      Consultar →
-                    </Button>
-                  }
-                  message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
-                />
+                <div className="mt-auto pt-4">
+                  <ZoneDialog
+                    trigger={
+                      <Button variant="link" className="h-auto p-0 font-bold text-primary">
+                        Consultar →
+                      </Button>
+                    }
+                    message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
+                  />
+                </div>
               </article>
             );
           })}
