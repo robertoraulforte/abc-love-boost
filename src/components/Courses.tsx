@@ -1,10 +1,12 @@
-import { Car, GraduationCap, Repeat, Bike, BookOpen, Home, Check } from "lucide-react";
+import { Car, GraduationCap, Gauge, BookOpen, Home, Check, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 
 interface Course {
   icon: typeof Car;
-  title: string;
+  level: string;
+  classes: string;
+  description: string;
   badge?: string;
   highlight?: boolean;
   extra?: string;
@@ -13,23 +15,24 @@ interface Course {
 const courses: Course[] = [
   {
     icon: GraduationCap,
-    title: "Curso 10 clases",
-    badge: "+ Vendido",
-  },
-  {
-    icon: Car,
-    title: "Curso 16 clases",
-    badge: "Completo",
-    highlight: true,
+    level: "Principiante",
+    classes: "15 clases",
+    description: "Ideal para quien nunca tocó un volante.",
     extra: "Vehículo sin cargo para rendir",
   },
   {
-    icon: Repeat,
-    title: "Clases sueltas",
+    icon: Car,
+    level: "Intermedio",
+    classes: "10 clases",
+    description: "Para quienes ya tienen nociones básicas.",
+    badge: "Curso ideal",
+    highlight: true,
   },
   {
-    icon: Bike,
-    title: "Moto",
+    icon: Gauge,
+    level: "Avanzado",
+    classes: "5 clases",
+    description: "Perfeccionamiento y seguridad vial.",
   },
 ];
 
