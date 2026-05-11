@@ -283,6 +283,49 @@ function AdminPromos() {
                     maxLength={2000}
                   />
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="archivo">Archivo (imagen o PDF, opcional)</Label>
+                  <Input
+                    id="archivo"
+                    type="file"
+                    accept="image/*,application/pdf"
+                    onChange={(e) => {
+                      setFile(e.target.files?.[0] ?? null);
+                      setRemoveFile(false);
+                    }}
+                  />
+                  {editing?.archivo_url && !file && !removeFile && (
+                    <div className="flex items-center justify-between gap-2 rounded-md border border-border bg-muted/40 px-3 py-2 text-xs">
+                      <a
+                        href={editing.archivo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="truncate font-semibold text-primary hover:underline"
+                      >
+                        {editing.archivo_nombre ?? "Archivo actual"}
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => setRemoveFile(true)}
+                        className="font-semibold text-destructive hover:underline"
+                      >
+                        Quitar
+                      </button>
+                    </div>
+                  )}
+                  {removeFile && (
+                    <p className="text-xs text-muted-foreground">
+                      El archivo se quitará al guardar.{" "}
+                      <button
+                        type="button"
+                        onClick={() => setRemoveFile(false)}
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        Deshacer
+                      </button>
+                    </p>
+                  )}
+                </div>
                 <DialogFooter>
                   <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                     Cancelar
