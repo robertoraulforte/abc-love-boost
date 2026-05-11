@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Tag, Sparkles, ArrowRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
+import { createPublicSupabaseClient } from "@/lib/publicSupabaseClient";
 import ZoneDialog from "./ZoneDialog";
 
 interface Promo {
@@ -17,18 +17,25 @@ const Promos = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const publicSupabase = createPublicSupabaseClient();
+
     const load = async () => {
-      const { data } = await supabase
+      const { data, error } = await publicSupabase
         .from("promociones")
         .select("id, titulo, descripcion, fecha")
         .eq("vigente", true)
         .order("fecha", { ascending: false });
+
+      if (error) {
+        console.error("Promociones fetch error:", error);
+      }
+
       setPromos(data ?? []);
       setLoading(false);
     };
 
     load();
-    const ch = supabase
+    const ch = publicSupabase
       .channel("home-promos")
       .on(
         "postgres_changes",
@@ -37,7 +44,7 @@ const Promos = () => {
       )
       .subscribe();
     return () => {
-      supabase.removeChannel(ch);
+      publicSupabase.removeChannel(ch);
     };
   }, []);
 
