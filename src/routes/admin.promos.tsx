@@ -124,6 +124,14 @@ function AdminPromos() {
     let archivo_tipo: string | null | undefined = undefined;
 
     if (file) {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !sessionData.session) {
+        setSaving(false);
+        toast.error("Sesión expirada", {
+          description: "Iniciá sesión nuevamente para subir archivos.",
+        });
+        return;
+      }
       const MAX = 10 * 1024 * 1024;
       if (file.size > MAX) {
         setSaving(false);

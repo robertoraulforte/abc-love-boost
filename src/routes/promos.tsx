@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Loader2, Sparkles, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createPublicSupabaseClient } from "@/lib/publicSupabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 import ZoneDialog from "@/components/ZoneDialog";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -38,10 +38,8 @@ function PromosPublic() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const publicSupabase = createPublicSupabaseClient();
-
     const load = async () => {
-      const { data, error } = await publicSupabase
+      const { data, error } = await supabase
         .schema("public")
         .from("promos")
         .select("id, title, description, created_at")
@@ -55,7 +53,7 @@ function PromosPublic() {
       setLoading(false);
     };
     load();
-    const ch = publicSupabase
+    const ch = supabase
       .channel("public-promos")
       .on(
         "postgres_changes",
@@ -64,7 +62,7 @@ function PromosPublic() {
       )
       .subscribe();
     return () => {
-      publicSupabase.removeChannel(ch);
+      supabase.removeChannel(ch);
     };
   }, []);
 
