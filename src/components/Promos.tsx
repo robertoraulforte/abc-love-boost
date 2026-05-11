@@ -25,7 +25,7 @@ const Promos = () => {
     const load = async () => {
       const { data, error } = await publicSupabase
         .from("promociones")
-        .select("id, titulo, descripcion, fecha")
+        .select("id, titulo, descripcion, fecha, archivo_url, archivo_nombre, archivo_tipo")
         .eq("vigente", true)
         .order("fecha", { ascending: false });
 
