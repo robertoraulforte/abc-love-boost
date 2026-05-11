@@ -1,5 +1,5 @@
 export const WHATSAPP_MESSAGE =
-  "Hola! me comunico desde la web. Quiero consultar por los servicios e inscripción";
+  "Hola! me comunico desde la web. Quiero consultar por los servicios e inscripción.";
 
 export const ZONES = [
   {
