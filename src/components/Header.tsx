@@ -8,9 +8,9 @@ import logo from "@/assets/abc-logo.png";
 const links = [
   { href: "#cursos", label: "Cursos" },
   { href: "#promos", label: "Promos" },
+  { href: "#alquiler", label: "Alquiler de vehículo examen" },
   { href: "#como-contratar", label: "Cómo contratar" },
   { href: "#cobertura", label: "Zonas" },
-  { href: "#alquiler", label: "Alquiler" },
   { href: "#contacto", label: "Contacto" },
 ];
 
@@ -87,14 +87,15 @@ const Header = () => {
               <ChevronDown className="h-4 w-4" />
             </button>
             {licenseOpen && (
-              <div className="absolute right-0 top-full w-72 rounded-xl border border-border bg-background p-4 shadow-elegant">
+              <div className="absolute right-0 top-full w-80 rounded-xl border border-border bg-background p-4 shadow-elegant">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                  Pasos rápidos
+                  Pasos a tener en cuenta
                 </p>
                 <ol className="mt-2 space-y-1 text-sm text-foreground/80">
-                  <li>1. Reservá turno en la Municipalidad</li>
-                  <li>2. Rendí el examen teórico</li>
-                  <li>3. Rendí el práctico con auto</li>
+                  <li>1. Turno para Licencia Original</li>
+                  <li>2. Charlas obligatorias</li>
+                  <li>3. Examen teórico</li>
+                  <li>4. Examen práctico</li>
                 </ol>
                 <div className="mt-3 flex flex-col gap-2">
                   <a
@@ -109,7 +110,7 @@ const Header = () => {
                   </a>
                   <a href={MUNICIPALIDAD_TURNOS} target="_blank" rel="noopener noreferrer">
                     <Button size="sm" variant="outline" className="w-full">
-                      Info Municipalidad
+                      Web Municipalidad MDP
                       <ExternalLink className="ml-1 h-3.5 w-3.5" />
                     </Button>
                   </a>
@@ -163,10 +164,10 @@ const Header = () => {
 
             <div className="rounded-md border border-border px-3 py-2">
               <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                Tramitá tu licencia
+                Tramitá tu licencia · Pasos a tener en cuenta
               </p>
               <ol className="mt-1 space-y-0.5 text-xs text-foreground/70">
-                <li>1. Reservá turno · 2. Teórico · 3. Práctico</li>
+                <li>1. Licencia Original · 2. Charlas · 3. Teórico · 4. Práctico</li>
               </ol>
               <div className="mt-2 flex flex-col gap-1.5">
                 <a href={MUNICIPALIDAD_TURNOS_ONLINE} target="_blank" rel="noopener noreferrer">

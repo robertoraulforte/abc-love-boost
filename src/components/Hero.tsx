@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import heroImg from "@/assets/hero.jpg";
@@ -8,6 +8,7 @@ const benefits = [
   { icon: MapPin, label: "Puntos de Encuentro" },
   { icon: UserCheck, label: "Instructores Expertos" },
   { icon: Sparkles, label: "Clases adaptadas a vos" },
+  { icon: Car, label: "Vehículos doble comando" },
 ];
 
 const Hero = () => {
@@ -27,7 +28,7 @@ const Hero = () => {
         <div className="max-w-3xl text-white">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-elegant">
             <ShieldCheck className="h-3.5 w-3.5" />
-            Desde 2009 · Mar del Plata
+            Desde 2009
           </span>
 
           <h1 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
@@ -77,7 +78,7 @@ const Hero = () => {
             </a>
           </div>
 
-          <ul className="mt-10 grid max-w-2xl grid-cols-2 gap-3 text-sm font-semibold text-white/90 sm:grid-cols-4">
+          <ul className="mt-10 grid max-w-2xl grid-cols-2 gap-3 text-sm font-semibold text-white/90 sm:grid-cols-3 lg:grid-cols-5">
             {benefits.map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-2">
                 <Icon className="h-5 w-5 shrink-0 text-primary-glow" />
