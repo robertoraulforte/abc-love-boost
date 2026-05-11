@@ -1,6 +1,7 @@
 import { Car, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
+import fiatMobi from "@/assets/fiat-mobi.jpeg";
 
 const features = [
   "Auto preparado con doble comando",
@@ -19,17 +20,14 @@ const Rental = () => {
               <Car className="h-3.5 w-3.5" />
               Alquiler de Vehículo
             </span>
-            <h2 className="mt-3 text-3xl font-black uppercase md:text-4xl">
-              Alquiler de{" "}
-              <span className="group/auto relative inline-block align-middle">
-                <span className="inline-block transition-all duration-300 group-hover/auto:opacity-0 group-hover/auto:scale-75">
-                  AUTO
-                </span>
-                <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover/auto:opacity-100 group-hover/auto:scale-125">
-                  <Car className="h-8 w-8 text-red-600 md:h-10 md:w-10" strokeWidth={2.5} />
-                </span>
-              </span>{" "}
-              para examen
+            <h2 className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-3xl font-black uppercase md:text-4xl">
+              <span>Alquiler de</span>
+              <Car
+                className="h-9 w-9 text-red-600 md:h-11 md:w-11"
+                strokeWidth={2.5}
+                aria-label="Auto"
+              />
+              <span>para examen</span>
             </h2>
             <p className="mt-3 text-muted-foreground">
               Si ya sabés manejar y solo necesitás un vehículo para el examen práctico, te
@@ -53,8 +51,13 @@ const Rental = () => {
               />
             </div>
           </div>
-          <div className="flex h-full items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 p-8">
-            <Car className="h-32 w-32 text-primary md:h-40 md:w-40" strokeWidth={1.25} />
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={fiatMobi}
+              alt="Fiat Mobi negro de ABC Conducción con cartel Auto Escuela"
+              loading="lazy"
+              className="h-64 w-full rounded-2xl object-cover object-[30%_center] md:h-80 md:object-center"
+            />
           </div>
         </div>
       </div>
