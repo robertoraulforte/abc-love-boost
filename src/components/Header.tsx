@@ -129,6 +129,18 @@ const Header = () => {
               </div>
             )}
           </div>
+
+          <a
+            href={MATERIAL_ESTUDIO}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-1.5 text-sm font-semibold transition-smooth hover:text-primary ${
+              scrolled ? "text-foreground/80" : "text-white/90"
+            }`}
+          >
+            <BookOpen className="h-4 w-4" />
+            Material de estudio
+          </a>
         </nav>
 
         <div className="hidden lg:block">
