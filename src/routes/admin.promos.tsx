@@ -149,14 +149,20 @@ function AdminPromos() {
       archivo_tipo = null;
     }
 
-    const payload: Record<string, unknown> = {
+    const payload: {
+      titulo: string;
+      descripcion: string;
+      archivo_url?: string | null;
+      archivo_nombre?: string | null;
+      archivo_tipo?: string | null;
+    } = {
       titulo: parsed.data.titulo,
       descripcion: parsed.data.descripcion ?? "",
     };
     if (archivo_url !== undefined) {
       payload.archivo_url = archivo_url;
-      payload.archivo_nombre = archivo_nombre;
-      payload.archivo_tipo = archivo_tipo;
+      payload.archivo_nombre = archivo_nombre ?? null;
+      payload.archivo_tipo = archivo_tipo ?? null;
     }
 
     const { error } = editing
