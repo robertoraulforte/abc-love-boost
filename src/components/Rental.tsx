@@ -19,8 +19,17 @@ const Rental = () => {
               <Car className="h-3.5 w-3.5" />
               Alquiler de Vehículo
             </span>
-            <h2 className="mt-3 text-3xl font-black md:text-4xl">
-              Alquilá nuestro auto para rendir
+            <h2 className="mt-3 text-3xl font-black uppercase md:text-4xl">
+              Alquiler de{" "}
+              <span className="group/auto relative inline-block align-middle">
+                <span className="inline-block transition-all duration-300 group-hover/auto:opacity-0 group-hover/auto:scale-75">
+                  AUTO
+                </span>
+                <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover/auto:opacity-100 group-hover/auto:scale-125">
+                  <Car className="h-8 w-8 text-red-600 md:h-10 md:w-10" strokeWidth={2.5} />
+                </span>
+              </span>{" "}
+              para examen
             </h2>
             <p className="mt-3 text-muted-foreground">
               Si ya sabés manejar y solo necesitás un vehículo para el examen práctico, te
