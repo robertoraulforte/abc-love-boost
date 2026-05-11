@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Tag, Sparkles, ArrowRight, Loader2 } from "lucide-react";
+import { Tag, Sparkles, ArrowRight, Loader2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createPublicSupabaseClient } from "@/lib/publicSupabaseClient";
 import ZoneDialog from "./ZoneDialog";
@@ -10,6 +10,9 @@ interface Promo {
   titulo: string;
   descripcion: string | null;
   fecha: string;
+  archivo_url: string | null;
+  archivo_nombre: string | null;
+  archivo_tipo: string | null;
 }
 
 const Promos = () => {
