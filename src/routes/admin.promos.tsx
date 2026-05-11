@@ -40,6 +40,9 @@ interface Promo {
   descripcion: string | null;
   vigente: boolean;
   fecha: string;
+  archivo_url: string | null;
+  archivo_nombre: string | null;
+  archivo_tipo: string | null;
 }
 
 const schema = z.object({
