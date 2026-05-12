@@ -53,7 +53,7 @@ const Hero = () => {
               trigger={
                 <Button
                   size="lg"
-                  className="bg-primary font-black uppercase tracking-wide text-primary-foreground hover:bg-primary/90 shadow-elegant"
+                  className="gradient-primary animate-pulse-glow font-black uppercase tracking-wide text-primary-foreground hover:opacity-95"
                 >
                   Inscribirme ahora
                   <ArrowRight className="ml-2 h-5 w-5" />
