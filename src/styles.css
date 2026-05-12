@@ -176,4 +176,19 @@
   .transition-smooth {
     transition: var(--transition-smooth);
   }
+  .red-glow {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent),
+      0 0 24px color-mix(in oklab, var(--primary-glow) 45%, transparent);
+  }
+  .hover\:red-glow:hover {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 60%, transparent),
+      0 0 32px color-mix(in oklab, var(--primary-glow) 60%, transparent);
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 18px color-mix(in oklab, var(--primary-glow) 35%, transparent); }
+    50% { box-shadow: 0 0 32px color-mix(in oklab, var(--primary-glow) 70%, transparent); }
+  }
+  .animate-pulse-glow {
+    animation: pulse-glow 2.4s ease-in-out infinite;
+  }
 }
