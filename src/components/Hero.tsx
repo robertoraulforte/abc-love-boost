@@ -17,12 +17,12 @@ const Hero = () => {
       <img
         src={heroImg}
         alt="Auto escuela ABC Conducción - Fiat Mobi en Mar del Plata"
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
+        className="absolute inset-0 -z-20 h-full w-full object-cover opacity-70"
         width={1600}
         height={1067}
       />
-      <div className="absolute inset-0 -z-10 bg-black/65" />
-      <div className="absolute inset-0 -z-10 gradient-hero opacity-80" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/80 to-background/30" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_70%_50%,color-mix(in_oklab,var(--primary)_25%,transparent),transparent_60%)]" />
 
       <div className="container relative mx-auto px-4">
         <div className="max-w-3xl text-white">
