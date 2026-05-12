@@ -20,8 +20,6 @@ const courses: Course[] = [
     description:
       "Ideal para personas sin ningún tipo de experiencia ni conocimiento. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
     extra: "Auto Gratis para rendir",
-    badge: "Más elegido",
-    highlight: true,
   },
   {
     icon: Car,
@@ -29,6 +27,8 @@ const courses: Course[] = [
     classes: "10 clases",
     description:
       "Destinado a personas sin conocimiento o escasa práctica. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
+    badge: "Más elegido",
+    highlight: true,
   },
   {
     icon: Gauge,
