@@ -1,7 +1,7 @@
 import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/abc-mobi.jpg";
 
 const benefits = [
   { icon: Home, label: "Servicio a Domicilio" },
