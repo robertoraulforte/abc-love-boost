@@ -23,11 +23,11 @@ function Index() {
       <main>
         <Hero />
         <Courses />
+        <Rental />
+        <QuickServices />
         <Promos />
         <HowToHire />
         <Coverage />
-        <Rental />
-        <QuickServices />
         <Contact />
       </main>
       <BookingSteps />
