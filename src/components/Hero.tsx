@@ -1,7 +1,7 @@
 import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/abc-mobi.jpg";
 
 const benefits = [
   { icon: Home, label: "Servicio a Domicilio" },
@@ -17,12 +17,12 @@ const Hero = () => {
       <img
         src={heroImg}
         alt="Auto escuela ABC Conducción - Fiat Mobi en Mar del Plata"
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
+        className="absolute inset-0 -z-20 h-full w-full object-cover opacity-70"
         width={1600}
         height={1067}
       />
-      <div className="absolute inset-0 -z-10 bg-black/65" />
-      <div className="absolute inset-0 -z-10 gradient-hero opacity-80" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/80 to-background/30" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_70%_50%,color-mix(in_oklab,var(--primary)_25%,transparent),transparent_60%)]" />
 
       <div className="container relative mx-auto px-4">
         <div className="max-w-3xl text-white">
@@ -53,7 +53,7 @@ const Hero = () => {
               trigger={
                 <Button
                   size="lg"
-                  className="bg-primary font-black uppercase tracking-wide text-primary-foreground hover:bg-primary/90 shadow-elegant"
+                  className="gradient-primary animate-pulse-glow font-black uppercase tracking-wide text-primary-foreground hover:opacity-95"
                 >
                   Inscribirme ahora
                   <ArrowRight className="ml-2 h-5 w-5" />

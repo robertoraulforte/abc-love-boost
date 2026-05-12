@@ -84,7 +84,7 @@ const Promos = () => {
             ))}
           </div>
         ) : promos.length === 0 ? (
-          <div className="mx-auto mt-12 max-w-2xl rounded-2xl bg-muted px-6 py-14 text-center">
+          <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-border bg-card/60 px-6 py-14 text-center backdrop-blur red-glow">
             <p className="text-2xl font-bold uppercase tracking-wide text-foreground">
               Pronto llegan nuevas promociones...
             </p>

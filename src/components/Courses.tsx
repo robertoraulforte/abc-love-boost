@@ -83,9 +83,9 @@ const Courses = () => {
             return (
               <article
                 key={c.level}
-                className={`group relative flex flex-col overflow-hidden rounded-2xl border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:shadow-elegant ${
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:red-glow ${
                   c.highlight
-                    ? "border-primary ring-2 ring-primary/40"
+                    ? "border-primary red-glow"
                     : "border-border hover:border-primary"
                 }`}
               >
