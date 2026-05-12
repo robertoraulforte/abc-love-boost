@@ -19,7 +19,7 @@ const MATERIAL_ESTUDIO =
 const MUNICIPALIDAD_TURNOS =
   "https://www.mardelplata.gob.ar/movilidadurbana/licenciasdeconducir";
 const MUNICIPALIDAD_TURNOS_ONLINE =
-  "https://turnos.mardelplata.gob.ar/";
+  "https://appsb.mardelplata.gob.ar/Consultas/nTurnosWeb/Vistas/FrontEnd/TurnosFiltros.aspx?Cod_Sistema=1";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
