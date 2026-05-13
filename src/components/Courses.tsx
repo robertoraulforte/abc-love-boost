@@ -61,6 +61,28 @@ const CommonBenefits = () => (
   </ul>
 );
 
+const PrincipianteBenefits = () => (
+  <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+    <li className="flex items-center gap-2 rounded-md bg-primary/15 px-2 py-1.5 red-glow">
+      <Car className="h-5 w-5 shrink-0 text-primary" />
+      <Check className="h-4 w-4 shrink-0 stroke-[3] text-primary" />
+      <span className="text-sm font-black uppercase tracking-wide text-primary">
+        Auto gratis para rendir
+      </span>
+    </li>
+    <li className="flex items-start gap-2 rounded-md bg-primary/5 px-2 py-1.5">
+      <Home className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+      <span className="font-bold uppercase tracking-wide text-foreground">
+        Servicio a domicilio
+      </span>
+    </li>
+    <li className="flex items-start gap-2">
+      <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+      <span>Material teórico incluido.</span>
+    </li>
+  </ul>
+);
+
 const Courses = () => {
   return (
     <section id="cursos" className="py-20 md:py-28">
