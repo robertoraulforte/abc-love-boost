@@ -44,9 +44,20 @@ const Hero = () => {
           </h1>
 
           <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
-            Clases personalizadas, instructores matriculados y autos modernos. Aprendé a manejar con
-            confianza y seguridad, a tu ritmo.
+            Tu escuela de manejo en Mar del Plata. Aprendé a tu ritmo, con todo incluido.
           </p>
+
+          <ul className="mt-6 grid max-w-2xl grid-cols-2 gap-3 text-sm font-semibold text-white/95 sm:grid-cols-3 lg:grid-cols-5">
+            {benefits.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex items-center gap-2 rounded-xl border border-primary/30 bg-background/40 px-3 py-2 backdrop-blur transition-smooth hover:border-primary hover:red-glow"
+              >
+                <Icon className="h-5 w-5 shrink-0 text-primary-glow" />
+                <span className="leading-tight">{label}</span>
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ZoneDialog
