@@ -19,7 +19,6 @@ const courses: Course[] = [
     classes: "16 clases",
     description:
       "Ideal para personas sin ningún tipo de experiencia ni conocimiento. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
-    extra: "Auto Gratis para rendir",
   },
   {
     icon: Car,
