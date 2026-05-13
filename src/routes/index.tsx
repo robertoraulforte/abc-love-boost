@@ -29,6 +29,7 @@ function Index() {
         <Promos />
         <HowToHire />
         <Coverage />
+        <LicenseGuide />
         <Contact />
       </main>
       <BookingSteps />
