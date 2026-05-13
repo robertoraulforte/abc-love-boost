@@ -1,14 +1,14 @@
-import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag, Car } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin, Home, GraduationCap, Sparkles, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import heroImg from "@/assets/abc-mobi.jpg";
 
 const benefits = [
+  { icon: Car, label: "Vehículos doble comando" },
   { icon: Home, label: "Servicio a Domicilio" },
   { icon: MapPin, label: "Puntos de Encuentro" },
-  { icon: UserCheck, label: "Instructores Expertos" },
+  { icon: GraduationCap, label: "Instructores Expertos" },
   { icon: Sparkles, label: "Clases adaptadas a vos" },
-  { icon: Car, label: "Vehículos doble comando" },
 ];
 
 const Hero = () => {
@@ -29,7 +29,7 @@ const Hero = () => {
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-elegant">
               <Home className="h-3.5 w-3.5" />
-              Escuela de Manejo en Mar del Plata
+              Servicio a Domicilio
             </span>
             <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-yellow)] px-3 py-1 text-xs font-black uppercase tracking-wider text-[var(--accent-yellow-foreground)] shadow-elegant">
               <ShieldCheck className="h-3.5 w-3.5" />
@@ -44,9 +44,20 @@ const Hero = () => {
           </h1>
 
           <p className="mt-5 max-w-2xl text-base text-white/85 md:text-lg">
-            Clases personalizadas, instructores matriculados y autos modernos. Aprendé a manejar con
-            confianza y seguridad, a tu ritmo.
+            Tu escuela de manejo en Mar del Plata. Aprendé a tu ritmo, con todo incluido.
           </p>
+
+          <ul className="mt-6 grid max-w-2xl grid-cols-2 gap-3 text-sm font-semibold text-white/95 sm:grid-cols-3 lg:grid-cols-5">
+            {benefits.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex items-center gap-2 rounded-xl border border-primary/30 bg-background/40 px-3 py-2 backdrop-blur transition-smooth hover:border-primary hover:red-glow"
+              >
+                <Icon className="h-5 w-5 shrink-0 text-primary-glow" />
+                <span className="leading-tight">{label}</span>
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ZoneDialog
@@ -79,15 +90,6 @@ const Hero = () => {
               </Button>
             </a>
           </div>
-
-          <ul className="mt-10 grid max-w-2xl grid-cols-2 gap-3 text-sm font-semibold text-white/90 sm:grid-cols-3 lg:grid-cols-5">
-            {benefits.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-2">
-                <Icon className="h-5 w-5 shrink-0 text-primary-glow" />
-                <span>{label}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

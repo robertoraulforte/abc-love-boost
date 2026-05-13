@@ -6,12 +6,16 @@ const branches = [
   {
     ...ZONES[0],
     address: "Gascón 2508",
+    barrios:
+      "Chauvín, Centro, Playa Grande, Los Troncos, Stella Maris, Terminal, Puerto",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Gasc%C3%B3n+2508+Mar+del+Plata",
   },
   {
     ...ZONES[1],
     address: "11 de Septiembre 3287",
+    barrios:
+      "Constitución, La Perla, Caisamar, Parque Luro, Los Pinares, El Gaucho",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=11+de+Septiembre+3287+Mar+del+Plata",
   },
@@ -48,6 +52,12 @@ const Coverage = () => {
                     <Phone className="h-4 w-4 text-primary" />
                     {b.display}
                   </p>
+                  <div className="mt-3 rounded-lg border border-border bg-background/40 p-3">
+                    <p className="text-[11px] font-black uppercase tracking-wider text-primary">
+                      Barrios que cubre
+                    </p>
+                    <p className="mt-1 text-sm text-foreground/80">{b.barrios}</p>
+                  </div>
                   <div className="mt-4 flex flex-wrap gap-2">
                     <a href={waUrl(b.phone)} target="_blank" rel="noopener noreferrer">
                       <Button className="bg-[oklch(0.7_0.17_145)] font-bold uppercase text-white hover:bg-[oklch(0.65_0.17_145)]">

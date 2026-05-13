@@ -19,7 +19,6 @@ const courses: Course[] = [
     classes: "16 clases",
     description:
       "Ideal para personas sin ningún tipo de experiencia ni conocimiento. Enseñanza de conducción en vía pública y maniobras específicas para la obtención de la licencia de conducir.",
-    extra: "Auto Gratis para rendir",
   },
   {
     icon: Car,
@@ -56,6 +55,28 @@ const CommonBenefits = () => (
     </li>
     <li className="flex items-start gap-2">
       <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+      <span>Material teórico incluido.</span>
+    </li>
+  </ul>
+);
+
+const PrincipianteBenefits = () => (
+  <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+    <li className="flex items-center gap-2 rounded-md bg-primary/15 px-2 py-1.5 red-glow">
+      <Car className="h-5 w-5 shrink-0 text-primary" />
+      <Check className="h-4 w-4 shrink-0 stroke-[3] text-primary" />
+      <span className="text-sm font-black uppercase tracking-wide text-primary">
+        Auto gratis para rendir
+      </span>
+    </li>
+    <li className="flex items-start gap-2 rounded-md bg-primary/5 px-2 py-1.5">
+      <Home className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+      <span className="font-bold uppercase tracking-wide text-foreground">
+        Servicio a domicilio
+      </span>
+    </li>
+    <li className="flex items-start gap-2">
+      <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
       <span>Material teórico incluido.</span>
     </li>
   </ul>
@@ -104,7 +125,7 @@ const Courses = () => {
                 <h3 className="mt-1 text-2xl font-black">{c.classes}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
 
-                <CommonBenefits />
+                {c.level === "PRINCIPIANTE" ? <PrincipianteBenefits /> : <CommonBenefits />}
 
                 {c.extra && (
                   <div className="mt-3 flex items-center gap-2 rounded-lg bg-primary/10 p-2.5 text-sm font-bold text-primary">

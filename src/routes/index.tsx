@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import BookingSteps from "@/components/BookingSteps";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import QuickServices from "@/components/QuickServices";
+import LicenseGuide from "@/components/LicenseGuide";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -28,6 +29,7 @@ function Index() {
         <Promos />
         <HowToHire />
         <Coverage />
+        <LicenseGuide />
         <Contact />
       </main>
       <BookingSteps />
