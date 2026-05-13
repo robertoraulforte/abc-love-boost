@@ -125,53 +125,12 @@ const Header = () => {
             </a>
 
             <a
-              href={MATERIAL_ESTUDIO}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#licencia"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-2 rounded-md bg-muted px-4 py-3 text-base font-bold text-foreground"
+              className="rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted"
             >
-              <BookOpen className="h-5 w-5 text-primary" />
-              Material de estudio
+              Tramitá tu licencia
             </a>
-
-            <div className="rounded-xl border border-border bg-card px-4 py-4">
-              <p className="text-sm font-black uppercase tracking-wider text-primary">
-                Tramitá tu licencia
-              </p>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Pasos a tener en cuenta
-              </p>
-              <ol className="mt-3 space-y-3 text-base text-foreground">
-                <li>
-                  <span className="font-bold">1. Obtené turnos para:</span>
-                  <ul className="ml-5 mt-1 list-disc space-y-1 text-sm text-muted-foreground">
-                    <li>Trámite Original (examen médico + foto)</li>
-                    <li>Charlas (Seguridad vial y Legislación)</li>
-                  </ul>
-                </li>
-                <li>
-                  <span className="font-bold">2.</span> Sacá turno para el examen teórico.
-                </li>
-                <li>
-                  <span className="font-bold">3.</span> Aprobado el teórico, turno para el examen práctico (lo coordina la academia).
-                </li>
-              </ol>
-              <div className="mt-4 flex flex-col gap-2">
-                <a href={MUNICIPALIDAD_TURNOS_ONLINE} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="h-12 w-full bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90">
-                    Obtener Turnos
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </Button>
-                </a>
-                <a href={MUNICIPALIDAD_TURNOS} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" variant="outline" className="h-12 w-full text-base">
-                    Web Municipalidad MDP
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </Button>
-                </a>
-              </div>
-            </div>
 
             <ZoneDialog
               trigger={
