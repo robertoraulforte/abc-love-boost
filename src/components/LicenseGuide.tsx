@@ -69,7 +69,7 @@ const LicenseGuide = () => {
               className="gradient-primary animate-pulse-glow w-full font-black uppercase tracking-wide text-primary-foreground hover:opacity-95"
             >
               <Download className="mr-2 h-5 w-5" />
-              Descargar Material de Estudio
+              Descargar Material de Estudio (PDF)
             </Button>
           </a>
           <a href={MUNICIPALIDAD_TURNOS_ONLINE} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
