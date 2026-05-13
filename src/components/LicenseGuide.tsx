@@ -2,34 +2,34 @@ import { FileCheck, CalendarCheck, GraduationCap, Car, Download, ExternalLink } 
 import { Button } from "@/components/ui/button";
 
 const MATERIAL_ESTUDIO =
-  "https://www.argentina.gob.ar/sites/default/files/manual_del_conductor_2024.pdf";
+  "https://www.mardelplata.gob.ar/documentos/transporte_y_transito/manualdetransito-baja.pdf";
 const MUNICIPALIDAD_TURNOS_ONLINE =
   "https://appsb.mardelplata.gob.ar/Consultas/nTurnosWeb/Vistas/FrontEnd/TurnosFiltros.aspx?Cod_Sistema=1";
 
 const steps = [
   {
-    icon: CalendarCheck,
-    title: "1. Sacá los turnos iniciales",
+    icon: GraduationCap,
+    title: "1. Curso de Seguridad Vial",
     description:
-      "Solicitá turno para el Trámite Original (examen médico + foto) y para las Charlas de Seguridad Vial y Legislación.",
+      "Completá el curso obligatorio de Seguridad Vial, en modalidad online o presencial.",
   },
   {
-    icon: GraduationCap,
-    title: "2. Examen teórico",
+    icon: CalendarCheck,
+    title: "2. Turno Municipal",
     description:
-      "Una vez realizadas las charlas, sacá turno para rendir el examen teórico en la Municipalidad.",
+      "Solicitá el turno para el examen en la web oficial de la Municipalidad de Mar del Plata.",
   },
   {
     icon: FileCheck,
-    title: "3. Examen práctico",
+    title: "3. Examen Teórico",
     description:
-      "Aprobado el teórico, coordinamos con vos el turno para el examen práctico. La academia se encarga del trámite.",
+      "Estudiá el material oficial y rendí el examen teórico en la sede asignada.",
   },
   {
     icon: Car,
-    title: "4. ¡Listo para manejar!",
+    title: "4. Examen Práctico",
     description:
-      "Retirás tu licencia y empezás a manejar con seguridad y confianza.",
+      "Rendí el práctico con nuestros vehículos (incluido en el curso de 16 clases).",
   },
 ];
 
@@ -69,7 +69,7 @@ const LicenseGuide = () => {
               className="gradient-primary animate-pulse-glow w-full font-black uppercase tracking-wide text-primary-foreground hover:opacity-95"
             >
               <Download className="mr-2 h-5 w-5" />
-              Descargar Material de Estudio
+              Descargar Material de Estudio (PDF)
             </Button>
           </a>
           <a href={MUNICIPALIDAD_TURNOS_ONLINE} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
