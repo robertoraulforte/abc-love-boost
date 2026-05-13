@@ -125,7 +125,7 @@ const Courses = () => {
                 <h3 className="mt-1 text-2xl font-black">{c.classes}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
 
-                <CommonBenefits />
+                {c.level === "PRINCIPIANTE" ? <PrincipianteBenefits /> : <CommonBenefits />}
 
                 {c.extra && (
                   <div className="mt-3 flex items-center gap-2 rounded-lg bg-primary/10 p-2.5 text-sm font-bold text-primary">
