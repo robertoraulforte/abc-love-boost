@@ -72,74 +72,13 @@ const Header = () => {
             </a>
           ))}
 
-          {/* Tramitá tu licencia dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setLicenseOpen(true)}
-            onMouseLeave={() => setLicenseOpen(false)}
-          >
-            <button
-              className={`flex items-center gap-1 text-sm font-semibold transition-smooth hover:text-primary ${
-                scrolled ? "text-foreground/80" : "text-white/90"
-              }`}
-              onClick={() => setLicenseOpen((v) => !v)}
-              aria-expanded={licenseOpen}
-            >
-              Tramitá tu licencia
-              <ChevronDown className="h-4 w-4" />
-            </button>
-            {licenseOpen && (
-              <div className="absolute right-0 top-full w-96 rounded-xl border border-border bg-background p-4 shadow-elegant">
-                <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                  Pasos a tener en cuenta
-                </p>
-                <ol className="mt-2 space-y-2 text-sm text-foreground/80">
-                  <li>
-                    <span className="font-bold text-foreground">1. Obtené turnos para:</span>
-                    <ul className="ml-4 mt-1 list-disc space-y-0.5 text-foreground/70">
-                      <li>Trámite Original (examen médico + foto)</li>
-                      <li>Charlas (Teórico principiante de Seguridad vial y Legislación)</li>
-                    </ul>
-                  </li>
-                  <li>
-                    <span className="font-bold text-foreground">2.</span> Realizado lo anterior, sacá turno para el examen teórico.
-                  </li>
-                  <li>
-                    <span className="font-bold text-foreground">3.</span> Una vez aprobado el teórico, solicitá turno para el examen práctico (del cual se encarga la academia).
-                  </li>
-                </ol>
-                <div className="mt-3 flex flex-col gap-2">
-                  <a
-                    href={MUNICIPALIDAD_TURNOS_ONLINE}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                      Obtener Turnos
-                      <ExternalLink className="ml-1 h-3.5 w-3.5" />
-                    </Button>
-                  </a>
-                  <a href={MUNICIPALIDAD_TURNOS} target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" variant="outline" className="w-full">
-                      Web Municipalidad MDP
-                      <ExternalLink className="ml-1 h-3.5 w-3.5" />
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
-
           <a
-            href={MATERIAL_ESTUDIO}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`flex items-center gap-1.5 text-sm font-semibold transition-smooth hover:text-primary ${
+            href="#licencia"
+            className={`text-sm font-semibold transition-smooth hover:text-primary ${
               scrolled ? "text-foreground/80" : "text-white/90"
             }`}
           >
-            <BookOpen className="h-4 w-4" />
-            Material de estudio
+            Tramitá tu licencia
           </a>
         </nav>
 
