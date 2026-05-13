@@ -6,16 +6,12 @@ const branches = [
   {
     ...ZONES[0],
     address: "Gascón 2508",
-    barrios:
-      "Chauvín, Centro, Playa Grande, Los Troncos, Stella Maris, Terminal, Puerto",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Gasc%C3%B3n+2508+Mar+del+Plata",
   },
   {
     ...ZONES[1],
     address: "11 de Septiembre 3287",
-    barrios:
-      "Constitución, La Perla, Caisamar, Parque Luro, Los Pinares, El Gaucho",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=11+de+Septiembre+3287+Mar+del+Plata",
   },
