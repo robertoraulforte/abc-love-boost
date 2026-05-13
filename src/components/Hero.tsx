@@ -1,14 +1,14 @@
-import { ArrowRight, ShieldCheck, MapPin, Home, UserCheck, Sparkles, Tag, Car } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin, Home, GraduationCap, Sparkles, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import heroImg from "@/assets/abc-mobi.jpg";
 
 const benefits = [
+  { icon: Car, label: "Vehículos doble comando" },
   { icon: Home, label: "Servicio a Domicilio" },
   { icon: MapPin, label: "Puntos de Encuentro" },
-  { icon: UserCheck, label: "Instructores Expertos" },
+  { icon: GraduationCap, label: "Instructores Expertos" },
   { icon: Sparkles, label: "Clases adaptadas a vos" },
-  { icon: Car, label: "Vehículos doble comando" },
 ];
 
 const Hero = () => {
