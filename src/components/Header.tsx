@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, Car } from "lucide-react";
+import { Menu, X, Car, FileCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import logo from "@/assets/abc-logo.png";
@@ -120,9 +120,10 @@ const Header = () => {
             <a
               href="#licencia"
               onClick={() => setOpen(false)}
-              className="rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted"
+              className="flex items-center gap-2 rounded-md bg-primary/10 px-3 py-2 text-sm font-bold text-primary"
             >
-              Tramitá tu licencia
+              <FileCheck className="h-4 w-4" />
+              Tramitá tu Licencia
             </a>
 
             <ZoneDialog
