@@ -52,6 +52,12 @@ const Coverage = () => {
                     <Phone className="h-4 w-4 text-primary" />
                     {b.display}
                   </p>
+                  <div className="mt-3 rounded-lg border border-border bg-background/40 p-3">
+                    <p className="text-[11px] font-black uppercase tracking-wider text-primary">
+                      Barrios que cubre
+                    </p>
+                    <p className="mt-1 text-sm text-foreground/80">{b.barrios}</p>
+                  </div>
                   <div className="mt-4 flex flex-wrap gap-2">
                     <a href={waUrl(b.phone)} target="_blank" rel="noopener noreferrer">
                       <Button className="bg-[oklch(0.7_0.17_145)] font-bold uppercase text-white hover:bg-[oklch(0.65_0.17_145)]">
