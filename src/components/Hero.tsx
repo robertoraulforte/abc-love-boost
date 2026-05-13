@@ -29,7 +29,7 @@ const Hero = () => {
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-elegant">
               <Home className="h-3.5 w-3.5" />
-              Escuela de Manejo en Mar del Plata
+              Servicio a Domicilio
             </span>
             <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-yellow)] px-3 py-1 text-xs font-black uppercase tracking-wider text-[var(--accent-yellow-foreground)] shadow-elegant">
               <ShieldCheck className="h-3.5 w-3.5" />
