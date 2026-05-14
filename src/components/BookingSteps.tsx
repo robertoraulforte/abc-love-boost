@@ -53,6 +53,14 @@ const BookingSteps = () => {
                 </div>
                 <h3 className="mt-5 text-xl font-black">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.description}</p>
+                {i === 0 && (
+                  <a
+                    href="#cursos"
+                    className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-primary underline-offset-4 transition-smooth hover:underline"
+                  >
+                    Ver cursos →
+                  </a>
+                )}
               </article>
             );
           })}
