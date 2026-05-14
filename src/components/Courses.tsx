@@ -1,6 +1,7 @@
 import { Car, GraduationCap, Gauge, BookOpen, Home, Check, Sparkles, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
+import abcCar from "@/assets/abc-car.jpg";
 
 interface Course {
   icon: typeof Car;
