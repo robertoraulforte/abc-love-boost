@@ -157,6 +157,7 @@ const Courses = () => {
                     message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
                   />
                 </div>
+                </div>
               </article>
             );
           })}
