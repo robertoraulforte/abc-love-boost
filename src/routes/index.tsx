@@ -23,8 +23,8 @@ function Index() {
       <main>
         <Hero />
         <Courses />
-        <Rental />
         <QuickServices />
+        <Rental />
         <Promos />
         <BookingSteps />
         <Coverage />
