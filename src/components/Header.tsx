@@ -35,17 +35,15 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:h-20">
-        <Link to="/" className="flex items-center gap-3">
+      <div className={`container mx-auto flex items-center justify-between px-4 transition-smooth ${scrolled ? "h-16 md:h-16" : "h-20 md:h-24"}`}>
+        <Link to="/" className="flex items-center gap-2 sm:gap-3" onClick={scrollToTop}>
           <img
             src={logo}
             alt="ABC Conducción"
-            className="h-10 w-auto md:h-12"
-            width={120}
-            height={48}
+            className={`w-auto transition-smooth ${scrolled ? "h-12 md:h-14" : "h-16 md:h-20"}`}
           />
           <span
-            className={`hidden text-xs font-bold uppercase tracking-wider sm:inline ${
+            className={`text-[10px] font-bold uppercase leading-tight tracking-wider sm:text-xs ${
               scrolled ? "text-foreground/80" : "text-white/90"
             }`}
           >
@@ -54,6 +52,14 @@ const Header = () => {
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">
+          <button
+            onClick={scrollToTop}
+            className={`text-sm font-semibold transition-smooth hover:text-primary ${
+              scrolled ? "text-foreground/80" : "text-white/90"
+            }`}
+          >
+            Inicio
+          </button>
           {links.map((l) => (
             <a
               key={l.href}
