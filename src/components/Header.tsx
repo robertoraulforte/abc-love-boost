@@ -104,6 +104,15 @@ const Header = () => {
       {open && (
         <div className="border-t border-border bg-background lg:hidden">
           <nav className="container mx-auto flex flex-col gap-1 px-4 py-3">
+            <button
+              onClick={() => {
+                setOpen(false);
+                scrollToTop();
+              }}
+              className="rounded-md px-3 py-2 text-left text-sm font-semibold text-foreground hover:bg-muted"
+            >
+              Inicio
+            </button>
             {links.map((l) => (
               <a
                 key={l.href}
