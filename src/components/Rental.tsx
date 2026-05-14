@@ -7,7 +7,6 @@ const features = [
   "Auto preparado con doble comando",
   "Disponible para rendir el examen práctico",
   "Coordinación con tu turno municipal",
-  "Atención y traslado en Mar del Plata",
 ];
 
 const Rental = () => {

@@ -8,7 +8,6 @@ import logo from "@/assets/abc-logo.png";
 const links = [
   { href: "#cursos", label: "Cursos" },
   { href: "#promos", label: "Promos" },
-  { href: "#alquiler", label: "Alquiler de vehículo examen" },
   { href: "#como-contratar", label: "Cómo contratar" },
   { href: "#cobertura", label: "Zonas" },
   { href: "#contacto", label: "Contacto" },
@@ -114,7 +113,7 @@ const Header = () => {
               className="flex items-center gap-2 rounded-md bg-primary/10 px-3 py-2 text-sm font-bold text-primary"
             >
               <Car className="h-4 w-4" />
-              Alquiler de Vehículo
+              Alquiler de Auto para Examen
             </a>
 
             <a
