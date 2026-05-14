@@ -35,15 +35,15 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <div className={`container mx-auto flex items-center justify-between px-4 transition-smooth ${scrolled ? "h-16 md:h-16" : "h-20 md:h-24"}`}>
+      <div className={`container mx-auto flex items-center justify-between px-4 transition-smooth ${scrolled ? "h-14 md:h-16" : "h-16 md:h-20"}`}>
         <Link to="/" className="flex items-center gap-2 sm:gap-3" onClick={scrollToTop}>
           <img
             src={logo}
             alt="ABC Conducción"
-            className={`w-auto transition-smooth ${scrolled ? "h-12 md:h-14" : "h-16 md:h-20"}`}
+            className={`w-auto transition-smooth ${scrolled ? "h-10 md:h-12" : "h-12 md:h-16"}`}
           />
           <span
-            className={`text-[10px] font-bold uppercase leading-tight tracking-wider sm:text-xs ${
+            className={`flex items-center text-[10px] font-bold uppercase leading-tight tracking-wider sm:text-xs ${
               scrolled ? "text-foreground/80" : "text-white/90"
             }`}
           >
