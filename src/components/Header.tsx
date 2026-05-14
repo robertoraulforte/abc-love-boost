@@ -29,10 +29,10 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-smooth ${
+      className={`fixed inset-x-0 top-0 z-50 transition-smooth ${
         scrolled
-          ? "bg-background/90 backdrop-blur border-b border-border shadow-card"
-          : "bg-transparent"
+          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-card"
+          : "bg-background/40 backdrop-blur-sm"
       }`}
     >
       <div className={`container mx-auto flex items-center justify-between px-4 transition-smooth ${scrolled ? "h-14 md:h-16" : "h-16 md:h-20"}`}>
