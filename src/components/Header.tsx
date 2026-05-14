@@ -13,6 +13,8 @@ const links = [
   { href: "#contacto", label: "Contacto" },
 ];
 
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
