@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Courses from "@/components/Courses";
 import Promos from "@/components/Promos";
-import HowToHire from "@/components/HowToHire";
 import Coverage from "@/components/Coverage";
 import Contact from "@/components/Contact";
 import Rental from "@/components/Rental";
@@ -27,12 +26,11 @@ function Index() {
         <Rental />
         <QuickServices />
         <Promos />
-        <HowToHire />
+        <BookingSteps />
         <Coverage />
         <LicenseGuide />
         <Contact />
       </main>
-      <BookingSteps />
       <Footer />
       <FloatingWhatsApp />
     </div>
