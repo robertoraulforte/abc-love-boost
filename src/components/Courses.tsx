@@ -105,21 +105,32 @@ const Courses = () => {
             return (
               <article
                 key={c.level}
-                className={`group relative flex flex-col overflow-hidden rounded-2xl border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:red-glow ${
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border bg-card shadow-card transition-smooth hover:-translate-y-1 hover:red-glow ${
                   c.highlight
                     ? "border-primary red-glow"
                     : "border-border hover:border-primary"
                 }`}
               >
-                {c.badge && (
-                  <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-primary-foreground shadow-elegant">
-                    <Sparkles className="h-3 w-3" />
-                    {c.badge}
-                  </span>
-                )}
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-smooth group-hover:bg-primary group-hover:text-primary-foreground">
-                  <Icon className="h-6 w-6" />
+                <div className="relative h-32 w-full overflow-hidden">
+                  <img
+                    src={abcCar}
+                    alt="Auto ABC Conducción"
+                    className="h-full w-full object-cover opacity-80"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-background/40 to-background mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                  {c.badge && (
+                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-primary-foreground shadow-elegant">
+                      <Sparkles className="h-3 w-3" />
+                      {c.badge}
+                    </span>
+                  )}
+                  <div className="absolute bottom-3 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/90 text-primary-foreground shadow-elegant">
+                    <Icon className="h-6 w-6" />
+                  </div>
                 </div>
+                <div className="flex flex-1 flex-col p-6 pt-4">
                 <p className="mt-5 text-xs font-black uppercase tracking-widest text-primary">
                   {c.level}
                 </p>
