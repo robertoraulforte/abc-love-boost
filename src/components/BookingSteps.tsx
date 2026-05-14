@@ -22,7 +22,7 @@ const steps = [
 
 const BookingSteps = () => {
   return (
-    <section id="pasos" className="py-20 md:py-24">
+    <section id="como-contratar" className="scroll-mt-24 py-20 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
