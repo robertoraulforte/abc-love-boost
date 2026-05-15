@@ -142,25 +142,24 @@ const Courses = () => {
                     </div>
                   )}
 
-                  <div className="mt-auto pt-4">
-                    <ZoneDialog
-                      trigger={
-                        <Button variant="link" className="h-auto p-0 font-bold text-primary">
-                          Consultar →
-                        </Button>
-                      }
-                      message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
+                  <div className="mt-auto flex flex-col items-center pt-5">
+                    <img
+                      src={abcCar}
+                      alt="Fiat Mobi ABC Conducción"
+                      className="h-20 w-auto object-contain mix-blend-screen"
+                      loading="lazy"
                     />
+                    <div className="pt-3">
+                      <ZoneDialog
+                        trigger={
+                          <Button variant="link" className="h-auto p-0 font-bold text-primary">
+                            Consultar →
+                          </Button>
+                        }
+                        message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
+                      />
+                    </div>
                   </div>
-                </div>
-
-                <div className="relative h-24 w-full overflow-hidden bg-black flex items-center justify-center border-t border-red-600/20">
-                  <img
-                    src={abcCar}
-                    alt="Fiat Mobi ABC Conducción"
-                    className="h-full w-full object-contain"
-                    loading="lazy"
-                  />
                 </div>
               </article>
             );
