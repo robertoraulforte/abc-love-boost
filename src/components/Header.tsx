@@ -40,11 +40,11 @@ const Header = () => {
           <img
             src={logo}
             alt="ABC Conducción"
-            className={`w-auto transition-smooth ${scrolled ? "h-10 md:h-12" : "h-12 md:h-16"}`}
+            className={`w-auto transition-smooth ${scrolled ? "h-9 md:h-11" : "h-11 md:h-14"}`}
           />
           <span
-            className={`flex items-center text-[10px] font-bold uppercase leading-tight tracking-wider sm:text-xs ${
-              scrolled ? "text-foreground/80" : "text-white/90"
+            className={`flex items-center text-[9px] font-light uppercase leading-tight tracking-wide sm:text-[10px] md:text-xs ${
+              scrolled ? "text-foreground/70" : "text-white/80"
             }`}
           >
             Escuela de Conductores - Servicio a Domicilio

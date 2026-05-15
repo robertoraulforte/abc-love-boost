@@ -1,7 +1,7 @@
 import { Car, GraduationCap, Gauge, BookOpen, Home, Check, Sparkles, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
-import abcCar from "@/assets/abc-car.jpg";
+import abcCar from "@/assets/fiat-mobi.jpg";
 
 interface Course {
   icon: typeof Car;
@@ -105,17 +105,17 @@ const Courses = () => {
             return (
               <article
                 key={c.level}
-                className={`group relative flex flex-col overflow-hidden rounded-2xl border bg-[#121212] shadow-card transition-smooth hover:-translate-y-1 hover:red-glow ${
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border bg-[#121212] shadow-[0_0_15px_rgba(220,38,38,0.5)] transition-smooth hover:-translate-y-1 hover:red-glow ${
                   c.highlight
-                    ? "border-primary red-glow"
-                    : "border-red-600/30 hover:border-primary"
+                    ? "border-primary"
+                    : "border-red-600/40 hover:border-primary"
                 }`}
               >
-                <div className="relative h-44 w-full overflow-hidden">
+                <div className="relative h-56 w-full overflow-hidden bg-black flex items-center justify-center">
                   <img
                     src={abcCar}
-                    alt="Auto ABC Conducción"
-                    className="h-full w-full object-cover object-center"
+                    alt="Fiat Mobi ABC Conducción"
+                    className="h-full w-full object-contain"
                     loading="lazy"
                   />
                   {c.badge && (
