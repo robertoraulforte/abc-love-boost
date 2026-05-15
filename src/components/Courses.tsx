@@ -111,50 +111,56 @@ const Courses = () => {
                     : "border-red-600/40 hover:border-primary"
                 }`}
               >
-                <div className="relative h-56 w-full overflow-hidden bg-black flex items-center justify-center">
+                <div className="flex flex-1 flex-col p-6 text-white">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-elegant">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs font-black uppercase tracking-widest text-primary">
+                        {c.level}
+                      </p>
+                      <h3 className="text-2xl font-black text-white leading-tight">{c.classes}</h3>
+                    </div>
+                    {c.badge && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-primary-foreground shadow-elegant">
+                        <Sparkles className="h-3 w-3" />
+                        {c.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="mt-4 text-sm text-white/70">{c.description}</p>
+
+                  {c.level === "PRINCIPIANTE" ? <PrincipianteBenefits /> : <CommonBenefits />}
+
+                  {c.extra && (
+                    <div className="mt-3 flex items-center gap-2 rounded-lg bg-primary/10 p-2.5 text-sm font-bold text-primary">
+                      <Check className="h-4 w-4 shrink-0 stroke-[3]" />
+                      <Car className="h-4 w-4 shrink-0" />
+                      <span>{c.extra}</span>
+                    </div>
+                  )}
+
+                  <div className="mt-auto pt-4">
+                    <ZoneDialog
+                      trigger={
+                        <Button variant="link" className="h-auto p-0 font-bold text-primary">
+                          Consultar →
+                        </Button>
+                      }
+                      message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
+                    />
+                  </div>
+                </div>
+
+                <div className="relative h-24 w-full overflow-hidden bg-black flex items-center justify-center border-t border-red-600/20">
                   <img
                     src={abcCar}
                     alt="Fiat Mobi ABC Conducción"
                     className="h-full w-full object-contain"
                     loading="lazy"
                   />
-                  {c.badge && (
-                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-primary-foreground shadow-elegant">
-                      <Sparkles className="h-3 w-3" />
-                      {c.badge}
-                    </span>
-                  )}
-                  <div className="absolute -bottom-5 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-elegant ring-4 ring-[#121212]">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col p-6 pt-8 text-white">
-                <p className="text-xs font-black uppercase tracking-widest text-primary">
-                  {c.level}
-                </p>
-                <h3 className="mt-1 text-2xl font-black text-white">{c.classes}</h3>
-                <p className="mt-2 text-sm text-white/70">{c.description}</p>
-
-                {c.level === "PRINCIPIANTE" ? <PrincipianteBenefits /> : <CommonBenefits />}
-
-                {c.extra && (
-                  <div className="mt-3 flex items-center gap-2 rounded-lg bg-primary/10 p-2.5 text-sm font-bold text-primary">
-                    <Check className="h-4 w-4 shrink-0 stroke-[3]" />
-                    <Car className="h-4 w-4 shrink-0" />
-                    <span>{c.extra}</span>
-                  </div>
-                )}
-
-                <div className="mt-auto pt-4">
-                  <ZoneDialog
-                    trigger={
-                      <Button variant="link" className="h-auto p-0 font-bold text-primary">
-                        Consultar →
-                      </Button>
-                    }
-                    message={`Hola! Quiero consultar por el curso ${c.level} (${c.classes}).`}
-                  />
-                </div>
                 </div>
               </article>
             );
