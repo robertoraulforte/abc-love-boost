@@ -31,6 +31,9 @@ interface Promo {
   title: string;
   description: string | null;
   created_at: string | null;
+  archivo_url: string | null;
+  archivo_nombre: string | null;
+  archivo_tipo: string | null;
 }
 
 function PromosPublic() {
@@ -42,8 +45,9 @@ function PromosPublic() {
       const { data, error } = await supabase
         .schema("public")
         .from("promos")
-        .select("id, title, description, created_at")
+        .select("id, title, description, created_at, archivo_url, archivo_nombre, archivo_tipo")
         .order("created_at", { ascending: false });
+
 
       if (error) {
         console.error("Promos fetch error:", error);
