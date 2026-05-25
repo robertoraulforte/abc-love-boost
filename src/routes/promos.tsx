@@ -31,6 +31,9 @@ interface Promo {
   title: string;
   description: string | null;
   created_at: string | null;
+  archivo_url: string | null;
+  archivo_nombre: string | null;
+  archivo_tipo: string | null;
 }
 
 function PromosPublic() {
@@ -42,8 +45,9 @@ function PromosPublic() {
       const { data, error } = await supabase
         .schema("public")
         .from("promos")
-        .select("id, title, description, created_at")
+        .select("id, title, description, created_at, archivo_url, archivo_nombre, archivo_tipo")
         .order("created_at", { ascending: false });
+
 
       if (error) {
         console.error("Promos fetch error:", error);
@@ -103,14 +107,31 @@ function PromosPublic() {
               {promos.map((p) => (
                 <article
                   key={p.id}
-                  className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant"
+                  className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant"
                 >
+                  {p.archivo_url && p.archivo_tipo?.startsWith("image/") && (
+                    <a
+                      href={p.archivo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mb-4 block overflow-hidden rounded-xl border border-border bg-muted/30"
+                    >
+                      <img
+                        src={p.archivo_url}
+                        alt={p.title}
+                        loading="lazy"
+                        className="h-auto w-full object-contain"
+                      />
+                    </a>
+                  )}
                   <span className="inline-flex w-fit items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold uppercase text-primary-foreground">
                     <Tag className="h-3 w-3" /> Promo
                   </span>
-                  <h2 className="mt-4 text-xl font-bold">{p.title}</h2>
+                  <h2 className="mt-4 text-xl font-bold break-words">{p.title}</h2>
                   {p.description && (
-                    <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
+                    <p className="mt-2 whitespace-pre-wrap break-words text-sm text-muted-foreground">
+                      {p.description}
+                    </p>
                   )}
                   {p.created_at && (
                     <p className="mt-3 text-xs text-muted-foreground">
@@ -133,6 +154,7 @@ function PromosPublic() {
                   </div>
                 </article>
               ))}
+
             </div>
           )}
         </section>

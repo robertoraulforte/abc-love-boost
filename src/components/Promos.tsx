@@ -97,40 +97,41 @@ const Promos = () => {
                   key={p.id}
                   className="relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant"
                 >
+                  {p.archivo_url && p.archivo_tipo?.startsWith("image/") && (
+                    <a
+                      href={p.archivo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mb-4 block overflow-hidden rounded-xl border border-border bg-muted/30"
+                    >
+                      <img
+                        src={p.archivo_url}
+                        alt={p.title}
+                        loading="lazy"
+                        className="h-auto w-full object-contain"
+                      />
+                    </a>
+                  )}
                   <span className="inline-flex w-fit animate-pulse items-center gap-1 rounded-full bg-red-600 px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-white shadow-elegant ring-2 ring-red-500/40">
                     <Tag className="h-3 w-3" />
                     ¡Oferta limitada!
                   </span>
-                  <h3 className="mt-4 text-xl font-bold">{p.title}</h3>
+                  <h3 className="mt-4 text-xl font-bold break-words">{p.title}</h3>
                   {p.description && (
-                    <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
+                    <p className="mt-2 whitespace-pre-wrap break-words text-sm text-muted-foreground">
+                      {p.description}
+                    </p>
                   )}
-                  {p.archivo_url && (
-                    p.archivo_tipo?.startsWith("image/") ? (
-                      <a
-                        href={p.archivo_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 block overflow-hidden rounded-xl border border-border"
-                      >
-                        <img
-                          src={p.archivo_url}
-                          alt={p.title}
-                          loading="lazy"
-                          className="h-40 w-full object-cover transition-smooth hover:scale-[1.02]"
-                        />
-                      </a>
-                    ) : (
-                      <a
-                        href={p.archivo_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-2 text-xs font-semibold text-primary hover:bg-muted"
-                      >
-                        <FileText className="h-4 w-4" />
-                        {p.archivo_nombre ?? "Ver archivo adjunto"}
-                      </a>
-                    )
+                  {p.archivo_url && !p.archivo_tipo?.startsWith("image/") && (
+                    <a
+                      href={p.archivo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-2 text-xs font-semibold text-primary hover:bg-muted"
+                    >
+                      <FileText className="h-4 w-4" />
+                      {p.archivo_nombre ?? "Ver archivo adjunto"}
+                    </a>
                   )}
                   <div className="mt-auto pt-5">
                     <ZoneDialog
@@ -144,6 +145,7 @@ const Promos = () => {
                   </div>
                 </article>
               ))}
+
             </div>
 
             {promos.length > 3 && (
