@@ -45,13 +45,22 @@ const ZoneDialog = ({
         <div className="grid gap-3 pt-2">
           {ZONES.map((z, i) => {
             const Icon = i === 0 ? MapPin : Navigation;
+            const sendTo =
+              i === 0
+                ? "AW-843038448/R0tqcCO2Y-rccEPD9_pED"
+                : "AW-843038448/5NbgCOiz-rccEPD9_pED";
             return (
               <a
                 key={z.id}
                 href={waUrl(z.phone, message ?? z.message)}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  if (window.gtag) {
+                    window.gtag("event", "conversion", { send_to: sendTo });
+                  }
+                }}
                 className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-4 transition-smooth hover:border-primary hover:shadow-elegant"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
