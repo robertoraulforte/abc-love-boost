@@ -10,6 +10,12 @@ import {
 } from "@/components/ui/dialog";
 import { ZONES, waUrl } from "@/lib/whatsapp";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 interface ZoneDialogProps {
   trigger: ReactNode;
   /** Optional override; by default each zone uses its own tailored message. */
