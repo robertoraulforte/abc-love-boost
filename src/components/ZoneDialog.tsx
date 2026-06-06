@@ -8,13 +8,7 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ZONES, waUrl } from "@/lib/whatsapp";
-
-declare global {
-  interface Window {
-    gtag?: (...args: unknown[]) => void;
-  }
-}
+import { ZONES, waUrl, trackZoneConversion } from "@/lib/whatsapp";
 
 interface ZoneDialogProps {
   trigger: ReactNode;
