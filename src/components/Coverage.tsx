@@ -1,6 +1,6 @@
 import { MapPin, Phone, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ZONES, waUrl } from "@/lib/whatsapp";
+import { ZONES, waUrl, trackZoneConversion } from "@/lib/whatsapp";
 
 const branches = [
   {
