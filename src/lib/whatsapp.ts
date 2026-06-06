@@ -27,3 +27,17 @@ export const ZONES = [
 export function waUrl(phone: string, message = WHATSAPP_MESSAGE) {
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
+
+export const ZONE_CONVERSION_SEND_TO: Record<string, string> = {
+  z1: "AW-843038448/R0tqcCO2Y-rccEPD9_pED",
+  z2: "AW-843038448/5NbgCOiz-rccEPD9_pED",
+};
+
+export function trackZoneConversion(zoneId: string) {
+  const sendTo = ZONE_CONVERSION_SEND_TO[zoneId];
+  if (!sendTo) return;
+  const w = typeof window !== "undefined" ? (window as Window & { gtag?: (...args: unknown[]) => void }) : undefined;
+  if (w?.gtag) {
+    w.gtag("event", "conversion", { send_to: sendTo });
+  }
+}
