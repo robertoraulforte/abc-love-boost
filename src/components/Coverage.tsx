@@ -55,7 +55,7 @@ const Coverage = () => {
                     <p className="mt-1 text-sm text-foreground/80">{b.barrios}</p>
                   </div>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    <a href={waUrl(b.phone)} target="_blank" rel="noopener noreferrer">
+                    <a href={waUrl(b.phone)} target="_blank" rel="noopener noreferrer" onClick={() => trackZoneConversion(b.id)}>
                       <Button className="bg-[oklch(0.7_0.17_145)] font-bold uppercase text-white hover:bg-[oklch(0.65_0.17_145)]">
                         WhatsApp
                       </Button>
