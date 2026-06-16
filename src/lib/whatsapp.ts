@@ -36,8 +36,21 @@ export const ZONE_CONVERSION_SEND_TO: Record<string, string> = {
 export function trackZoneConversion(zoneId: string) {
   const sendTo = ZONE_CONVERSION_SEND_TO[zoneId];
   if (!sendTo) return;
-  const w = typeof window !== "undefined" ? (window as Window & { gtag?: (...args: unknown[]) => void }) : undefined;
+  
+  const w = typeof window !== "undefined" ? (window as any) : undefined;
+  
+  // Track via gtag
   if (w?.gtag) {
     w.gtag("event", "conversion", { send_to: sendTo });
+  }
+
+  // Push custom event to dataLayer
+  if (typeof window !== "undefined") {
+    const w = window as any;
+    w.dataLayer = w.dataLayer || [];
+    w.dataLayer.push({
+      event: "whatsapp_click",
+      zona_id: zoneId,
+    });
   }
 }
