@@ -30,7 +30,7 @@ export function waUrl(phone: string, message = WHATSAPP_MESSAGE) {
 
 export const ZONE_CONVERSION_SEND_TO: Record<string, string> = {
   z1: "AW-843038448/R0tqcCO2Y-rccEPD9_pED",
-  z2: "AW-843038448/5NbgCOiz-rccEPD9_pED",
+  z2: "AW-843038448/5NbgCOiZ-rccEPD9_pED",
 };
 
 export function trackZoneConversion(zoneId: string) {
