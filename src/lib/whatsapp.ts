@@ -34,23 +34,31 @@ export const ZONE_CONVERSION_SEND_TO: Record<string, string> = {
 };
 
 export function trackZoneConversion(zoneId: string) {
-  const sendTo = ZONE_CONVERSION_SEND_TO[zoneId];
-  if (!sendTo) return;
-  
-  const w = typeof window !== "undefined" ? (window as any) : undefined;
-  
-  // Track via gtag
-  if (w?.gtag) {
-    w.gtag("event", "conversion", { send_to: sendTo });
+  // Normaliza el ID por si en algún componente se pasa "1" en lugar de "z1"
+  const normalizedId = zoneId.startsWith("z") ? zoneId : `z${zoneId}`;
+
+  const sendTo = ZONE_CONVERSION_SEND_TO[normalizedId];
+  if (!sendTo) {
+    console.warn(`[Tracking] No se encontró configuración para el ID de zona: ${zoneId} (normalizado: ${normalizedId})`);
+    return;
   }
 
-  // Push custom event to dataLayer
+  const w = typeof window !== "undefined" ? (window as any) : undefined;
+
+  // Trackear vía gtag directo a Google Ads
+  if (w?.gtag) {
+    w.gtag("event", "conversion", { send_to: sendTo });
+    console.log(`[Tracking] Evento gtag enviado con éxito para: ${normalizedId}`);
+  }
+
+  // Push de evento personalizado al dataLayer global para compatibilidad universal
   if (typeof window !== "undefined") {
     const w = window as any;
     w.dataLayer = w.dataLayer || [];
     w.dataLayer.push({
       event: "whatsapp_click",
-      zona_id: zoneId,
+      zona_id: normalizedId,
     });
+    console.log(`[Tracking] Evento push en dataLayer ejecutado para: ${normalizedId}`);
   }
 }
