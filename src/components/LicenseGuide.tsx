@@ -6,6 +6,8 @@ import {
   Download,
   ExternalLink,
   ChevronDown,
+  BookOpen,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
