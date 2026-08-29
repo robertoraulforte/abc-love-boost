@@ -15,7 +15,7 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 async function fetchIsAdmin(userId: string): Promise<boolean> {
-  // Primary: direct query against user_roles (RLS lets users see their own roles).
+  // Direct query against user_roles (RLS lets users see their own roles).
   const { data, error } = await supabase
     .schema("public")
     .from("user_roles")
@@ -23,16 +23,11 @@ async function fetchIsAdmin(userId: string): Promise<boolean> {
     .eq("user_id", userId)
     .eq("role", "admin")
     .maybeSingle();
-  if (!error && data) return true;
-  if (error) console.warn("[useAuth] user_roles query failed:", error.message);
-
-  // Fallback: RPC has_role
-  const { data: rpcData, error: rpcErr } = await supabase.rpc("has_role", {
-    _user_id: userId,
-    _role: "admin",
-  });
-  if (rpcErr) console.warn("[useAuth] has_role RPC failed:", rpcErr.message);
-  return Boolean(rpcData);
+  if (error) {
+    console.warn("[useAuth] user_roles query failed:", error.message);
+    return false;
+  }
+  return Boolean(data);
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
