@@ -7,9 +7,9 @@ import {
   ExternalLink,
   ChevronDown,
   BookOpen,
-  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import tutorialPdf from "@/assets/tutorial-licencias-turnera.pdf.asset.json";
 
 const MATERIAL_ESTUDIO =
   "https://www.mardelplata.gob.ar/documentos/transporte_y_transito/manualdetransito-baja.pdf";
