@@ -166,15 +166,21 @@ const LicenseGuide = () => {
               <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
           </a>
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={() => setShowTutorial(true)}
-            className="w-full border-primary/40 font-bold hover:border-primary hover:red-glow sm:w-auto"
+          <a
+            href={tutorialPdf.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto"
           >
-            <BookOpen className="mr-2 h-5 w-5" />
-            Tutorial para Sacar Turno
-          </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full border-primary/40 font-bold hover:border-primary hover:red-glow"
+            >
+              <BookOpen className="mr-2 h-5 w-5" />
+              Tutorial para Sacar Turno
+            </Button>
+          </a>
           <a
             href={MATERIAL_ESTUDIO}
             target="_blank"
