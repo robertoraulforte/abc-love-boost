@@ -68,7 +68,7 @@ const steps: Step[] = [
           "Una vez aprobado el teórico, estarás en condiciones de solicitar turno para el examen práctico.",
       },
     ],
-    note: "De este paso se encarga la academia: te acompañamos y vas con nuestros vehículos.",
+    note: "Coordinar previamente con la academia qué turno sacar",
   },
 ];
 
