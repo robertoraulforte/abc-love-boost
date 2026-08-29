@@ -6,13 +6,14 @@ import {
   Download,
   ExternalLink,
   ChevronDown,
+  BookOpen,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const MATERIAL_ESTUDIO =
   "https://www.mardelplata.gob.ar/documentos/transporte_y_transito/manualdetransito-baja.pdf";
-const MUNICIPALIDAD_TURNOS =
-  "https://www.mardelplata.gob.ar/asistencia-licencia-de-conducir";
+const MUNICIPALIDAD_TURNOS = "https://autenticar.mardelplata.gob.ar/";
 
 type Step = {
   icon: typeof FileCheck;
@@ -67,12 +68,24 @@ const steps: Step[] = [
           "Una vez aprobado el teórico, estarás en condiciones de solicitar turno para el examen práctico.",
       },
     ],
-    note: "De este paso se encarga la academia: te acompañamos y vas con nuestros vehículos.",
+    note: "Coordinar previamente con la academia qué turno sacar",
   },
+];
+
+const tutorialSteps = [
+  "Ingresá a https://autenticar.mardelplata.gob.ar/ y seleccioná la opción 'Ciudadano'.",
+  "Iniciá sesión con tu cuenta de ARCA (ex AFIP) o Mi Argentina.",
+  "Una vez dentro del sistema MDQ Digital, buscá la opción 'Turnos' o 'Licencia de Conducir'.",
+  "Completá tus datos personales y verificá que estén actualizados.",
+  "Seleccioná la sede municipal donde querés atenderte.",
+  "Elegí la fecha y horario disponible que mejor se adapta a tu agenda.",
+  "Confirmá el turno y descargá o guardá el comprobante.",
+  "Acudí a la sede el día y horario indicados con la documentación requerida.",
 ];
 
 const LicenseGuide = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   return (
     <section id="licencia" className="py-20 md:py-28">
@@ -150,7 +163,7 @@ const LicenseGuide = () => {
           })}
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-2xl flex-col items-center justify-center gap-3 sm:flex-row">
+        <div className="mx-auto mt-10 flex max-w-2xl flex-col items-stretch justify-center gap-3 sm:flex-row">
           <a
             href={MUNICIPALIDAD_TURNOS}
             target="_blank"
@@ -165,6 +178,15 @@ const LicenseGuide = () => {
               <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
           </a>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => setShowTutorial(true)}
+            className="w-full border-primary/40 font-bold hover:border-primary hover:red-glow sm:w-auto"
+          >
+            <BookOpen className="mr-2 h-5 w-5" />
+            Tutorial para Sacar Turno
+          </Button>
           <a
             href={MATERIAL_ESTUDIO}
             target="_blank"
@@ -182,6 +204,75 @@ const LicenseGuide = () => {
           </a>
         </div>
       </div>
+
+      {showTutorial && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+          onClick={() => setShowTutorial(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Tutorial para sacar turno"
+        >
+          <div
+            className="relative max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-primary/40 bg-card p-6 shadow-elegant"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setShowTutorial(false)}
+              className="absolute right-4 top-4 rounded-full p-1 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+              aria-label="Cerrar tutorial"
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            <h3 className="pr-8 text-2xl font-black">
+              Tutorial para Sacar Turno
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Seguí estos 8 pasos para gestionar tu turno en MDQ Digital
+              validando identidad con ARCA o Mi Argentina.
+            </p>
+
+            <ol className="mt-6 space-y-4">
+              {tutorialSteps.map((step, i) => (
+                <li
+                  key={i}
+                  className="flex gap-4 rounded-xl border border-border bg-background/40 p-4"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-black text-primary-foreground">
+                    {i + 1}
+                  </span>
+                  <p className="text-sm leading-relaxed text-foreground/90">
+                    {step}
+                  </p>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={MUNICIPALIDAD_TURNOS}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <Button className="gradient-primary w-full font-black uppercase tracking-wide text-primary-foreground">
+                  Ir al Turnero Municipal
+                  <ExternalLink className="ml-2 h-4 w-4" />
+                </Button>
+              </a>
+              <Button
+                variant="outline"
+                onClick={() => setShowTutorial(false)}
+                className="w-full border-primary/40 font-bold hover:border-primary hover:red-glow sm:w-auto"
+              >
+                Cerrar
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
