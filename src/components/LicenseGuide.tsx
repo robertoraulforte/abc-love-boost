@@ -72,8 +72,20 @@ const steps: Step[] = [
   },
 ];
 
+const tutorialSteps = [
+  "Ingresá a https://autenticar.mardelplata.gob.ar/ y seleccioná la opción 'Ciudadano'.",
+  "Iniciá sesión con tu cuenta de ARCA (ex AFIP) o Mi Argentina.",
+  "Una vez dentro del sistema MDQ Digital, buscá la opción 'Turnos' o 'Licencia de Conducir'.",
+  "Completá tus datos personales y verificá que estén actualizados.",
+  "Seleccioná la sede municipal donde querés atenderte.",
+  "Elegí la fecha y horario disponible que mejor se adapta a tu agenda.",
+  "Confirmá el turno y descargá o guardá el comprobante.",
+  "Acudí a la sede el día y horario indicados con la documentación requerida.",
+];
+
 const LicenseGuide = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   return (
     <section id="licencia" className="py-20 md:py-28">
