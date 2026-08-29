@@ -13,8 +13,7 @@ import { Button } from "@/components/ui/button";
 
 const MATERIAL_ESTUDIO =
   "https://www.mardelplata.gob.ar/documentos/transporte_y_transito/manualdetransito-baja.pdf";
-const MUNICIPALIDAD_TURNOS =
-  "https://www.mardelplata.gob.ar/asistencia-licencia-de-conducir";
+const MUNICIPALIDAD_TURNOS = "https://autenticar.mardelplata.gob.ar/";
 
 type Step = {
   icon: typeof FileCheck;
