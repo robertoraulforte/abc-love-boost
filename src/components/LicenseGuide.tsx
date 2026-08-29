@@ -55,6 +55,11 @@ const steps: Step[] = [
         detail:
           "Repasá el manual oficial antes de rendir (descarga disponible más abajo).",
       },
+      {
+        label: "Aprobación requerida",
+        detail:
+          "Después de aprobar el examen teórico, estarás en condiciones de solicitar turno para el examen práctico.",
+      },
     ],
   },
   {
