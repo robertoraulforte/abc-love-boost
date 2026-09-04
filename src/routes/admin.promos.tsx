@@ -9,6 +9,8 @@ import {
   Trash2,
   LogOut,
   ExternalLink,
+  Copy,
+  Share2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";

@@ -1,4 +1,5 @@
-import { ArrowRight, ShieldCheck, MapPin, Home, GraduationCap, Sparkles, Tag, Car } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin, Home, GraduationCap, Sparkles, Tag, Car, FileQuestion } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import heroImg from "@/assets/abc-mobi.jpg";
