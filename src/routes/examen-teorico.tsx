@@ -140,7 +140,7 @@ function ExamenTeorico() {
               </div>
 
               {question.sign && (
-                <div className="mt-8 flex justify-center rounded-2xl border border-border bg-background/50 py-6">
+                <div className="mx-auto mt-8 flex aspect-square w-full max-w-[240px] items-center justify-center rounded-2xl border border-border bg-background/50 p-4 sm:max-w-[280px]">
                   <TrafficSign sign={question.sign} />
                 </div>
               )}
