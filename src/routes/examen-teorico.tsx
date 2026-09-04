@@ -280,8 +280,8 @@ function ExamenTeorico() {
                         {isOpen && (
                           <div className="border-t border-border px-4 pb-4 pt-3">
                             {q.sign && (
-                              <div className="mb-3 flex justify-center">
-                                <TrafficSign sign={q.sign} className="h-24 w-24" />
+                              <div className="mx-auto mb-3 flex aspect-square w-full max-w-[140px] items-center justify-center rounded-xl border border-border bg-background/50 p-3">
+                                <TrafficSign sign={q.sign} />
                               </div>
                             )}
                             <p className="text-sm">
