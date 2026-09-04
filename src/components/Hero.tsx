@@ -38,7 +38,18 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
+          <Link
+            to="/examen-teorico"
+            className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-gradient-to-r from-primary/20 to-primary/5 px-4 py-2.5 text-sm font-bold text-white shadow-card backdrop-blur transition-smooth hover:border-primary hover:bg-primary/30 hover:red-glow sm:w-auto"
+          >
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elegant">
+              <FileQuestion className="h-3.5 w-3.5" />
+            </span>
+            <span className="truncate">✨ Practicá el Examen Teórico Online</span>
+            <ArrowRight className="h-4 w-4 shrink-0 text-primary-glow transition-transform group-hover:translate-x-1" />
+          </Link>
+
+          <h1 className="mt-5 text-4xl font-black leading-tight md:text-6xl">
             Tu primera experiencia al volante,
             <br />
             <span className="text-primary-glow">bien acompañada.</span>
