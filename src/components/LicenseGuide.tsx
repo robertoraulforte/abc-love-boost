@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { toast } from "sonner";
 import {
   FileCheck,
   CalendarCheck,
@@ -7,9 +9,26 @@ import {
   ExternalLink,
   ChevronDown,
   BookOpen,
+  GraduationCap,
+  PlayCircle,
+  Copy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import tutorialPdf from "@/assets/tutorial-licencias-turnera.pdf.asset.json";
+
+const copyExamLink = async () => {
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/examen-teorico`
+      : "/examen-teorico";
+  try {
+    await navigator.clipboard.writeText(url);
+    toast.success("¡Link copiado! Ya lo podés compartir.");
+  } catch {
+    toast.error("No pudimos copiar el link. Copialo manualmente: " + url);
+  }
+};
+
 
 const MATERIAL_ESTUDIO =
   "https://www.mardelplata.gob.ar/documentos/transporte_y_transito/manualdetransito-baja.pdf";
