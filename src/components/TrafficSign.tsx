@@ -9,10 +9,30 @@ const BLACK = "#111111";
 const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: string }) => {
   const common = {
     viewBox: "0 0 120 120",
-    className: `mx-auto h-auto w-full max-w-[180px] sm:max-w-[220px] ${className}`,
+    preserveAspectRatio: "xMidYMid meet",
+    className: `aspect-square h-full w-full object-contain ${className}`,
     role: "img",
     "aria-label": "Señal de tránsito",
   } as const;
+
+  const PreventiveDiamond = () => (
+    <>
+      <polygon
+        points="60,4 116,60 60,116 4,60"
+        fill={YELLOW}
+        stroke={BLACK}
+        strokeWidth="3"
+        strokeLinejoin="round"
+      />
+      <polygon
+        points="60,10 110,60 60,110 10,60"
+        fill="none"
+        stroke={BLACK}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </>
+  );
 
   switch (sign) {
     // CEDA EL PASO — triángulo invertido blanco con borde rojo
@@ -20,31 +40,27 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
       return (
         <svg {...common}>
           <polygon
-            points="60,110 8,14 112,14"
+            points="60,111 7,14 113,14"
             fill={WHITE}
             stroke={RED}
-            strokeWidth="14"
+            strokeWidth="11"
             strokeLinejoin="round"
           />
+          <polygon points="60,101 17,22 103,22" fill="none" stroke={WHITE} strokeWidth="2" />
         </svg>
       );
     // PARE — octágono rojo, borde blanco, texto PARE
     case "pare":
       return (
         <svg {...common}>
+          <polygon points="43,5 77,5 115,43 115,77 77,115 43,115 5,77 5,43" fill={RED} stroke={WHITE} strokeWidth="3" />
           <polygon
-            points="45,6 75,6 114,45 114,75 75,114 45,114 6,75 6,45"
-            fill={RED}
-            stroke={WHITE}
-            strokeWidth="5"
-          />
-          <polygon
-            points="45,14 75,14 106,45 106,75 75,106 45,106 14,75 14,45"
+            points="45,11 75,11 109,45 109,75 75,109 45,109 11,75 11,45"
             fill="none"
             stroke={WHITE}
             strokeWidth="2"
           />
-          <text x="60" y="72" textAnchor="middle" fontSize="26" fontWeight="700" fill={WHITE}>
+          <text x="60" y="70" textAnchor="middle" dominantBaseline="middle" fontFamily="Arial, sans-serif" fontSize="28" fontWeight="800" fill={WHITE}>
             PARE
           </text>
         </svg>
@@ -53,16 +69,16 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
     case "contramano":
       return (
         <svg {...common}>
-          <circle cx="60" cy="60" r="54" fill={RED} stroke={BLACK} strokeWidth="2" />
-          <rect x="26" y="50" width="68" height="20" rx="2" fill={WHITE} />
+          <circle cx="60" cy="60" r="54" fill={RED} stroke={WHITE} strokeWidth="2" />
+          <rect x="24" y="49" width="72" height="22" rx="2" fill={WHITE} />
         </svg>
       );
     // PROHIBIDO ESTACIONAR — fondo azul, borde rojo, diagonal roja, E blanca
     case "no-estacionar":
       return (
         <svg {...common}>
-          <circle cx="60" cy="60" r="52" fill={BLUE} stroke={RED} strokeWidth="10" />
-          <text x="60" y="78" textAnchor="middle" fontSize="50" fontWeight="700" fill={WHITE}>
+          <circle cx="60" cy="60" r="52" fill={BLUE} stroke={RED} strokeWidth="9" />
+          <text x="60" y="61" textAnchor="middle" dominantBaseline="middle" fontFamily="Arial, sans-serif" fontSize="50" fontWeight="700" fill={WHITE}>
             E
           </text>
           <line x1="26" y1="94" x2="94" y2="26" stroke={RED} strokeWidth="9" />
@@ -72,8 +88,8 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
     case "velocidad-max":
       return (
         <svg {...common}>
-          <circle cx="60" cy="60" r="52" fill={WHITE} stroke={RED} strokeWidth="12" />
-          <text x="60" y="76" textAnchor="middle" fontSize="40" fontWeight="700" fill={BLACK}>
+          <circle cx="60" cy="60" r="52" fill={WHITE} stroke={RED} strokeWidth="10" />
+          <text x="60" y="61" textAnchor="middle" dominantBaseline="middle" fontFamily="Arial, sans-serif" fontSize="42" fontWeight="700" fill={BLACK}>
             60
           </text>
         </svg>
@@ -83,8 +99,8 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
       return (
         <svg {...common}>
           <circle cx="60" cy="60" r="52" fill={WHITE} stroke={RED} strokeWidth="10" />
-          <path d="M78 94 L78 56 L48 56" stroke={BLACK} strokeWidth="10" fill="none" />
-          <polygon points="46,38 26,56 46,74" fill={BLACK} />
+          <path d="M79 94 L79 58 Q79 44 65 44 L45 44" stroke={BLACK} strokeWidth="9" strokeLinecap="round" fill="none" />
+          <polygon points="47,27 26,44 47,61" fill={BLACK} />
           <line x1="26" y1="94" x2="94" y2="26" stroke={RED} strokeWidth="9" />
         </svg>
       );
@@ -92,28 +108,26 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
     case "rotonda":
       return (
         <svg {...common}>
-          <rect x="60" y="6" width="76" height="76" transform="rotate(45 60 60)" fill={YELLOW} stroke={BLACK} strokeWidth="5" />
-          <path d="M60 34 A26 26 0 0 1 82 48" stroke={BLACK} strokeWidth="7" fill="none" />
-          <polygon points="88,38 90,58 70,52" fill={BLACK} />
-          <path d="M84 56 A26 26 0 0 1 60 86" stroke={BLACK} strokeWidth="7" fill="none" />
-          <polygon points="50,90 72,90 62,72" fill={BLACK} />
-          <path d="M52 80 A26 26 0 0 1 40 46" stroke={BLACK} strokeWidth="7" fill="none" />
-          <polygon points="30,52 46,38 50,58" fill={BLACK} />
+          <PreventiveDiamond />
+          <path d="M48 39 A27 27 0 0 1 80 47" stroke={BLACK} strokeWidth="6" strokeLinecap="round" fill="none" />
+          <polygon points="84,38 87,58 68,51" fill={BLACK} />
+          <path d="M83 62 A27 27 0 0 1 62 86" stroke={BLACK} strokeWidth="6" strokeLinecap="round" fill="none" />
+          <polygon points="51,89 71,90 62,72" fill={BLACK} />
+          <path d="M51 82 A27 27 0 0 1 37 51" stroke={BLACK} strokeWidth="6" strokeLinecap="round" fill="none" />
+          <polygon points="29,53 44,38 49,58" fill={BLACK} />
         </svg>
       );
     // CRUZ DE SAN ANDRÉS — aspa blanca con borde rojo
     case "cruz-san-andres":
       return (
         <svg {...common}>
-          <line x1="20" y1="20" x2="100" y2="100" stroke={WHITE} strokeWidth="18" />
-          <line x1="100" y1="20" x2="20" y2="100" stroke={WHITE} strokeWidth="18" />
-          <line x1="20" y1="20" x2="100" y2="100" stroke={RED} strokeWidth="18" strokeDasharray="none" opacity="0" />
-          <path d="M20 12 L108 92 M28 12 L108 84" stroke="none" />
-          <g stroke={RED} strokeWidth="3">
-            <line x1="20" y1="9" x2="111" y2="100" />
-            <line x1="9" y1="20" x2="100" y2="111" />
-            <line x1="111" y1="20" x2="20" y2="111" />
-            <line x1="100" y1="9" x2="9" y2="100" />
+          <g stroke={RED} strokeWidth="22" strokeLinecap="square">
+            <line x1="22" y1="22" x2="98" y2="98" />
+            <line x1="98" y1="22" x2="22" y2="98" />
+          </g>
+          <g stroke={WHITE} strokeWidth="14" strokeLinecap="square">
+            <line x1="22" y1="22" x2="98" y2="98" />
+            <line x1="98" y1="22" x2="22" y2="98" />
           </g>
         </svg>
       );
@@ -121,20 +135,20 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
     case "calzada-estrecha":
       return (
         <svg {...common}>
-          <rect x="60" y="6" width="76" height="76" transform="rotate(45 60 60)" fill={YELLOW} stroke={BLACK} strokeWidth="5" />
-          <polygon points="42,30 54,30 49,60 54,90 42,90 47,60" fill={BLACK} />
-          <polygon points="78,30 66,30 71,60 66,90 78,90 73,60" fill={BLACK} />
+          <PreventiveDiamond />
+          <path d="M39 31 H50 L55 53 V89 H45 V55 Z" fill={BLACK} />
+          <path d="M81 31 H70 L65 53 V89 H75 V55 Z" fill={BLACK} />
         </svg>
       );
     // ZONA ESCOLAR — rombo amarillo con dos niños
     case "zona-escolar":
       return (
         <svg {...common}>
-          <rect x="60" y="6" width="76" height="76" transform="rotate(45 60 60)" fill={YELLOW} stroke={BLACK} strokeWidth="5" />
-          <circle cx="48" cy="42" r="7" fill={BLACK} />
-          <path d="M48 50 L48 74 M48 58 L36 66 M48 58 L60 66 M48 74 L40 90 M48 74 L56 90" stroke={BLACK} strokeWidth="5" fill="none" />
-          <circle cx="76" cy="48" r="6" fill={BLACK} />
-          <path d="M76 55 L76 76 M76 62 L66 69 M76 76 L70 90 M76 76 L82 90" stroke={BLACK} strokeWidth="5" fill="none" />
+          <PreventiveDiamond />
+          <circle cx="48" cy="39" r="6" fill={BLACK} />
+          <path d="M48 47 L45 65 M46 53 L34 61 M45 65 L35 84 M45 65 L55 83" stroke={BLACK} strokeWidth="5" strokeLinecap="round" fill="none" />
+          <circle cx="72" cy="47" r="5" fill={BLACK} />
+          <path d="M71 53 L68 69 M69 58 L58 64 M68 69 L61 84 M68 69 L78 82" stroke={BLACK} strokeWidth="5" strokeLinecap="round" fill="none" />
         </svg>
       );
     // PROHIBIDO CIRCULAR BICICLETAS — bicicleta negra tachada, borde rojo

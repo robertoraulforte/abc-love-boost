@@ -140,7 +140,7 @@ function ExamenTeorico() {
               </div>
 
               {question.sign && (
-                <div className="mx-auto mt-8 flex aspect-square w-full max-w-[240px] items-center justify-center rounded-2xl border border-border bg-background/50 p-4 sm:max-w-[280px]">
+                <div className="mx-auto mt-8 flex h-[200px] w-full max-w-[200px] items-center justify-center rounded-xl border border-border bg-neutral-900/50 p-2">
                   <TrafficSign sign={question.sign} />
                 </div>
               )}
@@ -280,7 +280,7 @@ function ExamenTeorico() {
                         {isOpen && (
                           <div className="border-t border-border px-4 pb-4 pt-3">
                             {q.sign && (
-                              <div className="mx-auto mb-3 flex aspect-square w-full max-w-[140px] items-center justify-center rounded-xl border border-border bg-background/50 p-3">
+                              <div className="mx-auto mb-3 flex h-[200px] w-full max-w-[200px] items-center justify-center rounded-xl border border-border bg-neutral-900/50 p-2">
                                 <TrafficSign sign={q.sign} />
                               </div>
                             )}
