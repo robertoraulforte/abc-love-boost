@@ -9,6 +9,8 @@ import {
   Trash2,
   LogOut,
   ExternalLink,
+  Copy,
+  Share2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -442,6 +444,59 @@ function AdminPromos() {
             ))}
           </div>
         )}
+
+        <section className="mt-12">
+          <h2 className="text-lg font-bold">Recursos para Redes Social / Difusión</h2>
+          <p className="text-sm text-muted-foreground">
+            Links directos para compartir en historias, bio de Instagram o WhatsApp.
+          </p>
+
+          <Card className="mt-4">
+            <CardContent className="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <Share2 className="h-4 w-4 shrink-0 text-primary" />
+                  <h3 className="font-bold">Simulador de Examen Teórico</h3>
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Compartí el acceso directo al simulador online.
+                </p>
+                <code className="mt-2 block truncate rounded-md bg-muted/60 px-2 py-1 text-xs text-muted-foreground">
+                  {typeof window !== "undefined"
+                    ? `${window.location.origin}/examen-teorico`
+                    : "/examen-teorico"}
+                </code>
+              </div>
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                <Link to="/examen-teorico" target="_blank">
+                  <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                    <ExternalLink className="mr-2 h-4 w-4" /> Abrir
+                  </Button>
+                </Link>
+                <Button
+                  size="sm"
+                  onClick={async () => {
+                    const url =
+                      typeof window !== "undefined"
+                        ? `${window.location.origin}/examen-teorico`
+                        : "/examen-teorico";
+                    try {
+                      await navigator.clipboard.writeText(url);
+                      toast.success("¡Link copiado! Listo para pegar en redes o WhatsApp.");
+                    } catch {
+                      toast.error("No se pudo copiar automáticamente.", {
+                        description: url,
+                      });
+                    }
+                  }}
+                  className="w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto"
+                >
+                  <Copy className="mr-2 h-4 w-4" /> Copiar Link
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
       </div>
     </main>
   );

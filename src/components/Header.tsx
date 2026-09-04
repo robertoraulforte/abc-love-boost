@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, Car, FileCheck } from "lucide-react";
+import { Menu, X, Car, FileCheck, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import logo from "@/assets/abc-logo.png";
@@ -51,7 +51,7 @@ const Header = () => {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-5 lg:flex">
           <button
             onClick={scrollToTop}
             className={`text-sm font-semibold transition-smooth hover:text-primary ${
@@ -80,6 +80,18 @@ const Header = () => {
           >
             Tramitá tu licencia
           </a>
+
+          <Link
+            to="/examen-teorico"
+            className={`rounded-full border px-3 py-1.5 text-sm font-bold transition-smooth hover:border-primary hover:text-primary ${
+              scrolled
+                ? "border-primary/40 text-primary"
+                : "border-white/40 text-white hover:bg-white/10"
+            }`}
+          >
+            <GraduationCap className="mr-1.5 inline h-4 w-4" />
+            Simulador Teórico
+          </Link>
         </nav>
 
         <div className="hidden lg:block">
@@ -123,6 +135,15 @@ const Header = () => {
                 {l.label}
               </a>
             ))}
+
+            <Link
+              to="/examen-teorico"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-bold text-primary-foreground shadow-elegant"
+            >
+              <GraduationCap className="h-4 w-4" />
+              Simulador Teórico / Examen Online
+            </Link>
 
             <a
               href="#alquiler"
