@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { toast } from "sonner";
 import {
   FileCheck,
   CalendarCheck,
@@ -7,9 +9,26 @@ import {
   ExternalLink,
   ChevronDown,
   BookOpen,
+  GraduationCap,
+  PlayCircle,
+  Copy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import tutorialPdf from "@/assets/tutorial-licencias-turnera.pdf.asset.json";
+
+const copyExamLink = async () => {
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/examen-teorico`
+      : "/examen-teorico";
+  try {
+    await navigator.clipboard.writeText(url);
+    toast.success("¡Link copiado! Ya lo podés compartir.");
+  } catch {
+    toast.error("No pudimos copiar el link. Copialo manualmente: " + url);
+  }
+};
+
 
 const MATERIAL_ESTUDIO =
   "https://www.mardelplata.gob.ar/documentos/transporte_y_transito/manualdetransito-baja.pdf";
@@ -144,6 +163,40 @@ const LicenseGuide = () => {
                         </li>
                       ))}
                     </ol>
+                    {idx === 1 && (
+                      <div className="mt-5 rounded-2xl border border-primary/50 bg-primary/10 p-5 red-glow">
+                        <div className="flex items-start gap-3">
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                            <GraduationCap className="h-6 w-6" />
+                          </div>
+                          <div>
+                            <h4 className="text-base font-black md:text-lg">
+                              ¡Practicá tu Examen Teórico Online!
+                            </h4>
+                            <p className="mt-1 text-sm text-foreground/80">
+                              15 preguntas al azar sobre normas y señales. Resultado al instante.
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                          <Link to="/examen-teorico" className="w-full sm:w-auto">
+                            <Button className="gradient-primary animate-pulse-glow w-full font-black uppercase tracking-wide text-primary-foreground">
+                              <PlayCircle className="mr-2 h-5 w-5" />
+                              Iniciar Simulador de Examen
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="outline"
+                            onClick={copyExamLink}
+                            className="w-full border-primary/40 font-bold hover:border-primary hover:red-glow sm:w-auto"
+                          >
+                            <Copy className="mr-2 h-4 w-4" />
+                            Copiar Link para Compartir
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
                     {note && (
                       <p className="mt-4 rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm font-semibold text-foreground">
                         {note}

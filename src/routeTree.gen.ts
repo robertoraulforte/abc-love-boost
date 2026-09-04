@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PromosRouteImport } from './routes/promos'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ExamenTeoricoRouteImport } from './routes/examen-teorico'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminPromosRouteImport } from './routes/admin.promos'
 
@@ -22,6 +23,11 @@ const PromosRoute = PromosRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamenTeoricoRoute = ExamenTeoricoRouteImport.update({
+  id: '/examen-teorico',
+  path: '/examen-teorico',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const AdminPromosRoute = AdminPromosRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/examen-teorico': typeof ExamenTeoricoRoute
   '/login': typeof LoginRoute
   '/promos': typeof PromosRoute
   '/admin/promos': typeof AdminPromosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/examen-teorico': typeof ExamenTeoricoRoute
   '/login': typeof LoginRoute
   '/promos': typeof PromosRoute
   '/admin/promos': typeof AdminPromosRoute
@@ -50,20 +58,28 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/examen-teorico': typeof ExamenTeoricoRoute
   '/login': typeof LoginRoute
   '/promos': typeof PromosRoute
   '/admin/promos': typeof AdminPromosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/promos' | '/admin/promos'
+  fullPaths: '/' | '/examen-teorico' | '/login' | '/promos' | '/admin/promos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/promos' | '/admin/promos'
-  id: '__root__' | '/' | '/login' | '/promos' | '/admin/promos'
+  to: '/' | '/examen-teorico' | '/login' | '/promos' | '/admin/promos'
+  id:
+    | '__root__'
+    | '/'
+    | '/examen-teorico'
+    | '/login'
+    | '/promos'
+    | '/admin/promos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExamenTeoricoRoute: typeof ExamenTeoricoRoute
   LoginRoute: typeof LoginRoute
   PromosRoute: typeof PromosRoute
   AdminPromosRoute: typeof AdminPromosRoute
@@ -85,6 +101,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/examen-teorico': {
+      id: '/examen-teorico'
+      path: '/examen-teorico'
+      fullPath: '/examen-teorico'
+      preLoaderRoute: typeof ExamenTeoricoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +127,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExamenTeoricoRoute: ExamenTeoricoRoute,
   LoginRoute: LoginRoute,
   PromosRoute: PromosRoute,
   AdminPromosRoute: AdminPromosRoute,
