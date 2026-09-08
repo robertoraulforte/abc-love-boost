@@ -313,13 +313,6 @@ export const QUESTIONS: Question[] = [
     sign: "ceda",
   },
   {
-    id: 39,
-    text: "¿Qué indica esta señal?",
-    options: ["Prohibido avanzar", "Pare", "Ceda el paso"],
-    correct: 1,
-    sign: "pare",
-  },
-  {
     id: 40,
     text: "¿Qué indica esta señal?",
     options: ["Contramano", "Dirección obligatoria", "No avanzar"],
@@ -395,15 +388,6 @@ export const QUESTIONS: Question[] = [
     options: ["No adelantarse", "Conservar carril", "Prohibido camiones"],
     correct: 0,
     sign: "no-adelantarse",
-  },
-  {
-    id: 51,
-    text: "¿Qué indica esta señal de tránsito?",
-    options: ["Ceda el paso", "Pare / Detención obligatoria", "Prohibido avanzar"],
-    correct: 1,
-    sign: "pare",
-    explanation:
-      "La señal octogonal roja con la leyenda PARE exige la detención total del vehículo antes de cruzar la encrucijada.",
   },
   {
     id: 52,
