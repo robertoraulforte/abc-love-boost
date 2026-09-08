@@ -5,6 +5,7 @@ import {
   ArrowRight,
   CheckCircle2,
   ChevronDown,
+  Info,
   RotateCcw,
   Share2,
   Trophy,
@@ -16,11 +17,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import TrafficSign from "@/components/TrafficSign";
-import SignsQuiz from "@/components/SignsQuiz";
 import {
   PORCENTAJE_APROBACION,
   TOTAL_PREGUNTAS,
+  TOTAL_PREGUNTAS_SENALES,
   pickRandomQuestions,
+  type ExamMode,
   type Question,
 } from "@/data/examenTeorico";
 
@@ -31,13 +33,13 @@ export const Route = createFileRoute("/examen-teorico")({
       {
         name: "description",
         content:
-          "Practicá gratis el examen teórico de conducir de Mar del Plata: 15 preguntas al azar, señales de tránsito y resultados al instante.",
+          "Practicá gratis el examen teórico de conducir de Mar del Plata: preguntas al azar, señales de tránsito y resultados al instante.",
       },
       { property: "og:title", content: "Simulador Examen Teórico de Conducir | ABC Conducción" },
       {
         property: "og:description",
         content:
-          "15 preguntas al azar sobre normas y señales de tránsito. Practicá online y llegá listo a rendir.",
+          "Preguntas al azar sobre normas y señales de tránsito. Practicá online y llegá listo a rendir.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -48,42 +50,73 @@ export const Route = createFileRoute("/examen-teorico")({
 
 const LETTERS = ["A", "B", "C"] as const;
 
-function ExamenTeorico() {
-  const [mode, setMode] = useState<"completo" | "senales">("completo");
-  const [questions, setQuestions] = useState<Question[]>(() => pickRandomQuestions());
-  const [current, setCurrent] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>(() =>
-    Array(TOTAL_PREGUNTAS).fill(null),
+function SignBox({ sign, size = "lg" }: { sign: Question["sign"]; size?: "lg" | "sm" }) {
+  if (!sign) return null;
+  return (
+    <div
+      className={`mx-auto flex aspect-square w-full items-center justify-center rounded-xl border border-border bg-neutral-900/50 p-3 ${
+        size === "lg" ? "max-w-[200px] md:max-w-[240px]" : "max-w-[160px]"
+      }`}
+    >
+      <TrafficSign sign={sign} />
+    </div>
   );
+}
+
+function ExamenTeorico() {
+  const [started, setStarted] = useState(false);
+  const [mode, setMode] = useState<ExamMode>("completo");
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [current, setCurrent] = useState(0);
+  const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [finished, setFinished] = useState(false);
   const [openDetail, setOpenDetail] = useState<number | null>(null);
 
   const total = questions.length;
   const question = questions[current];
-  const selected = answers[current];
-  const progress = ((current + (finished ? 1 : 0)) / total) * 100;
+  const selected = answers[current] ?? null;
+  const answered = selected !== null;
+  const answeredCount = answers.filter((a) => a !== null).length;
+  const progress = total ? (answeredCount / total) * 100 : 0;
 
   const correctCount = answers.reduce<number>(
     (acc, a, i) => (a !== null && a === questions[i]?.correct ? acc + 1 : acc),
     0,
   );
-  const score = Math.round((correctCount / total) * 100);
+  const score = total ? Math.round((correctCount / total) * 100) : 0;
   const passed = score >= PORCENTAJE_APROBACION;
 
-  const restart = () => {
-    setQuestions(pickRandomQuestions());
-    setAnswers(Array(TOTAL_PREGUNTAS).fill(null));
+  const start = (selectedMode: ExamMode) => {
+    const count = selectedMode === "senales" ? TOTAL_PREGUNTAS_SENALES : TOTAL_PREGUNTAS;
+    const qs = pickRandomQuestions(count, selectedMode);
+    setMode(selectedMode);
+    setQuestions(qs);
+    setAnswers(Array(qs.length).fill(null));
     setCurrent(0);
     setFinished(false);
     setOpenDetail(null);
+    setStarted(true);
+  };
+
+  const restart = () => start(mode);
+
+  const backToModes = () => {
+    setStarted(false);
+    setFinished(false);
   };
 
   const select = (idx: number) => {
+    if (answered) return;
     setAnswers((prev) => {
       const next = [...prev];
       next[current] = idx;
       return next;
     });
+  };
+
+  const goNext = () => {
+    if (current === total - 1) setFinished(true);
+    else setCurrent((c) => c + 1);
   };
 
   const share = async () => {
@@ -119,40 +152,48 @@ function ExamenTeorico() {
             </span>
             <h1 className="mt-3 text-3xl font-black md:text-4xl">Examen Teórico de Conducir</h1>
             <p className="mt-3 text-muted-foreground">
-              {mode === "completo"
-                ? `${TOTAL_PREGUNTAS} preguntas al azar. Se aprueba con el ${PORCENTAJE_APROBACION}% de respuestas correctas.`
-                : "Simulacro de señales de tránsito con corrección y explicación al instante."}
+              Preguntas al azar sobre normas y señales de tránsito. Se aprueba con el{" "}
+              {PORCENTAJE_APROBACION}% de respuestas correctas.
             </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-2 rounded-2xl border border-border bg-card p-2">
-            <button
-              type="button"
-              onClick={() => setMode("completo")}
-              className={`rounded-xl px-3 py-2.5 text-sm font-black uppercase tracking-wide transition-smooth ${
-                mode === "completo"
-                  ? "gradient-primary text-primary-foreground red-glow"
-                  : "text-muted-foreground hover:text-primary"
-              }`}
-            >
-              Examen completo
-            </button>
-            <button
-              type="button"
-              onClick={() => setMode("senales")}
-              className={`rounded-xl px-3 py-2.5 text-sm font-black uppercase tracking-wide transition-smooth ${
-                mode === "senales"
-                  ? "gradient-primary text-primary-foreground red-glow"
-                  : "text-muted-foreground hover:text-primary"
-              }`}
-            >
-              Sección Señales
-            </button>
-          </div>
+          {!started ? (
+            <div className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-card md:p-8">
+              <h2 className="text-xl font-black md:text-2xl">Elegí cómo querés practicar</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Podés rendir el examen completo (incluye preguntas de señales) o practicar solamente
+                las señales de tránsito.
+              </p>
 
-          {mode === "senales" ? (
-            <div className="mt-6">
-              <SignsQuiz />
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => start("completo")}
+                  className="rounded-2xl border border-border bg-background/40 p-5 text-left transition-smooth hover:border-primary hover:red-glow"
+                >
+                  <span className="text-xs font-black uppercase tracking-wider text-primary">
+                    Recomendado
+                  </span>
+                  <h3 className="mt-2 text-lg font-black">Examen completo</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {TOTAL_PREGUNTAS} preguntas al azar de normas, prioridades y señales viales.
+                  </p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => start("senales")}
+                  className="rounded-2xl border border-border bg-background/40 p-5 text-left transition-smooth hover:border-primary hover:red-glow"
+                >
+                  <span className="text-xs font-black uppercase tracking-wider text-muted-foreground">
+                    Práctica focalizada
+                  </span>
+                  <h3 className="mt-2 text-lg font-black">Solo señales de tránsito</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {TOTAL_PREGUNTAS_SENALES} señales oficiales argentinas con corrección y
+                    explicación al instante.
+                  </p>
+                </button>
+              </div>
             </div>
           ) : !finished ? (
             <div className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-card md:p-8">
@@ -160,9 +201,7 @@ function ExamenTeorico() {
                 <span>
                   Pregunta {current + 1} de {total}
                 </span>
-                <span className="text-muted-foreground">
-                  {answers.filter((a) => a !== null).length} respondidas
-                </span>
+                <span className="text-muted-foreground">{correctCount} correctas</span>
               </div>
               <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
                 <div
@@ -172,8 +211,8 @@ function ExamenTeorico() {
               </div>
 
               {question.sign && (
-                <div className="mx-auto mt-8 flex h-[200px] w-full max-w-[200px] items-center justify-center rounded-xl border border-border bg-neutral-900/50 p-2">
-                  <TrafficSign sign={question.sign} />
+                <div className="mt-8">
+                  <SignBox sign={question.sign} />
                 </div>
               )}
 
@@ -181,48 +220,79 @@ function ExamenTeorico() {
 
               <div className="mt-6 grid gap-3">
                 {question.options.map((opt, i) => {
-                  const active = selected === i;
+                  const isCorrect = i === question.correct;
+                  const isSelected = selected === i;
+                  let cls = "border-border bg-background/40 hover:border-primary";
+                  let badge = "bg-muted text-muted-foreground";
+                  if (answered) {
+                    if (isCorrect) {
+                      cls = "border-green-500 bg-green-500/10";
+                      badge = "bg-green-500 text-white";
+                    } else if (isSelected) {
+                      cls = "border-destructive bg-destructive/10";
+                      badge = "bg-destructive text-white";
+                    } else {
+                      cls = "border-border bg-background/40 opacity-60";
+                    }
+                  } else if (isSelected) {
+                    cls = "border-primary bg-primary/10 red-glow";
+                    badge = "bg-primary text-primary-foreground";
+                  }
                   return (
                     <button
                       key={opt}
                       type="button"
+                      disabled={answered}
                       onClick={() => select(i)}
-                      className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-smooth ${
-                        active
-                          ? "border-primary bg-primary/10 red-glow"
-                          : "border-border bg-background/40 hover:border-primary"
-                      }`}
+                      className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-smooth ${cls}`}
                     >
                       <span
-                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black ${
-                          active
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted text-muted-foreground"
-                        }`}
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black ${badge}`}
                       >
                         {LETTERS[i]}
                       </span>
                       <span className="pt-1 text-sm font-semibold md:text-base">{opt}</span>
+                      {answered && isCorrect && (
+                        <CheckCircle2 className="ml-auto mt-1 h-5 w-5 shrink-0 text-green-500" />
+                      )}
+                      {answered && isSelected && !isCorrect && (
+                        <XCircle className="ml-auto mt-1 h-5 w-5 shrink-0 text-destructive" />
+                      )}
                     </button>
                   );
                 })}
               </div>
 
-              <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  disabled={current === 0}
-                  onClick={() => setCurrent((c) => Math.max(0, c - 1))}
-                  className="font-bold"
+              {answered && (
+                <div
+                  className={`mt-4 flex items-start gap-3 rounded-xl border p-4 text-sm ${
+                    selected === question.correct
+                      ? "border-green-500/50 bg-green-500/10"
+                      : "border-destructive/50 bg-destructive/10"
+                  }`}
                 >
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
+                  <Info className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <p>
+                    <span className="font-black">
+                      {selected === question.correct ? "¡Correcto! " : "Incorrecto. "}
+                    </span>
+                    {question.explanation ??
+                      `La respuesta correcta es ${LETTERS[question.correct]}) ${
+                        question.options[question.correct]
+                      }.`}
+                  </p>
+                </div>
+              )}
+
+              <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+                <Button variant="outline" size="lg" onClick={backToModes} className="font-bold">
+                  <ArrowLeft className="mr-2 h-4 w-4" /> Cambiar modo
                 </Button>
                 {current === total - 1 ? (
                   <Button
                     size="lg"
-                    disabled={selected === null}
-                    onClick={() => setFinished(true)}
+                    disabled={!answered}
+                    onClick={goNext}
                     className="gradient-primary animate-pulse-glow font-black uppercase tracking-wide text-primary-foreground"
                   >
                     <Trophy className="mr-2 h-5 w-5" /> Ver resultados
@@ -230,8 +300,8 @@ function ExamenTeorico() {
                 ) : (
                   <Button
                     size="lg"
-                    disabled={selected === null}
-                    onClick={() => setCurrent((c) => c + 1)}
+                    disabled={!answered}
+                    onClick={goNext}
                     className="bg-primary font-black uppercase tracking-wide text-primary-foreground hover:bg-primary/90"
                   >
                     Siguiente <ArrowRight className="ml-2 h-4 w-4" />
@@ -252,13 +322,13 @@ function ExamenTeorico() {
                   {score}%
                 </div>
                 <h2 className="mt-5 text-2xl font-black md:text-3xl">
-                  {passed ? "¡Felicitaciones! Estás listo para rendir" : "¡Seguí practicando!"}
+                  {passed ? "¡Aprobado! Estás listo para rendir" : "Desaprobado — ¡seguí practicando!"}
                 </h2>
                 <p className="mt-3 text-muted-foreground">
                   {correctCount} de {total} respuestas correctas.{" "}
                   {passed
                     ? "Repasá las señales y sacá tu turno con confianza."
-                    : "Te recomendamos repasar el material de estudio y volver a intentarlo."}
+                    : `Necesitás al menos el ${PORCENTAJE_APROBACION}% para aprobar. Repasá el resumen y volvé a intentarlo.`}
                 </p>
 
                 <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
@@ -276,6 +346,9 @@ function ExamenTeorico() {
                     className="border-primary/40 font-bold hover:border-primary hover:red-glow"
                   >
                     <Share2 className="mr-2 h-5 w-5" /> Compartir en redes
+                  </Button>
+                  <Button size="lg" variant="ghost" onClick={backToModes} className="font-bold">
+                    Cambiar modo
                   </Button>
                 </div>
               </div>
@@ -296,9 +369,9 @@ function ExamenTeorico() {
                           className="flex w-full items-start gap-3 p-4 text-left"
                         >
                           {ok ? (
-                            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-500" />
                           ) : (
-                            <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
+                            <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-destructive" />
                           )}
                           <span className="flex-1 text-sm font-semibold">
                             {i + 1}. {q.text}
@@ -312,20 +385,25 @@ function ExamenTeorico() {
                         {isOpen && (
                           <div className="border-t border-border px-4 pb-4 pt-3">
                             {q.sign && (
-                              <div className="mx-auto mb-3 flex h-[200px] w-full max-w-[200px] items-center justify-center rounded-xl border border-border bg-neutral-900/50 p-2">
-                                <TrafficSign sign={q.sign} />
+                              <div className="mb-3">
+                                <SignBox sign={q.sign} size="sm" />
                               </div>
                             )}
                             <p className="text-sm">
                               <span className="font-black uppercase tracking-wider text-muted-foreground">
                                 Tu respuesta:{" "}
                               </span>
-                              {given !== null ? `${LETTERS[given]}) ${q.options[given]}` : "Sin responder"}
+                              {given !== null && given !== undefined
+                                ? `${LETTERS[given]}) ${q.options[given]}`
+                                : "Sin responder"}
                             </p>
                             {!ok && (
-                              <p className="mt-2 rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm font-semibold">
+                              <p className="mt-2 rounded-lg border border-green-500/40 bg-green-500/10 p-3 text-sm font-semibold">
                                 Correcta: {LETTERS[q.correct]}) {q.options[q.correct]}
                               </p>
+                            )}
+                            {q.explanation && (
+                              <p className="mt-2 text-sm text-muted-foreground">{q.explanation}</p>
                             )}
                           </div>
                         )}
