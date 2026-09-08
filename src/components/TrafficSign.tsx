@@ -192,6 +192,40 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
           </g>
         </svg>
       );
+    // CURVA PELIGROSA A LA DERECHA — rombo amarillo con flecha curva negra
+    case "curva-peligrosa":
+      return (
+        <svg {...common}>
+          <PreventiveDiamond />
+          <path
+            d="M52 92 L52 66 Q52 44 72 40"
+            stroke={BLACK}
+            strokeWidth="9"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <polygon points="66,24 92,40 66,56" fill={BLACK} />
+        </svg>
+      );
+    // CRUCE PEATONAL — rombo amarillo con peatón y senda
+    case "cruce-peatonal":
+      return (
+        <svg {...common}>
+          <PreventiveDiamond />
+          <circle cx="58" cy="34" r="7" fill={BLACK} />
+          <path
+            d="M58 43 L58 66 M58 48 L44 56 M58 48 L73 56 M58 66 L48 86 M58 66 L69 86"
+            stroke={BLACK}
+            strokeWidth="6"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <g fill={BLACK}>
+            <rect x="30" y="92" width="60" height="4" />
+            <rect x="30" y="99" width="60" height="4" />
+          </g>
+        </svg>
+      );
     default:
       return null;
   }
