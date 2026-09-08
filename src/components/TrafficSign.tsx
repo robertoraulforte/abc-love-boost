@@ -140,15 +140,23 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
           <path d="M81 31 H70 L65 53 V89 H75 V55 Z" fill={BLACK} />
         </svg>
       );
-    // ZONA ESCOLAR — rombo amarillo con dos niños
+    // ZONA ESCOLAR — rombo amarillo con dos escolares; el mayor lleva cartera
     case "zona-escolar":
       return (
         <svg {...common}>
           <PreventiveDiamond />
-          <circle cx="48" cy="39" r="6" fill={BLACK} />
-          <path d="M48 47 L45 65 M46 53 L34 61 M45 65 L35 84 M45 65 L55 83" stroke={BLACK} strokeWidth="5" strokeLinecap="round" fill="none" />
-          <circle cx="72" cy="47" r="5" fill={BLACK} />
-          <path d="M71 53 L68 69 M69 58 L58 64 M68 69 L61 84 M68 69 L78 82" stroke={BLACK} strokeWidth="5" strokeLinecap="round" fill="none" />
+          <g fill={BLACK} stroke={BLACK} strokeLinecap="round" strokeLinejoin="round">
+            {/* Escolar mayor caminando y guiando al menor */}
+            <circle cx="49" cy="35" r="6" stroke="none" />
+            <path d="M48 44 L45 64 L37 78 M45 64 L55 82 M46 49 L35 59 M46 49 L60 57" strokeWidth="5.5" fill="none" />
+            {/* Escolar menor */}
+            <circle cx="70" cy="44" r="5" stroke="none" />
+            <path d="M69 51 L66 67 L59 80 M66 67 L75 80 M68 55 L59 58 M68 55 L78 63" strokeWidth="5" fill="none" />
+            {/* Cartera escolar reglamentaria, sostenida por el escolar mayor */}
+            <path d="M28 61 H40 V75 H28 Z" strokeWidth="2.5" />
+            <path d="M31 61 V57 Q34 53 37 57 V61" strokeWidth="2.5" fill="none" />
+            <path d="M35 59 L35 66" strokeWidth="3" fill="none" />
+          </g>
         </svg>
       );
     // PROHIBIDO CIRCULAR BICICLETAS — bicicleta negra tachada, borde rojo
@@ -171,24 +179,30 @@ const TrafficSign = ({ sign, className = "" }: { sign: SignKey; className?: stri
           <polygon points="60,22 38,50 82,50" fill={WHITE} />
         </svg>
       );
-    // NO ADELANTARSE — dos autos a la par (rojo izquierda, negro derecha), borde rojo
+    // NO ADELANTARSE — vista frontal reglamentaria de dos automóviles
     case "no-adelantarse":
       return (
         <svg {...common}>
           <circle cx="60" cy="60" r="52" fill={WHITE} stroke={RED} strokeWidth="10" />
-          <g>
-            <rect x="28" y="44" width="24" height="38" rx="4" fill={RED} />
-            <rect x="30" y="82" width="5" height="10" fill={RED} />
-            <rect x="45" y="82" width="5" height="10" fill={RED} />
-            <rect x="30" y="28" width="5" height="10" fill={RED} />
-            <rect x="45" y="28" width="5" height="10" fill={RED} />
+          <g fill={RED}>
+            <path d="M25 61 L30 46 Q32 40 38 40 H47 Q53 40 55 46 L60 61 V82 H25 Z" />
+            <rect x="21" y="61" width="7" height="12" rx="2" />
+            <rect x="57" y="61" width="7" height="12" rx="2" />
+            <path d="M34 47 H46 Q49 47 50 51 L53 60 H29 L32 51 Q33 47 34 47 Z" fill={WHITE} />
+            <rect x="29" y="79" width="8" height="9" rx="2" />
+            <rect x="49" y="79" width="8" height="9" rx="2" />
+            <circle cx="34" cy="69" r="4" fill={WHITE} />
+            <circle cx="51" cy="69" r="4" fill={WHITE} />
           </g>
-          <g>
-            <rect x="68" y="44" width="24" height="38" rx="4" fill={BLACK} />
-            <rect x="70" y="82" width="5" height="10" fill={BLACK} />
-            <rect x="85" y="82" width="5" height="10" fill={BLACK} />
-            <rect x="70" y="28" width="5" height="10" fill={BLACK} />
-            <rect x="85" y="28" width="5" height="10" fill={BLACK} />
+          <g fill={BLACK}>
+            <path d="M62 61 L67 46 Q69 40 75 40 H84 Q90 40 92 46 L97 61 V82 H62 Z" />
+            <rect x="58" y="61" width="7" height="12" rx="2" />
+            <rect x="94" y="61" width="7" height="12" rx="2" />
+            <path d="M71 47 H83 Q86 47 87 51 L90 60 H66 L69 51 Q70 47 71 47 Z" fill={WHITE} />
+            <rect x="66" y="79" width="8" height="9" rx="2" />
+            <rect x="86" y="79" width="8" height="9" rx="2" />
+            <circle cx="71" cy="69" r="4" fill={WHITE} />
+            <circle cx="88" cy="69" r="4" fill={WHITE} />
           </g>
         </svg>
       );
