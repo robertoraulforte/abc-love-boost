@@ -11,7 +11,9 @@ export type SignKey =
   | "zona-escolar"
   | "no-bicicletas"
   | "direccion-obligatoria"
-  | "no-adelantarse";
+  | "no-adelantarse"
+  | "curva-peligrosa"
+  | "cruce-peatonal";
 
 export type Question = {
   id: number;
@@ -20,6 +22,8 @@ export type Question = {
   /** index 0 = A, 1 = B, 2 = C */
   correct: 0 | 1 | 2;
   sign?: SignKey;
+  /** Explicación teórica mostrada al responder */
+  explanation?: string;
 };
 
 export const QUESTIONS: Question[] = [
@@ -392,16 +396,80 @@ export const QUESTIONS: Question[] = [
     correct: 0,
     sign: "no-adelantarse",
   },
+  {
+    id: 51,
+    text: "¿Qué indica esta señal de tránsito?",
+    options: ["Ceda el paso", "Pare / Detención obligatoria", "Prohibido avanzar"],
+    correct: 1,
+    sign: "pare",
+    explanation:
+      "La señal octogonal roja con la leyenda PARE exige la detención total del vehículo antes de cruzar la encrucijada.",
+  },
+  {
+    id: 52,
+    text: "¿Qué indica esta señal vial?",
+    options: [
+      "Ceda el paso",
+      "Prioridad de paso al que viene de la izquierda",
+      "Atención: semáforo adelante",
+    ],
+    correct: 0,
+    sign: "ceda",
+    explanation:
+      "Indica la obligación de ceder el paso a los vehículos que circulan por la vía a la que se ingresa o cruza.",
+  },
+  {
+    id: 53,
+    text: "¿Cuál es el significado de esta señal?",
+    options: ["Prohibido peatones", "Zona peatonal exclusiva", "Proximidad de cruce peatonal"],
+    correct: 2,
+    sign: "cruce-peatonal",
+    explanation:
+      "Es una señal preventiva que advierte sobre la presencia o cruce frecuente de peatones en la calzada.",
+  },
+  {
+    id: 54,
+    text: "¿Qué indica esta señal amarilla en el camino?",
+    options: ["Curva peligrosa a la derecha", "Camino sinuoso", "Giro obligatorio a la derecha"],
+    correct: 0,
+    sign: "curva-peligrosa",
+    explanation:
+      "Es una señal preventiva que advierte con antelación la presencia de una curva pronunciada en la calzada.",
+  },
+  {
+    id: 55,
+    text: "¿Qué establece esta señal circular con fondo blanco y borde rojo?",
+    options: [
+      "Velocidad mínima aconsejada",
+      "Límite máximo de velocidad permitida",
+      "Distancia mínima entre vehículos",
+    ],
+    correct: 1,
+    sign: "velocidad-max",
+    explanation:
+      "Es una señal reglamentaria que fija la velocidad máxima absoluta a la que se puede circular en ese tramo.",
+  },
 ];
 
 export const TOTAL_PREGUNTAS = 15;
+export const TOTAL_PREGUNTAS_SENALES = 10;
 export const PORCENTAJE_APROBACION = 80;
 
-export function pickRandomQuestions(count = TOTAL_PREGUNTAS): Question[] {
-  const pool = [...QUESTIONS];
+export type ExamMode = "completo" | "senales";
+
+function shuffle(list: Question[]): Question[] {
+  const pool = [...list];
   for (let i = pool.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
-  return pool.slice(0, count);
+  return pool;
+}
+
+export function pickRandomQuestions(
+  count = TOTAL_PREGUNTAS,
+  mode: ExamMode = "completo",
+): Question[] {
+  const base = mode === "senales" ? QUESTIONS.filter((q) => q.sign) : QUESTIONS;
+  return shuffle(base).slice(0, Math.min(count, base.length));
 }
