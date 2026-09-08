@@ -16,6 +16,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import TrafficSign from "@/components/TrafficSign";
+import SignsQuiz from "@/components/SignsQuiz";
 import {
   PORCENTAJE_APROBACION,
   TOTAL_PREGUNTAS,
@@ -48,6 +49,7 @@ export const Route = createFileRoute("/examen-teorico")({
 const LETTERS = ["A", "B", "C"] as const;
 
 function ExamenTeorico() {
+  const [mode, setMode] = useState<"completo" | "senales">("completo");
   const [questions, setQuestions] = useState<Question[]>(() => pickRandomQuestions());
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(() =>
@@ -117,12 +119,42 @@ function ExamenTeorico() {
             </span>
             <h1 className="mt-3 text-3xl font-black md:text-4xl">Examen Teórico de Conducir</h1>
             <p className="mt-3 text-muted-foreground">
-              {TOTAL_PREGUNTAS} preguntas al azar. Se aprueba con el {PORCENTAJE_APROBACION}% de
-              respuestas correctas.
+              {mode === "completo"
+                ? `${TOTAL_PREGUNTAS} preguntas al azar. Se aprueba con el ${PORCENTAJE_APROBACION}% de respuestas correctas.`
+                : "Simulacro de señales de tránsito con corrección y explicación al instante."}
             </p>
           </div>
 
-          {!finished ? (
+          <div className="mt-6 grid grid-cols-2 gap-2 rounded-2xl border border-border bg-card p-2">
+            <button
+              type="button"
+              onClick={() => setMode("completo")}
+              className={`rounded-xl px-3 py-2.5 text-sm font-black uppercase tracking-wide transition-smooth ${
+                mode === "completo"
+                  ? "gradient-primary text-primary-foreground red-glow"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Examen completo
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode("senales")}
+              className={`rounded-xl px-3 py-2.5 text-sm font-black uppercase tracking-wide transition-smooth ${
+                mode === "senales"
+                  ? "gradient-primary text-primary-foreground red-glow"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Sección Señales
+            </button>
+          </div>
+
+          {mode === "senales" ? (
+            <div className="mt-6">
+              <SignsQuiz />
+            </div>
+          ) : !finished ? (
             <div className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-card md:p-8">
               <div className="flex items-center justify-between text-sm font-bold uppercase tracking-wider text-primary">
                 <span>
