@@ -11,7 +11,9 @@ export type SignKey =
   | "zona-escolar"
   | "no-bicicletas"
   | "direccion-obligatoria"
-  | "no-adelantarse";
+  | "no-adelantarse"
+  | "curva-peligrosa"
+  | "cruce-peatonal";
 
 export type Question = {
   id: number;
@@ -20,6 +22,8 @@ export type Question = {
   /** index 0 = A, 1 = B, 2 = C */
   correct: 0 | 1 | 2;
   sign?: SignKey;
+  /** Explicación teórica mostrada al responder */
+  explanation?: string;
 };
 
 export const QUESTIONS: Question[] = [
