@@ -433,6 +433,222 @@ export const QUESTIONS: Question[] = [
     explanation:
       "Es una señal reglamentaria que fija la velocidad máxima absoluta a la que se puede circular en ese tramo.",
   },
+  {
+    id: 56,
+    text: "¿Qué indica una línea divisoria de carriles discontinua (punteada) de color blanco en la calzada?",
+    options: [
+      "Que la vía es de doble sentido de circulación",
+      "Que se permite el cambio de carril o sobrepaso si la maniobra es segura",
+      "Que está estrictamente prohibido cambiar de carril",
+    ],
+    correct: 1,
+    explanation:
+      "La línea blanca discontinua separa carriles de un mismo sentido y autoriza su transposición con precaución.",
+  },
+  {
+    id: 57,
+    text: "En una rotonda con más de un carril de circulación, ¿qué carril debe utilizar el conductor para tomar la última salida o realizar un giro en \"U\"?",
+    options: [
+      "El carril externo (derecho)",
+      "Indistintamente cualquier carril",
+      "El carril interno (izquierdo)",
+    ],
+    correct: 2,
+    explanation:
+      "Para maniobras que impliquen recorrer la mayor parte de la rotonda, se debe acceder y circular por el carril interno, desplazándose con anticipación hacia el externo para egresar.",
+  },
+  {
+    id: 58,
+    text: "¿Cuál es el significado de una línea transversal continua pintada de lado a lado en un carril antes de una encrucijada?",
+    options: [
+      "Indica la línea de detención obligatoria ante un semáforo, señal de PARE o paso peatonal",
+      "Es una demarcación decorativa para delimitación de ciclovías",
+      "Señala el lugar exacto a partir del cual se puede acelerar",
+    ],
+    correct: 0,
+    explanation:
+      "La línea transversal de detención delimita el punto donde el vehículo debe detenerse por completo cuando una señal o prioridad lo exija.",
+  },
+  {
+    id: 59,
+    text: "¿En cuál de las siguientes situaciones se pierde la prioridad de paso que tiene quien circula por la derecha?",
+    options: [
+      "Frente a vehículos de menor porte",
+      "Al ingresar desde una vía de servicio o ante una señal explícita de Ceda el Paso o PARE",
+      "Únicamente si el vehículo de la izquierda circula a mayor velocidad",
+    ],
+    correct: 1,
+    explanation:
+      "La prioridad de la derecha se pierde ante señalización específica o al incorporarse desde vías secundarias/servicios.",
+  },
+  {
+    id: 60,
+    text: "¿Qué elemento forma parte del equipamiento de Seguridad Activa de un vehículo?",
+    options: [
+      "El airbag o bolsa de aire",
+      "El sistema de control de estabilidad (ESP)",
+      "Los apoyacabezas",
+    ],
+    correct: 1,
+    explanation:
+      "La seguridad activa previene la ocurrencia de accidentes (ESP, frenos, luces). Airbags y apoyacabezas corresponden a la seguridad pasiva.",
+  },
+  {
+    id: 61,
+    text: "¿Cómo debe ser la posición correcta del apoyacabezas para cumplir de forma efectiva su función de seguridad pasiva?",
+    options: [
+      "Su borde superior debe quedar a la misma altura que la parte superior de la cabeza y a no más de 4 cm de la nuca",
+      "Debe quedar colocado a la altura del cuello",
+      "Debe quedar ajustado justo por debajo del nivel de las orejas",
+    ],
+    correct: 0,
+    explanation:
+      "Esta alineación evita el latigazo cervical ante un impacto por alcance trasero.",
+  },
+  {
+    id: 62,
+    text: "¿Qué función cumple el sistema de frenos ABS en una situación de frenada de emergencia?",
+    options: [
+      "Reducir la distancia de frenado exactamente a la mitad",
+      "Evitar el bloqueo de las ruedas para mantener el control direccional",
+      "Activar de forma automática las balizas del vehículo",
+    ],
+    correct: 1,
+    explanation:
+      "Al evitar que los neumáticos se bloqueen, permite al conductor maniobrar el volante para esquivar obstáculos mientras frena.",
+  },
+  {
+    id: 63,
+    text: "¿Está permitido circular con un vehículo utilizando la rueda de auxilio de tipo \"temporal\" o de tamaño reducido?",
+    options: [
+      "Sí, de forma indefinida si tiene la presión correcta",
+      "Sí, pero como solución provisoria y respetando la velocidad máxima indicada por el fabricante (máx. 80 km/h)",
+      "No, está totalmente prohibido",
+    ],
+    correct: 1,
+    explanation:
+      "Tienen menor adherencia y resistencia; su uso se limita al traslado hacia un taller para reparar la rueda titular.",
+  },
+  {
+    id: 64,
+    text: "Si durante la noche un vehículo en sentido contrario encandila con sus luces altas, ¿cuál es la conducta correcta?",
+    options: [
+      "Encender las luces altas propias para advertirle",
+      "Dirigir la mirada hacia la línea de demarcación de la derecha (borde de calzada) y reducir la velocidad",
+      "Pestañear las luces y acelerar para pasarlo rápido",
+    ],
+    correct: 1,
+    explanation:
+      "Guiar la vista al borde derecho evita la ceguera temporal por encandilamiento y permite mantener la trayectoria.",
+  },
+  {
+    id: 65,
+    text: "¿Qué debe hacer si al circular por una vía rápida sufre la pinchadura o reventón de un neumático trasero?",
+    options: [
+      "Frenar inmediatamente a fondo",
+      "Sostener el volante con firmeza, mantener la trayectoria sin frenar bruscamente y desacelerar progresivamente",
+      "Girar el volante hacia el lado del neumático dañado",
+    ],
+    correct: 1,
+    explanation:
+      "Frenar o girar de golpe ante un reventón desestabiliza la masa del vehículo provocando la pérdida total del control.",
+  },
+  {
+    id: 66,
+    text: "Si un vehículo pesado (camión/colectivo) que viaja delante de usted en ruta enciende el guiño IZQUIERDO, ¿qué le indica?",
+    options: [
+      "Que puede sobrepasarlo con seguridad",
+      "Que NO debe intentarse el sobrepaso porque viene un vehículo de frente o va a maniobrar",
+      "Que el camión se tirará a la banquina",
+    ],
+    correct: 1,
+    explanation:
+      "El guiño izquierdo del vehículo que precede advierte peligro para sobrepasar. El guiño derecho es el que indica posibilidad de paso.",
+  },
+  {
+    id: 67,
+    text: "Al aproximarse a un paso a nivel ferroviario sin barreras ni semáforo, ¿cuál es la conducta obligatoria?",
+    options: [
+      "Tocar la bocina y cruzar a velocidad normal",
+      "Detener la marcha antes de las vías, mirar hacia ambos lados, escuchar y cruzar solo si está despejado",
+      "Acelerar para atravesar la vía rápido",
+    ],
+    correct: 1,
+    explanation:
+      "Ante la ausencia de barrera automática, el ferrocarril tiene prioridad absoluta y requiere detención previa precautoria.",
+  },
+  {
+    id: 68,
+    text: "¿Cómo afecta la lluvia intensa a la distancia de frenado del vehículo?",
+    options: [
+      "La mantiene igual si las cubiertas son nuevas",
+      "La reduce porque se enfrían los frenos",
+      "La incrementa sustancialmente debido a la reducción de adherencia entre el neumático y el asfalto",
+    ],
+    correct: 2,
+    explanation:
+      "La película de agua disminuye el coeficiente de roce, exigiendo mayor espacio para lograr la detención completa.",
+  },
+  {
+    id: 69,
+    text: "Al circular con niebla densa, ¿qué luces deben encenderse obligatoriamente durante la marcha?",
+    options: [
+      "Luces altas",
+      "Únicamente las balizas intermitentes",
+      "Luces bajas y, de poseerlos, faros antiniebla",
+    ],
+    correct: 2,
+    explanation:
+      "Las luces altas rebotan en la niebla generando un \"efecto espejo\" que encandila al conductor.",
+  },
+  {
+    id: 70,
+    text: "¿Cuál es la distancia mínima que se debe mantener al adelantar a un ciclista en zona urbana o ruta?",
+    options: [
+      "0,5 metros",
+      "1,5 metros",
+      "1 metro",
+    ],
+    correct: 1,
+    explanation:
+      "Garantiza un margen lateral seguro para no desestabilizar al ciclista por la turbulencia de aire que genera el vehículo.",
+  },
+  {
+    id: 71,
+    text: "En caso de circular en motocicleta, ¿cuál es el impacto de llevar un acompañante?",
+    options: [
+      "Mejora la estabilidad en curvas",
+      "Aumenta la distancia de frenado y desplaza el centro de gravedad hacia atrás, alterando la maniobrabilidad",
+      "No genera ninguna variación si lleva casco",
+    ],
+    correct: 1,
+    explanation:
+      "El peso extra en la plaza trasera exige anticipar las frenadas y modificar la inclinación necesaria al girar.",
+  },
+  {
+    id: 72,
+    text: "¿Qué efecto físico produce el consumo de alcohol sobre el conductor, aun en concentraciones mínimas?",
+    options: [
+      "Aumenta la agudeza visual",
+      "Reduce el campo de visión (efecto túnel) y disminuye la capacidad de juzgar distancias y velocidades",
+      "Solo genera somnolencia",
+    ],
+    correct: 1,
+    explanation:
+      "Afecta el sistema nervioso central, ralentizando el tiempo de respuesta y reduciendo la visión periférica.",
+  },
+  {
+    id: 73,
+    text: "¿Cuál es la velocidad máxima permitida en autopistas para vehículos particulares, salvo señalización en contrario?",
+    options: [
+      "110 km/h",
+      "130 km/h",
+      "120 km/h",
+    ],
+    correct: 1,
+    explanation:
+      "Es el límite máximo estipulado por la Ley Nacional de Tránsito para automóviles y motocicletas en autopistas.",
+  },
 ];
 
 export const TOTAL_PREGUNTAS = 15;
