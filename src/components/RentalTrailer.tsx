@@ -44,11 +44,12 @@ const RentalTrailer = () => {
               <Car className="h-3.5 w-3.5" />
               Alquiler de vehículo con trailer
             </span>
-            <h2 className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-3xl font-black uppercase md:text-4xl">
-              <span>Alquiler de</span>
-              <CarTrailerIcon className="h-9 w-16 text-red-600 md:h-11 md:w-20" />
-              <span>con trailer</span>
-              <span className="w-full">para examen</span>
+            <h2 className="mt-3 text-3xl font-black uppercase md:text-4xl">
+              <span className="flex items-center gap-3">
+                <span>Alquiler de</span>
+                <CarTrailerIcon className="h-9 w-16 text-red-600 md:h-11 md:w-20" />
+              </span>
+              <span>para examen</span>
             </h2>
             <p className="mt-3 text-muted-foreground">
               Clases y alquiler de auto con trailer para examen de categoría B2.

@@ -70,18 +70,21 @@ function PromosPublic() {
     };
   }, []);
 
-  useEffect(() => {
-    if (loading || typeof window === "undefined") return;
+  const [highlightId, setHighlightId] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
     const hash = window.location.hash;
-    if (!hash.startsWith("#promo-")) return;
-    const el = document.getElementById(hash.slice(1));
+    return hash.startsWith("#promo-") ? hash.slice("#promo-".length) : null;
+  });
+
+  const filtered = highlightId ? promos.filter((p) => p.id === highlightId) : promos;
+
+  useEffect(() => {
+    if (loading || typeof window === "undefined" || !highlightId) return;
+    const el = document.getElementById(`promo-${highlightId}`);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
-      el.classList.add("ring-2", "ring-primary");
-      const t = setTimeout(() => el.classList.remove("ring-2", "ring-primary"), 2500);
-      return () => clearTimeout(t);
     }
-  }, [loading, promos]);
+  }, [loading, highlightId, promos]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -115,13 +118,27 @@ function PromosPublic() {
                 Pronto llegan nuevas promociones...
               </p>
             </div>
+          ) : filtered.length === 0 ? (
+            <div className="mx-auto mt-12 max-w-2xl rounded-2xl bg-muted px-6 py-14 text-center">
+              <p className="text-lg font-bold">No se encontró esa promoción.</p>
+              <button
+                onClick={() => setHighlightId(null)}
+                className="mt-3 text-sm font-semibold text-primary hover:underline"
+              >
+                Ver todas las promos
+              </button>
+            </div>
           ) : (
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {promos.map((p) => (
+              {filtered.map((p) => (
                 <article
                   key={p.id}
                   id={`promo-${p.id}`}
-                  className="scroll-mt-32 flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant"
+                  className={`scroll-mt-32 flex flex-col overflow-hidden rounded-2xl border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant ${
+                    highlightId === p.id
+                      ? "border-primary ring-2 ring-primary shadow-elegant"
+                      : "border-border"
+                  }`}
                 >
                   {p.archivo_url && p.archivo_tipo?.startsWith("image/") && (
                     <a
@@ -169,6 +186,23 @@ function PromosPublic() {
                 </article>
               ))}
 
+            </div>
+          )}
+
+          {!loading && highlightId && filtered.length > 0 && promos.length > 1 && (
+            <div className="mt-10 text-center">
+              <Button
+                variant="outline"
+                className="font-bold uppercase tracking-wide hover:border-primary hover:text-primary"
+                onClick={() => {
+                  setHighlightId(null);
+                  if (typeof window !== "undefined") {
+                    window.history.replaceState(null, "", "/promos");
+                  }
+                }}
+              >
+                Ver todas las promos
+              </Button>
             </div>
           )}
         </section>
