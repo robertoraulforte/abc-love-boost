@@ -427,6 +427,29 @@ function AdminPromos() {
                     )}
                   </div>
                   <div className="flex shrink-0 items-center gap-3">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      title="Copiar enlace de promoción"
+                      aria-label="Copiar enlace de promoción"
+                      onClick={async () => {
+                        const origin =
+                          typeof window !== "undefined"
+                            ? window.location.origin
+                            : "https://abcconduccion.com.ar";
+                        const url = `${origin}/promos#promo-${p.id}`;
+                        try {
+                          await navigator.clipboard.writeText(url);
+                          toast.success("¡Enlace de la promoción copiado al portapapeles!");
+                        } catch {
+                          toast.error("No se pudo copiar automáticamente.", {
+                            description: url,
+                          });
+                        }
+                      }}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
                     <Button variant="outline" size="sm" onClick={() => openEdit(p)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
