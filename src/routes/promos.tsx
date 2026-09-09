@@ -70,18 +70,21 @@ function PromosPublic() {
     };
   }, []);
 
-  useEffect(() => {
-    if (loading || typeof window === "undefined") return;
+  const [highlightId, setHighlightId] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
     const hash = window.location.hash;
-    if (!hash.startsWith("#promo-")) return;
-    const el = document.getElementById(hash.slice(1));
+    return hash.startsWith("#promo-") ? hash.slice("#promo-".length) : null;
+  });
+
+  const filtered = highlightId ? promos.filter((p) => p.id === highlightId) : promos;
+
+  useEffect(() => {
+    if (loading || typeof window === "undefined" || !highlightId) return;
+    const el = document.getElementById(`promo-${highlightId}`);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
-      el.classList.add("ring-2", "ring-primary");
-      const t = setTimeout(() => el.classList.remove("ring-2", "ring-primary"), 2500);
-      return () => clearTimeout(t);
     }
-  }, [loading, promos]);
+  }, [loading, highlightId, promos]);
 
   return (
     <div className="min-h-screen bg-background">
