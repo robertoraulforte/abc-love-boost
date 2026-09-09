@@ -26,6 +26,7 @@ function Index() {
         <Courses />
         <QuickServices />
         <Rental />
+        <RentalTrailer />
         <Promos />
         <BookingSteps />
         <Coverage />
