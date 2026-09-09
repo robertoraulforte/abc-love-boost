@@ -70,6 +70,19 @@ function PromosPublic() {
     };
   }, []);
 
+  useEffect(() => {
+    if (loading || typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (!hash.startsWith("#promo-")) return;
+    const el = document.getElementById(hash.slice(1));
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add("ring-2", "ring-primary");
+      const t = setTimeout(() => el.classList.remove("ring-2", "ring-primary"), 2500);
+      return () => clearTimeout(t);
+    }
+  }, [loading, promos]);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -107,7 +120,8 @@ function PromosPublic() {
               {promos.map((p) => (
                 <article
                   key={p.id}
-                  className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant"
+                  id={`promo-${p.id}`}
+                  className="scroll-mt-32 flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-smooth hover:-translate-y-1 hover:border-primary hover:shadow-elegant"
                 >
                   {p.archivo_url && p.archivo_tipo?.startsWith("image/") && (
                     <a
