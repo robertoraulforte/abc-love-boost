@@ -1,7 +1,7 @@
 import { Car, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
-import autoTrailer from "@/assets/alquiler-auto-trailer.jpg";
+import autoTrailer from "@/assets/alquiler-auto-trailer.jpeg";
 
 const features = [
   "Preparación y práctica para maniobras con remolque",
@@ -75,11 +75,11 @@ const RentalTrailer = () => {
           <div className="overflow-hidden rounded-2xl">
             <img
               src={autoTrailer}
-              alt="Auto con trailer para el examen práctico de categoría B2"
+              alt="Fiat Mobi rojo de ABC Conducción con trailer verde en la pista de examen categoría B2"
               loading="lazy"
-              width={1280}
-              height={960}
-              className="h-64 w-full rounded-2xl object-cover md:h-80"
+              width={740}
+              height={1280}
+              className="h-64 w-full rounded-2xl object-cover object-center md:h-80"
             />
           </div>
         </div>
