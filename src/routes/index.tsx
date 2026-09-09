@@ -6,6 +6,7 @@ import Promos from "@/components/Promos";
 import Coverage from "@/components/Coverage";
 import Contact from "@/components/Contact";
 import Rental from "@/components/Rental";
+import RentalTrailer from "@/components/RentalTrailer";
 import Footer from "@/components/Footer";
 import BookingSteps from "@/components/BookingSteps";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
