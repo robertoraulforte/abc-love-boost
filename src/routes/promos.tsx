@@ -188,6 +188,23 @@ function PromosPublic() {
 
             </div>
           )}
+
+          {!loading && highlightId && filtered.length > 0 && promos.length > 1 && (
+            <div className="mt-10 text-center">
+              <Button
+                variant="outline"
+                className="font-bold uppercase tracking-wide hover:border-primary hover:text-primary"
+                onClick={() => {
+                  setHighlightId(null);
+                  if (typeof window !== "undefined") {
+                    window.history.replaceState(null, "", "/promos");
+                  }
+                }}
+              >
+                Ver todas las promos
+              </Button>
+            </div>
+          )}
         </section>
       </main>
       <Footer />
