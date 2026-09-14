@@ -9,18 +9,22 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ZONES, waUrl, trackZoneConversion } from "@/lib/whatsapp";
+import { trackWhatsApp } from "@/lib/analytics";
 
 interface ZoneDialogProps {
   trigger: ReactNode;
   /** Optional override; by default each zone uses its own tailored message. */
   message?: string;
   title?: string;
+  /** Origen del clic para GA4, ej: "alquiler_auto". */
+  ubicacion?: string;
 }
 
 const ZoneDialog = ({
   trigger,
   message,
   title = "1. Seleccioná tu zona",
+  ubicacion = "general",
 }: ZoneDialogProps) => {
   const [open, setOpen] = useState(false);
 
@@ -48,6 +52,7 @@ const ZoneDialog = ({
                 onClick={() => {
                   setOpen(false);
                   trackZoneConversion(z.id);
+                  trackWhatsApp(ubicacion);
                 }}
                 className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-4 transition-smooth hover:border-primary hover:shadow-elegant"
               >
