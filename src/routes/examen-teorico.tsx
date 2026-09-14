@@ -117,6 +117,7 @@ function ExamenTeorico() {
   };
 
   const goNext = () => {
+    if (!answered || finished) return;
     if (current === total - 1) {
       trackEvent("complete_examen_practica", {
         score,

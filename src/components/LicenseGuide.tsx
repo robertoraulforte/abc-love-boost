@@ -175,7 +175,7 @@ const LicenseGuide = () => {
                               ¡Practicá tu Examen Teórico Online!
                             </h4>
                             <p className="mt-1 text-sm text-foreground/80">
-                              15 preguntas al azar sobre normas y señales. Resultado al instante.
+                              18 preguntas al azar sobre normas y señales. Resultado al instante.
                             </p>
                           </div>
                         </div>

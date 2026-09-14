@@ -175,6 +175,7 @@ function PromosPublic() {
                   )}
                   <div className="mt-auto pt-5">
                     <ZoneDialog
+                      ubicacion="promos"
                       trigger={
                         <Button className="w-full bg-primary font-bold uppercase text-primary-foreground hover:bg-primary/90">
                           Consultar
