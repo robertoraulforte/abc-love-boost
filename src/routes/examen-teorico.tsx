@@ -17,6 +17,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import TrafficSign from "@/components/TrafficSign";
+import { trackEvent } from "@/lib/analytics";
 import {
   PORCENTAJE_APROBACION,
   TOTAL_PREGUNTAS,
@@ -96,6 +97,7 @@ function ExamenTeorico() {
     setFinished(false);
     setOpenDetail(null);
     setStarted(true);
+    trackEvent("start_examen_practica", { modo: selectedMode, total_preguntas: qs.length });
   };
 
   const restart = () => start(mode);
@@ -115,7 +117,16 @@ function ExamenTeorico() {
   };
 
   const goNext = () => {
-    if (current === total - 1) setFinished(true);
+    if (current === total - 1) {
+      trackEvent("complete_examen_practica", {
+        score,
+        correctas: correctCount,
+        total_preguntas: total,
+        modo: mode,
+        aprobado: passed,
+      });
+      setFinished(true);
+    }
     else setCurrent((c) => c + 1);
   };
 

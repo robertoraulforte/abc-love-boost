@@ -2,6 +2,7 @@ import { Car, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import fiatMobi from "@/assets/fiat-mobi.jpeg";
+import { trackEvent } from "@/lib/analytics";
 
 const features = [
   "Auto preparado con doble comando",
@@ -42,8 +43,12 @@ const Rental = () => {
             </ul>
             <div className="mt-6">
               <ZoneDialog
+                ubicacion="alquiler_auto"
                 trigger={
-                  <Button className="bg-primary font-black uppercase tracking-wide text-primary-foreground hover:bg-primary/90 shadow-elegant">
+                  <Button
+                    onClick={() => trackEvent("click_alquiler_auto")}
+                    className="bg-primary font-black uppercase tracking-wide text-primary-foreground hover:bg-primary/90 shadow-elegant"
+                  >
                     Consultar alquiler
                   </Button>
                 }

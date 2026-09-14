@@ -4,6 +4,7 @@ import { Menu, X, Car, FileCheck, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import logo from "@/assets/abc-logo.png";
+import { trackEvent } from "@/lib/analytics";
 
 const links = [
   { href: "#cursos", label: "Cursos" },
@@ -83,6 +84,7 @@ const Header = () => {
 
           <Link
             to="/examen-teorico"
+            onClick={() => trackEvent("click_simulador_teorico", { ubicacion: "header_desktop" })}
             className={`rounded-full border px-3 py-1.5 text-sm font-bold transition-smooth hover:border-primary hover:text-primary ${
               scrolled
                 ? "border-primary/40 text-primary"
@@ -96,6 +98,7 @@ const Header = () => {
 
         <div className="hidden lg:block">
           <ZoneDialog
+            ubicacion="header_desktop"
             trigger={
               <Button className="bg-primary font-bold uppercase tracking-wide text-primary-foreground hover:bg-primary/90">
                 Inscribite
@@ -138,7 +141,10 @@ const Header = () => {
 
             <Link
               to="/examen-teorico"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                trackEvent("click_simulador_teorico", { ubicacion: "header_mobile" });
+              }}
               className="flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-bold text-primary-foreground shadow-elegant"
             >
               <GraduationCap className="h-4 w-4" />
@@ -164,6 +170,7 @@ const Header = () => {
             </a>
 
             <ZoneDialog
+              ubicacion="header_mobile"
               trigger={
                 <Button className="mt-2 h-12 w-full bg-primary text-base font-bold uppercase text-primary-foreground hover:bg-primary/90">
                   Inscribite
