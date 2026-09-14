@@ -1,6 +1,8 @@
 /** Google Analytics 4 helpers. */
 export const GA_MEASUREMENT_ID =
-  (import.meta.env["VITE_GA_MEASUREMENT_ID"] as string | undefined) || "G-9B5SVRGKNT";
+  (import.meta.env["VITE_GA_MEASUREMENT_ID"] as string | undefined) ||
+  (import.meta.env["VITE_LOVABLE_CONNECTOR_GOOGLE_ANALYTICS_API_KEY"] as string | undefined) ||
+  "G-9B5SVRGKNT";
 
 type GtagParams = Record<string, unknown>;
 

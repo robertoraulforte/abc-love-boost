@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import tutorialPdf from "@/assets/tutorial-licencias-turnera.pdf.asset.json";
+import { trackEvent } from "@/lib/analytics";
 
 const copyExamLink = async () => {
   const url =
@@ -179,7 +180,13 @@ const LicenseGuide = () => {
                           </div>
                         </div>
                         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                          <Link to="/examen-teorico" className="w-full sm:w-auto">
+                          <Link
+                            to="/examen-teorico"
+                            className="w-full sm:w-auto"
+                            onClick={() =>
+                              trackEvent("click_simulador_teorico", { ubicacion: "guia_licencia" })
+                            }
+                          >
                             <Button className="gradient-primary animate-pulse-glow w-full font-black uppercase tracking-wide text-primary-foreground">
                               <PlayCircle className="mr-2 h-5 w-5" />
                               Iniciar Simulador de Examen

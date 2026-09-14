@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import ZoneDialog from "./ZoneDialog";
+import { trackEvent } from "@/lib/analytics";
 
 interface Promo {
   id: string;
@@ -135,8 +136,12 @@ const Promos = () => {
                   )}
                   <div className="mt-auto pt-5">
                     <ZoneDialog
+                      ubicacion="promos"
                       trigger={
-                        <Button className="w-full bg-primary font-bold uppercase text-primary-foreground hover:bg-primary/90">
+                        <Button
+                          onClick={() => trackEvent("click_promo_consultar", { promo: p.title })}
+                          className="w-full bg-primary font-bold uppercase text-primary-foreground hover:bg-primary/90"
+                        >
                           Consultar
                         </Button>
                       }
