@@ -1,25 +1,28 @@
 /** Google Analytics 4 helpers. */
 export const GA_MEASUREMENT_ID =
-  (import.meta.env["VITE_GA_MEASUREMENT_ID"] as string | undefined) || "G-9B5SVRGKNT";
+  (import.meta.env["VITE_GA_MEASUREMENT_ID"] as string | undefined) ||
+  (import.meta.env["VITE_LOVABLE_CONNECTOR_GOOGLE_ANALYTICS_API_KEY"] as string | undefined) ||
+  "G-9B5SVRGKNT";
 
 type GtagParams = Record<string, unknown>;
 
-function getWindow(): any | undefined {
-  return typeof window !== "undefined" ? (window as any) : undefined;
-}
+type AnalyticsWindow = Window & {
+  dataLayer?: unknown[];
+  gtag?: (...args: unknown[]) => void;
+};
 
 /** Envía un evento personalizado a GA4 (y al dataLayer para GTM). */
 export function trackEvent(name: string, params: GtagParams = {}) {
-  const w = getWindow();
+  const w = typeof window !== "undefined" ? window as AnalyticsWindow : undefined;
   if (!w) return;
 
   w.dataLayer = w.dataLayer || [];
   if (typeof w.gtag === "function") {
-    w.gtag("event", name, params);
+    w.gtag("event", name, { ...params, send_to: GA_MEASUREMENT_ID });
   } else {
-    w.dataLayer.push({ event: name, ...params });
+    w.gtag = function () { w.dataLayer?.push(arguments); };
+    w.gtag("event", name, { ...params, send_to: GA_MEASUREMENT_ID });
   }
-  console.log(`[GA4] ${name}`, params);
 }
 
 /** Clic saliente a WhatsApp, con la ubicación de origen. */

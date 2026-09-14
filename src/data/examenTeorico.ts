@@ -651,7 +651,7 @@ export const QUESTIONS: Question[] = [
   },
 ];
 
-export const TOTAL_PREGUNTAS = 15;
+export const TOTAL_PREGUNTAS = 18;
 export const TOTAL_PREGUNTAS_SENALES = 10;
 export const PORCENTAJE_APROBACION = 80;
 

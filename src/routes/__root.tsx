@@ -10,6 +10,7 @@ import {
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/hooks/useAuth";
 import { GA_MEASUREMENT_ID } from "@/lib/analytics";
+import AnalyticsPageViews from "@/components/AnalyticsPageViews";
 
 import appCss from "../styles.css?url";
 
@@ -119,7 +120,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-843038448" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\nwindow.gtag = window.gtag || gtag;\ngtag('js', new Date());\ngtag('config', 'AW-843038448');\ngtag('config', '${GA_MEASUREMENT_ID}');`,
+            __html: `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\nwindow.gtag = window.gtag || gtag;\ngtag('js', new Date());\ngtag('config', 'AW-843038448');\ngtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)}, {send_page_view: false});`,
           }}
         />
       </head>
@@ -138,6 +139,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Outlet />
+        <AnalyticsPageViews />
         <Toaster position="top-right" richColors />
       </AuthProvider>
     </QueryClientProvider>
