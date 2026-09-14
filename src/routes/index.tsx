@@ -14,6 +14,14 @@ import QuickServices from "@/components/QuickServices";
 import LicenseGuide from "@/components/LicenseGuide";
 
 export const Route = createFileRoute("/")({
+  head: () => ({ meta: [
+    { title: "ABC Conducción — Escuela de manejo en Mar del Plata" },
+    { name: "description", content: "Aprendé a manejar en Mar del Plata con ABC Conducción. Cursos, alquiler para examen y simulador teórico online." },
+    { property: "og:title", content: "ABC Conducción — Escuela de manejo en Mar del Plata" },
+    { property: "og:description", content: "Cursos de manejo, alquiler para examen y práctica teórica en Mar del Plata." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: Index,
 });
 

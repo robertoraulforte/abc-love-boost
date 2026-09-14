@@ -8,7 +8,10 @@ export default function AnalyticsPageViews() {
   useEffect(() => {
     if (previous.current === pathname) return;
     previous.current = pathname;
-    trackEvent("page_view", { page_path: pathname, page_location: window.location.href, page_title: document.title });
+    const timer = window.setTimeout(() => {
+      trackEvent("page_view", { page_path: pathname, page_location: new URL(pathname, window.location.origin).href, page_title: document.title });
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [pathname]);
   return null;
 }
