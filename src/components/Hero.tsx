@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import ZoneDialog from "./ZoneDialog";
 import heroImg from "@/assets/abc-mobi.jpg";
+import { trackEvent } from "@/lib/analytics";
 
 const benefits = [
   { icon: Car, label: "Vehículos doble comando" },
@@ -40,6 +41,7 @@ const Hero = () => {
 
           <Link
             to="/examen-teorico"
+            onClick={() => trackEvent("click_simulador_teorico", { ubicacion: "hero" })}
             className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-gradient-to-r from-primary/20 to-primary/5 px-4 py-2.5 text-sm font-bold text-white shadow-card backdrop-blur transition-smooth hover:border-primary hover:bg-primary/30 hover:red-glow sm:w-auto"
           >
             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elegant">
@@ -73,6 +75,7 @@ const Hero = () => {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ZoneDialog
+              ubicacion="hero"
               trigger={
                 <Button
                   size="lg"

@@ -5,6 +5,7 @@ const FloatingWhatsApp = () => {
   return (
     <div className="fixed bottom-5 right-5 z-30 md:bottom-7 md:right-7">
       <ZoneDialog
+        ubicacion="boton_flotante_wa"
         trigger={
           <button
             aria-label="Consultar por WhatsApp"
