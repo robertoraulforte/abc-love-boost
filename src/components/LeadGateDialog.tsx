@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { submitLead, notifyLead } from "@/lib/leads.functions";
 import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,16 +44,24 @@ export default function LeadGateDialog({
     }
     setError(null);
     setSending(true);
-    const { error: dbError } = await supabase.from("simulador_leads").insert({
-      nombre: parsed.data.nombre,
-      email: parsed.data.email.toLowerCase(),
-      es_mar_del_plata: parsed.data.mdp === "si",
-    });
-    setSending(false);
-    if (dbError) {
+    let leadId: string;
+    try {
+      const r = await submitLead({
+        data: {
+          nombre: parsed.data.nombre,
+          email: parsed.data.email,
+          es_mar_del_plata: parsed.data.mdp === "si",
+        },
+      });
+      leadId = r.id;
+    } catch {
+      setSending(false);
       toast.error("No pudimos registrar tus datos. Intentá de nuevo.");
       return;
     }
+    setSending(false);
+    // Background notification: never blocks the exam
+    notifyLead({ data: { id: leadId } }).catch((err) => console.error("notifyLead", err));
     trackEvent("lead_simulador_submitted", {
       ubicacion: parsed.data.mdp === "si" ? "Sí" : "No / Otra localidad",
     });
