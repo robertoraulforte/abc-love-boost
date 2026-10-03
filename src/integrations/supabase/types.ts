@@ -83,6 +83,30 @@ export type Database = {
         }
         Relationships: []
       }
+      simulador_leads: {
+        Row: {
+          created_at: string
+          email: string
+          es_mar_del_plata: boolean
+          id: string
+          nombre: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          es_mar_del_plata: boolean
+          id?: string
+          nombre: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          es_mar_del_plata?: boolean
+          id?: string
+          nombre?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
