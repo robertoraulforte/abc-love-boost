@@ -18,6 +18,7 @@ import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import TrafficSign from "@/components/TrafficSign";
 import { trackEvent } from "@/lib/analytics";
+import LeadGateDialog, { LEAD_STORAGE_KEY } from "@/components/LeadGateDialog";
 import {
   PORCENTAJE_APROBACION,
   TOTAL_PREGUNTAS,
@@ -87,7 +88,25 @@ function ExamenTeorico() {
   const score = total ? Math.round((correctCount / total) * 100) : 0;
   const passed = score >= PORCENTAJE_APROBACION;
 
+  const [gateOpen, setGateOpen] = useState(false);
+  const [pendingMode, setPendingMode] = useState<ExamMode>("completo");
+
   const start = (selectedMode: ExamMode) => {
+    let ok = false;
+    try {
+      ok = localStorage.getItem(LEAD_STORAGE_KEY) === "1";
+    } catch {
+      /* ignore */
+    }
+    if (!ok) {
+      setPendingMode(selectedMode);
+      setGateOpen(true);
+      return;
+    }
+    beginExam(selectedMode);
+  };
+
+  const beginExam = (selectedMode: ExamMode) => {
     const count = selectedMode === "senales" ? TOTAL_PREGUNTAS_SENALES : TOTAL_PREGUNTAS;
     const qs = pickRandomQuestions(count, selectedMode);
     setMode(selectedMode);
@@ -430,6 +449,14 @@ function ExamenTeorico() {
       </main>
       <Footer />
       <FloatingWhatsApp />
+      <LeadGateDialog
+        open={gateOpen}
+        onOpenChange={setGateOpen}
+        onSuccess={() => {
+          setGateOpen(false);
+          beginExam(pendingMode);
+        }}
+      />
     </div>
   );
 }
