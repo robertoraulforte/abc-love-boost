@@ -50,7 +50,7 @@ export const notifyLead = createServerFn({ method: "POST" })
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: "ABC Conducción <onboarding@resend.dev>",
+        from: "ABC Conducción <avisos@abcconduccion.com.ar>",
         to: ["abconduccion@hotmail.com"],
         subject: "¡Nuevo Lead! - Simulador Teórico",
         html,
