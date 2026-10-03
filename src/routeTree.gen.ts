@@ -9,20 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ExamenTeoricoRouteImport } from './routes/examen-teorico'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as PromosRouteImport } from './routes/promos'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ExamenTeoricoRouteImport } from './routes/examen-teorico'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminPromosRouteImport } from './routes/admin.promos'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExamenTeoricoRoute = ExamenTeoricoRouteImport.update({
-  id: '/examen-teorico',
-  path: '/examen-teorico',
+const PromosRoute = PromosRouteImport.update({
+  id: '/promos',
+  path: '/promos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -30,9 +25,14 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PromosRoute = PromosRouteImport.update({
-  id: '/promos',
-  path: '/promos',
+const ExamenTeoricoRoute = ExamenTeoricoRouteImport.update({
+  id: '/examen-teorico',
+  path: '/examen-teorico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminPromosRoute = AdminPromosRouteImport.update({
@@ -87,18 +87,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/examen-teorico': {
-      id: '/examen-teorico'
-      path: '/examen-teorico'
-      fullPath: '/examen-teorico'
-      preLoaderRoute: typeof ExamenTeoricoRouteImport
+    '/promos': {
+      id: '/promos'
+      path: '/promos'
+      fullPath: '/promos'
+      preLoaderRoute: typeof PromosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -108,11 +101,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/promos': {
-      id: '/promos'
-      path: '/promos'
-      fullPath: '/promos'
-      preLoaderRoute: typeof PromosRouteImport
+    '/examen-teorico': {
+      id: '/examen-teorico'
+      path: '/examen-teorico'
+      fullPath: '/examen-teorico'
+      preLoaderRoute: typeof ExamenTeoricoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/promos': {
