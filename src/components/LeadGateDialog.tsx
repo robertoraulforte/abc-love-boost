@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { z } from "zod";
+import { MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { submitLead, notifyLead } from "@/lib/leads.functions";
 import { trackEvent } from "@/lib/analytics";
@@ -17,6 +18,7 @@ export const LEAD_STORAGE_KEY = "abc_simulador_lead_ok";
 const schema = z.object({
   nombre: z.string().trim().min(2, "Ingresá tu nombre y apellido").max(120),
   email: z.string().trim().email("Ingresá un correo válido").max(255),
+  telefono: z.string().trim().max(30).regex(/^[0-9+()\s-]*$/, "Ingresá solo números").optional(),
   mdp: z.enum(["si", "no"], { message: "Elegí una opción" }),
 });
 
@@ -31,13 +33,14 @@ export default function LeadGateDialog({
 }) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [mdp, setMdp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const parsed = schema.safeParse({ nombre, email, mdp });
+    const parsed = schema.safeParse({ nombre, email, telefono, mdp });
     if (!parsed.success) {
       setError(parsed.error.issues[0]?.message ?? "Revisá los datos");
       return;
@@ -50,6 +53,7 @@ export default function LeadGateDialog({
         data: {
           nombre: parsed.data.nombre,
           email: parsed.data.email,
+          telefono: parsed.data.telefono || undefined,
           es_mar_del_plata: parsed.data.mdp === "si",
         },
       });
@@ -93,6 +97,12 @@ export default function LeadGateDialog({
           <label className="grid gap-1.5 text-sm font-semibold">
             Correo Electrónico
             <input type="email" className={field} value={email} onChange={(e) => setEmail(e.target.value)} maxLength={255} required autoComplete="email" />
+          </label>
+          <label className="grid gap-1.5 text-sm font-semibold">
+            <span className="inline-flex items-center gap-1.5">
+              <MessageCircle className="h-4 w-4 text-primary" /> Teléfono / WhatsApp (opcional)
+            </span>
+            <input type="tel" className={field} value={telefono} onChange={(e) => setTelefono(e.target.value)} maxLength={30} autoComplete="tel" placeholder="Ej: 223 555-1234" />
           </label>
           <label className="grid gap-1.5 text-sm font-semibold">
             ¿Sos de Mar del Plata?
