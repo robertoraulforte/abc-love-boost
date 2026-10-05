@@ -90,6 +90,7 @@ export type Database = {
           es_mar_del_plata: boolean
           id: string
           nombre: string
+          telefono: string | null
         }
         Insert: {
           created_at?: string
@@ -97,6 +98,7 @@ export type Database = {
           es_mar_del_plata: boolean
           id?: string
           nombre: string
+          telefono?: string | null
         }
         Update: {
           created_at?: string
@@ -104,6 +106,7 @@ export type Database = {
           es_mar_del_plata?: boolean
           id?: string
           nombre?: string
+          telefono?: string | null
         }
         Relationships: []
       }

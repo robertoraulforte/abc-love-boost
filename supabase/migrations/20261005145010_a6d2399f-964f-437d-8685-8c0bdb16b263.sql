@@ -1,0 +1,1 @@
+ALTER TABLE public.simulador_leads ADD COLUMN telefono text CHECK (telefono IS NULL OR char_length(telefono) <= 30);
