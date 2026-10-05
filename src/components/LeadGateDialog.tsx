@@ -69,11 +69,6 @@ export default function LeadGateDialog({
     trackEvent("lead_simulador_submitted", {
       ubicacion: parsed.data.mdp === "si" ? "Sí" : "No / Otra localidad",
     });
-    try {
-      localStorage.setItem(LEAD_STORAGE_KEY, "1");
-    } catch {
-      /* ignore */
-    }
     onSuccess();
   };
 
