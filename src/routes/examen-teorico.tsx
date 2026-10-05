@@ -91,19 +91,10 @@ function ExamenTeorico() {
   const [gateOpen, setGateOpen] = useState(false);
   const [pendingMode, setPendingMode] = useState<ExamMode>("completo");
 
+  // Lead capture is always required before every attempt (no storage/env bypass).
   const start = (selectedMode: ExamMode) => {
-    let ok = false;
-    try {
-      ok = localStorage.getItem(LEAD_STORAGE_KEY) === "1";
-    } catch {
-      /* ignore */
-    }
-    if (!ok) {
-      setPendingMode(selectedMode);
-      setGateOpen(true);
-      return;
-    }
-    beginExam(selectedMode);
+    setPendingMode(selectedMode);
+    setGateOpen(true);
   };
 
   const beginExam = (selectedMode: ExamMode) => {
