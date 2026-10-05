@@ -33,7 +33,7 @@ const Hero = () => {
               <Home className="h-3.5 w-3.5" />
               Servicio a Domicilio
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-yellow)] px-3 py-1 text-xs font-black uppercase tracking-wider text-[var(--accent-yellow-foreground)] shadow-elegant">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-3 py-1 text-xs font-black uppercase tracking-wider text-foreground backdrop-blur">
               <ShieldCheck className="h-3.5 w-3.5" />
               Desde 2009
             </span>
@@ -42,13 +42,13 @@ const Hero = () => {
           <Link
             to="/examen-teorico"
             onClick={() => trackEvent("click_simulador_teorico", { ubicacion: "hero" })}
-            className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-gradient-to-r from-primary/20 to-primary/5 px-4 py-2.5 text-sm font-bold text-white shadow-card backdrop-blur transition-smooth hover:border-primary hover:bg-primary/30 hover:red-glow sm:w-auto"
+            className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--accent-yellow)] px-4 py-2.5 text-sm font-black text-[var(--accent-yellow-foreground)] shadow-elegant transition-smooth hover:bg-[var(--accent-yellow)]/90 sm:w-auto"
           >
             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elegant">
               <FileQuestion className="h-3.5 w-3.5" />
             </span>
             <span className="truncate">✨ Practicá el Examen Teórico Online</span>
-            <ArrowRight className="h-4 w-4 shrink-0 text-primary-glow transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
           </Link>
 
           <h1 className="mt-5 text-4xl font-black leading-tight md:text-6xl">
