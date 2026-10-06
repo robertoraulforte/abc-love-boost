@@ -26,10 +26,12 @@ export default function LeadGateDialog({
   open,
   onOpenChange,
   onSuccess,
+  examen,
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
   onSuccess: () => void;
+  examen: string;
 }) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
@@ -65,7 +67,9 @@ export default function LeadGateDialog({
     }
     setSending(false);
     // Background notification: never blocks the exam
-    notifyLead({ data: { id: leadId } }).catch((err) => console.error("notifyLead", err));
+    notifyLead({ data: { id: leadId, examen } })
+      .then((r) => console.log("[notifyLead] resultado:", r))
+      .catch((err) => console.error("[notifyLead] error:", err));
     trackEvent("lead_simulador_submitted", {
       ubicacion: parsed.data.mdp === "si" ? "Sí" : "No / Otra localidad",
     });

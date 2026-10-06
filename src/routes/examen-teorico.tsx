@@ -442,6 +442,7 @@ function ExamenTeorico() {
       <FloatingWhatsApp />
       <LeadGateDialog
         open={gateOpen}
+        examen={pendingMode === "senales" ? "Solo señales de tránsito" : "Examen completo"}
         onOpenChange={setGateOpen}
         onSuccess={() => {
           setGateOpen(false);
